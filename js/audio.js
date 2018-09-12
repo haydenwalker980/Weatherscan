@@ -17,7 +17,7 @@ function WeatherAudio() {
 				
 		function buildMusicArray(arr) {
 
-			var musicpath = "/music/";
+			var musicpath = "music/";
 
 			// insert track names
 			for (var i = 1; i<66; i++) {
