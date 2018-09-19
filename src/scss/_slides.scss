@@ -8,16 +8,18 @@
   top: 10%;
   font-size: 110%;
 }
+
 .frost-pane {
-  color: #fff;
-  font-family:"Zemestro Std";
+  color: #FFFFFF;
+  font-family: "Zemestro Std";
   font-size: 32px;
-  text-shadow:#000 2px 2px 4px;
+  text-shadow: #000000 2px 2px 4px;
   min-height: 100%;
-  background: rgba(18,75,238,0.7);
+  background: rgba(18, 75, 238, 0.7);
   z-index: 388686;
-  flex:1;
+  flex: 1;
 }
+
 .city-info .frost-pane:first-of-type {
   width: 55%;
   margin-right: 0.8%;
@@ -30,7 +32,7 @@
 }
 
 .frost-pane .labels {
-  color: #d8c422;
+  color: #D8C422;
   left: 9%;
 }
 
@@ -53,6 +55,7 @@
   width: 70%;
   height: 40%;
 }
+
 .city-info .frost-pane .temp {
   font-size: 76px;
   margin-top: 20%;
@@ -65,9 +68,10 @@
 }
 
 .frost-pane .title {
-  color: #d8c422;
+  color: #D8C422;
   font-size: 40px;
 }
+
 .frost-pane .content {
   font-size: 50px;
 }
@@ -75,6 +79,7 @@
 .info-slide-content.forecast .frost-pane {
   max-height: 500px;
 }
+
 .info-slide-content.forecast .content {
   height: 400px;
   max-height: 400px;

@@ -28,8 +28,6 @@ body {
   top: 50%;
   left: 50%;
   overflow: hidden;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 1440px;
   height: 1080px;
@@ -58,10 +56,7 @@ body {
   padding: 6px 0 6px 6px;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.35);
   background-color: #001668;
-  background: -moz-linear-gradient(-45deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
-  background: -webkit-linear-gradient(-45deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
   background: linear-gradient(135deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001668', endColorstr='#000d28', GradientType=1);
 }
 
 #info-slides-header,
@@ -85,11 +80,8 @@ body {
 #info-slides-header .hscroller {
   position: relative;
   display: inline-block;
-  transform: scale(1.2, 1);
   transform-origin: left center;
   top: 50%;
-  -webkit-transform: scale(1.1, 1) translateY(-50%);
-  -ms-transform: scale(1.1, 1) translateY(-50%);
   transform: scale(1.1, 1) translateY(-50%);
 }
 
@@ -125,20 +117,14 @@ body {
   flex-direction: column;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.35);
   background-color: #001668;
-  background: -moz-linear-gradient(-45deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
-  background: -webkit-linear-gradient(-45deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
   background: linear-gradient(135deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001668', endColorstr='#000d28', GradientType=1);
 }
 
 #radar-1 {
   flex: 1;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.35);
   background-color: #001668;
-  background: -moz-linear-gradient(-45deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
-  background: -webkit-linear-gradient(-45deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
   background: linear-gradient(135deg, rgba(0, 22, 104, 1) 0%, rgba(0, 13, 40, 1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001668', endColorstr='#000d28', GradientType=1);
 }
 
 .info-slide {
@@ -164,8 +150,6 @@ body {
 .info-slide .info-subheader span {
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 
@@ -179,7 +163,7 @@ body {
 
 .city-info-slide {
   position: relative;
-  background: transparent url('../images/bluebuildings.jpg') no-repeat bottom;
+  background: transparent url("/images/bluebuildings.jpg") no-repeat bottom;
   background-size: cover;
 }
 
@@ -209,7 +193,7 @@ body {
 }
 
 .city-info-slide .yellow {
-  background-image: url(../images/yellow-curve.svg);
+  background-image: url("/images/yellow-curve.svg");
   filter: drop-shadow(4px 0px 4px rgba(0, 0, 0, 0.75));
 }
 
@@ -231,7 +215,7 @@ body {
 }
 
 .city-info-slide .blue {
-  background-image: url(../images/blue-curve.svg);
+  background-image: url("/images/blue-curve.svg");
   background-size: 200% 100%;
   width: 22%;
   height: 120%;
@@ -242,8 +226,7 @@ body {
 }
 
 .city-info-slide .white {
-  background-image: url(../images/white-curve.svg);
-  background-image: url(../images/white-curve.svg);
+  background-image: url("/images/white-curve.svg");
   background-size: 200% 100%;
   background-position: 100% 0;
   width: 22%;
@@ -440,10 +423,7 @@ body {
 .forecast-tile {
   position: relative;
   background: #5681BE;
-  background: -moz-linear-gradient(left, #5783CC 0%, #C4D9FF 100%);
-  background: -webkit-linear-gradient(left, #5783CC 0%, #C4D9FF 100%);
   background: linear-gradient(to right, #5783CC 0%, #C4D9FF 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5783cc', endColorstr='#c4d9ff', GradientType=1);
 }
 
 .forecast-tile:last-child {
@@ -471,19 +451,13 @@ body {
 }
 
 .forecast-tile.daily .header {
-  background: -moz-linear-gradient(left, #001668 0%, #4564C4 100%);
-  background: -webkit-linear-gradient(left, #001668 0%, #4564C4 100%);
   background: linear-gradient(to right, #001668 0%, #4564C4 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001668', endColorstr='#4564c4', GradientType=1);
   background-color: #001668;
 }
 
 .forecast-tile.daily.weekend .header {
   color: #001668;
-  background: -moz-linear-gradient(left, #8CAAEA 0%, #C4D9FF 100%);
-  background: -webkit-linear-gradient(left, #8CAAEA 0%, #C4D9FF 100%);
   background: linear-gradient(to right, #8CAAEA 0%, #C4D9FF 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8caaea', endColorstr='#c4d9ff', GradientType=1);
   background-color: #8CAAEA;
 }
 
@@ -564,10 +538,7 @@ body {
   flex: 1;
   position: relative;
   bottom: 7%;
-  background: -moz-linear-gradient(left, #656565 0%, #FCFCFC 50%, #656565 100%);
-  background: -webkit-linear-gradient(left, #656565 0%, #FCFCFC 50%, #656565 100%);
   background: linear-gradient(to right, #656565 0%, #FCFCFC 50%, #656565 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#656565', endColorstr='#656565', GradientType=1);
   background-color: #656565;
 }
 
@@ -580,10 +551,7 @@ body {
   bottom: 0;
   z-index: 0;
   color: white;
-  background: -moz-linear-gradient(left, #4B411E 0%, #AE9B57 100%);
-  background: -webkit-linear-gradient(left, #4B411E 0%, #AE9B57 100%);
   background: linear-gradient(to right, #4B411E 0%, #AE9B57 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4b411e', endColorstr='#ae9b57', GradientType=1);
   background-color: #4B411E;
 }
 
