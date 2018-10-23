@@ -30,3 +30,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Interstate Condensed';
+  src: url('/fonts/Interstate-RegularCondensed.woff2') format('woff2'),
+  url('/fonts/Interstate-RegularCondensed.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Interstate Condensed';
+  src: url('/fonts/Interstate-BoldCondensed.woff2') format('woff2'),
+  url('/fonts/Interstate-BoldCondensed.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}

@@ -3,6 +3,18 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify-es').default;
+
+gulp.task('js', function () {
+  return gulp.src([
+    'node_modules/moment/moment.js',
+    'src/js/**/*.js'
+  ])
+      .pipe(concat('weatherscan.js'))
+      .pipe(uglify())
+      .pipe(gulp.dest('webroot/js'));
+});
 
 gulp.task('sass', function () {
   return gulp.src('src/scss/*.scss')
@@ -14,8 +26,9 @@ gulp.task('sass', function () {
       .pipe(gulp.dest('webroot/css'));
 });
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['js', 'sass']);
 
 gulp.task('watch', function () {
-  gulp.watch('scss/*.scss', ['sass']);
+  gulp.watch('src/scss/*.scss', ['sass']);
+  gulp.watch('src/js/*.js', ['js']);
 });

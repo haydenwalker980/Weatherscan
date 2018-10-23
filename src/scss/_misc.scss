@@ -20,23 +20,24 @@ html,
 body {
   height: 100%;
   background-color: #000000;
-  font-size: 100%
+  font-size: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 #main {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  overflow: hidden;
-  transform: translate(-50%, -50%);
   width: 1440px;
   height: 1080px;
-}
-
-#main > #template {
-  display: block;
-  max-height: 100%;
-  max-width: 100%;
+  background: url('/images/template-4k.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
 }
 
 .leaflet-top,
@@ -273,7 +274,7 @@ body {
 }
 
 #date-time * {
-  font-family: 'Interstate Mono';
+  font-family: 'Interstate';
   font-size: 25px;
   line-height: 33px;
 }
