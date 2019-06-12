@@ -1,5 +1,5 @@
-//setInterval(updateClock, 1000);
-//document.addEventListener('DOMContentLoaded', updateClock);
+setInterval(updateClock, 1000);
+document.addEventListener('DOMContentLoaded', updateClock);
 
 let $clock = document.getElementById("clock");
 
