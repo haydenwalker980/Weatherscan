@@ -26,9 +26,9 @@ gulp.task('sass', function () {
       .pipe(gulp.dest('webroot/css'));
 });
 
-gulp.task('default', ['js', 'sass']);
+gulp.task('default', gulp.series('js', 'sass'));
 
 gulp.task('watch', function () {
-  gulp.watch('src/scss/*.scss', ['sass']);
-  gulp.watch('src/js/*.js', ['js']);
+  gulp.watch('scss/*.scss', gulp.series('sass'));
+  gulp.watch('src/js/*.js', gulp.series('js'));
 });
