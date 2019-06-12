@@ -1,0 +1,90 @@
+#date-time,
+#city,
+#current-conditions * {
+  font-family: 'Interstate';
+  font-weight: bold;
+  text-shadow: none;
+  text-align: right;
+  color: #1B1B1B;
+}
+
+#city {
+  font-size: 37px;
+  padding-top: 26px;
+  position: absolute;
+  text-align: left;
+  margin-left: 140px;
+  width: 311px;
+  height: 91px;
+  top: 284px;
+  left: 0;
+  line-height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#current-conditions {
+  font-family: 'Interstate';
+  position: absolute;
+  top: 376px;
+  left: 0;
+  width: 452px;
+  text-align: left;
+}
+
+#conditions-icon {
+  position: absolute;
+  left: 300px;
+  background-size: 100% 100%;
+  width: 144px;
+  height: 145px;
+  background-repeat: no-repeat;
+  top: 394px;
+  z-index: 0;
+}
+
+#now {
+  font-size: 49px;
+  margin: 1.6% 0 0 31%;
+  text-align: left;
+}
+
+#current-temp {
+  font-size: 70px;
+  margin: 4.4% 0 0 0;
+  text-align: center;
+  width: 100%;
+}
+
+#current-info {
+  font-size: 27px;
+  margin: 4.2% 0 0 31%;
+  text-align: left;
+  width: 66%;
+}
+
+#clock {
+  font-family: 'Interstate Condensed';
+  font-size: 32px;
+  text-align: right;
+  position: absolute;
+  width: 455px;
+  top: 107px;
+  line-height: 38px;
+  letter-spacing: 1px;
+}
+
+#logo-area {
+  position: absolute;
+  width: 450px;
+  height: 105px;
+  left: 0;
+  top: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo-area img {
+  width: 70%;
+}

@@ -9,6 +9,8 @@ const uglify = require('gulp-uglify-es').default;
 gulp.task('js', function () {
   return gulp.src([
     'node_modules/moment/moment.js',
+    'src/js/WxData.js',
+    'src/js/main.js',
     'src/js/**/*.js'
   ])
       .pipe(concat('weatherscan.js'))
