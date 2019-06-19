@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>blah</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+  <link rel="stylesheet" href="/css/leaflet.timedimension.control.min.css"/>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+<script src="/js/leaflet.timedimension.min.js"></script>
+<script src="/js/timedimension-ext.js"></script>
+<script>
+
+  var mapboxToken = "pk.eyJ1IjoiamVzc2VjYXIiLCJhIjoiY2pua3puanZ6MWZ1NTNwb2poeHd3Nm9nbyJ9.-A-L91iUQO23_AMvmX4inw";
+  var mymap = L.map('map', {
+    timeDimension: true,
+    timeDimensionControl: true,
+    timeDimensionControlOptions: {
+      autoPlay: true,
+      playerOptions: {
+        loop: false,
+        startOver: true,
+        transitionTime: 100,
+        buffer: 99
+      }
+    }
+  }).setView([ 39.53, -74.71], 8);
+
+  mymap.timeDimensionControl._player.on('stop', function(){
+    setTimeout( function() {
+      mymap.timeDimensionControl._player.setLooped(true);
+      mymap.timeDimensionControl._player.start();
+      setTimeout(function(){mymap.timeDimensionControl._player.setLooped(false)}, 1000);
+    }, 1000)
+  });
+
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    try {
+      var data = JSON.parse(xhr.response);
+      console.log(data);
+
+      var rad = data.seriesInfo.twcRadarMosaic;
+      var maxZoom = rad.maxZoom;
+      var series = rad.series;
+      var times = [];
+
+      for (var i = 0; i < series.length; i++) {
+        if (i + 1 > 12) break;
+        times.push(series[i].ts * 1000);
+      }
+
+      mymap.timeDimension.setAvailableTimes(times, 'replace');
+      mymap.timeDimension.setCurrentTime(times[0]);
+      radTimeLayer.addTo(mymap);
+      topLayer.addTo(mymap);
+      topLayer.bringToFront();
+
+      mymap.timeDimensionControl._player.start()
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  xhr.open('GET', 'https://api.weather.com/v3/TileServer/series/productSet?apiKey=d522aa97197fd864d36b418f39ebb323&filter=twcRadarMosaic');
+  xhr.send();
+
+  // IS2 Bottom
+  L.tileLayer('https://api.mapbox.com/styles/v1/{style_id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    maxZoom: 18,
+    style_id: 'jessecar/cjl186uw10jem2slf4lra7754',
+    accessToken: mapboxToken
+  }).addTo(mymap);
+
+  var radLayer = L.tileLayer('https://api.weather.com/v3/TileServer/tile?product=twcRadarMosaic&ts={t}&xyz={x}:{y}:{z}&apiKey={api}', {
+    maxZoom: 18,
+    api: 'd522aa97197fd864d36b418f39ebb323',
+    opacity: 1
+  });
+  var radTimeLayer = L.timeDimension.layer.tileLayer.portus(radLayer, {});
+
+  // IS2 Top layer
+  var topLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{style_id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    maxZoom: 18,
+    style_id: 'jessecar/cjl18a4ao2mz52ro34ok1mnwj',
+    accessToken: mapboxToken
+  });
+
+  var overlayMaps = {
+    "Mediterranean wave": radTimeLayer,
+  };
+
+
+</script>
+</body>
+</html>
