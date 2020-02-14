@@ -54,13 +54,15 @@
     }, 1000)
   });
 
+  let product = "temp";
+
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
     try {
       var data = JSON.parse(xhr.response);
       console.log(data);
 
-      var rad = data.seriesInfo.twcRadarMosaic;
+      var rad = data.seriesInfo[product];
       var maxZoom = rad.maxZoom;
       var series = rad.series;
       var times = [];
@@ -72,17 +74,40 @@
 
       mymap.timeDimension.setAvailableTimes(times, 'replace');
       mymap.timeDimension.setCurrentTime(times[0]);
-      radTimeLayer.addTo(mymap);
-      topLayer.addTo(mymap);
-      topLayer.bringToFront();
+      //radTimeLayer.addTo(mymap);
+      //topLayer.addTo(mymap);
+      //topLayer.bringToFront();
 
-      mymap.timeDimensionControl._player.start()
+      testLayer.addTo(mymap);
+      testLayer.bringToFront();
+
+      m1.addTo(mymap);
+      m2.addTo(mymap);
+
+      //mymap.timeDimensionControl._player.start()
+
+      L.GridLayer.GridDebug = L.GridLayer.extend({
+        createTile: function (coords) {
+          const tile = document.createElement('div');
+          tile.style.outline = '1px solid green';
+          tile.style.fontWeight = 'bold';
+          tile.style.fontSize = '14pt';
+          tile.innerHTML = [coords.z, coords.x, coords.y].join('/');
+          return tile;
+        },
+      });
+
+      L.gridLayer.gridDebug = function (opts) {
+        return new L.GridLayer.GridDebug(opts);
+      };
+
+      //mymap.addLayer(L.gridLayer.gridDebug());
 
     } catch (e) {
       console.log(e);
     }
   };
-  xhr.open('GET', 'https://api.weather.com/v3/TileServer/series/productSet?apiKey=d522aa97197fd864d36b418f39ebb323&filter=twcRadarMosaic');
+  xhr.open('GET', 'https://api.weather.com/v3/TileServer/series/productSet?apiKey=d522aa97197fd864d36b418f39ebb323&filter='+product);
   xhr.send();
 
   // IS2 Bottom
@@ -91,7 +116,7 @@
     accessToken: mapboxToken
   }).addTo(mymap);
 
-  var radLayer = L.tileLayer('https://api.weather.com/v3/TileServer/tile?product=twcRadarMosaic&ts={t}&xyz={x}:{y}:{z}&apiKey={api}', {
+  var radLayer = L.tileLayer('https://api.weather.com/v3/TileServer/tile?product='+product+'&ts={t}&xyz={x}:{y}:{z}&apiKey={api}', {
     api: 'd522aa97197fd864d36b418f39ebb323',
     opacity: 1
   });
@@ -102,6 +127,27 @@
     style_id: 'jessecar/cjl18a4ao2mz52ro34ok1mnwj',
     accessToken: mapboxToken
   });
+
+  var imageUrl = 'V2_mercator.jpg'
+  var imageBounds = [[53.00, -60.15], [16.40, -132.86]];
+
+  var m1 = L.marker(imageBounds[0], {draggable: true});
+  var m2 = L.marker(imageBounds[1], {draggable: true});
+
+  m1.on('move', markerMoved);
+  m2.on('move', markerMoved);
+
+  var testLayer = L.imageOverlay(imageUrl, imageBounds, {
+    opacity: 0.5
+  });
+
+  function markerMoved() {
+    console.log(m1.getLatLng(), m2.getLatLng());
+
+    imageBounds = [m1.getLatLng(), m2.getLatLng()];
+    testLayer.setBounds(imageBounds);
+
+  }
 
 </script>
 </body>
