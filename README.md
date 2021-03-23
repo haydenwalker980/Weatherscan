@@ -3,7 +3,7 @@ Weatherscan simulation in HTML/JS/CSS
 Remade with Openweathermaps api
 
 ## Running locally
-1. Create Openweathermaps and Mapbox API keys
+1. Create OpenWeatherMaps (https://openweathermap.org/api) and Mapbox (https://mapbox.com) API keys.
 2. Download & Install [node.js LTS](https://nodejs.org/en/)
 3. In terminal, run `npm install --production` in the root folder of this project. This will install any dependencies.
 4. In terminal, run `npm start` in the root folder of this project. This will start a local web server.
