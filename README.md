@@ -1,7 +1,6 @@
 # Weatherscan Simulator
 Weatherscan simulation in HTML/JS/CSS
-
-Visit https://weatherscan.app/?long_island for a demo
+Remade with Openweathermaps api
 
 ## Running locally
 1. Download & Install [node.js LTS](https://nodejs.org/en/)
