@@ -1,10 +1,10 @@
 
 function Loops(bindDataManager) {
 	var //dataManager,
-		obsData, 
-		foreDataDaily, 
+		obsData,
+		foreDataDaily,
 		foreDataHourly;
-	
+
 	obsData = bindDataManager.observations;
 	foreDataDaily = bindDataManager.forecasts('daily');
 	foreDataHourly = bindDataManager.forecasts('hourly');
@@ -16,39 +16,41 @@ function Loops(bindDataManager) {
 
 	function displayAtmospheric(idx) {
 
-		var displays = {	
-	
+		var displays = {
+
 				conditions() {
-					return obsData(0).item.condition.text.toLowerCase();
+					return obsData(0).current.weather[0].description.toLowerCase();
 				},
 
-				wind(){ return 'wind ' + degToCompass(obsData(0).wind.direction) + ' ' + obsData(0).wind.speed; },
+				wind(){ return 'wind ' + degToCompass(obsData(0).current.wind_deg) + ' ' + Math.round(parseInt(obsData(0).current.wind_speed)); },
 
-				gusts(){ 
+				gusts(){
 					if ( obsData(1)!=undefined ) {
-						return obsData(1).windGust.value!=null ? 'gusts ' + mps2mph( obsData(1).windGust.value ) : ''; 
+						return obsData(1).windGust.value!=null ? 'gusts ' + mps2mph( obsData(1).windGust.value ) : '';
 					}
 				},
 
-				humidity(){ return 'humidity ' + obsData(0).atmosphere.humidity + '%'; },
+				humidity(){ return 'humidity ' + obsData(0).current.humidity + '%'; },
 
-				dewpoint(){ return 'dew point ' + dewPoint(obsData(0).item.condition.temp, obsData(0).atmosphere.humidity ) + '&deg;'; },
+				dewpoint(){ return 'dew point ' + dewPoint(obsData(0).current.temp, obsData(0).current.humidity ) + '&deg;'; },
 
 				heatindex_windchill(){
-					if (parseInt(obsData(0).item.condition.temp)<80 && parseInt(obsData(0).wind.chill) < parseInt(obsData(0).item.condition.temp)) {
-						return 'wind chill ' + obsData(0).wind.chill + '&deg;';	
-					} else if (parseInt(obsData(0).item.condition.temp)>=80 && parseInt(obsData(0).atmosphere.humidity)>=40 ){
-						return 'heat index ' + heatIndex(obsData(0).item.condition.temp, obsData(0).atmosphere.humidity) + '&deg;';
+					var windchill =	35.74 + (0.6215 * parseInt(obsData(0).current.temp)) + (0.4275 * parseInt(obsData(0).current.temp) - 35.75)  *  parseInt(obsData(0).current.wind_speed) ^ 0.16;
+					if (parseInt(obsData(0).current.temp)<80 && windchill < parseInt(obsData(0).current.temp)) {
+
+						return 'wind chill ' + windchill + '&deg;';
+					} else if (parseInt(obsData(0).current.temp)>=80 && parseInt(obsData(0).current.humidity)>=40 ){
+						return 'heat index ' + heatIndex(obsData(0).current.temp, obsData(0).current.humidity) + '&deg;';
 					}
-					else return '';					
+					else return '';
 				},
 
-				pressure(){ return 'pressure ' + (obsData(0).atmosphere.pressure*0.0295301).toFixed(2) + ' ' + ['S','R','F'][obsData(0).atmosphere.rising]; },
+				pressure(){ return 'pressure ' + (obsData(0).current.pressure*0.0295301).toFixed(2) },
+//+ ['S','R','F'][obsData(0).current.rising];
+				visibility() { return 'visibility ' + (parseInt(obsData(0).current.visibility) / 1000) + ' mile' + (obsData(0).current.visibility != 1 ? 's' : ''); },
 
-				visibility() { return 'visibility ' + obsData(0).atmosphere.visibility + ' mile' + (obsData(0).atmosphere.visibility != 1 ? 's' : ''); },
+				uvindex() { return 'UV index ' + obsData(0).current.uvi; },
 
-				uvindex() { return ''; }
-				
 		},
 		keys = Object.keys(displays),
 		text = displays[ keys[idx] ]();
@@ -56,27 +58,27 @@ function Loops(bindDataManager) {
 		// increment the pointer
 		idx = (++idx===keys.length ? 0 : idx);
 
-		if (text) { 
+		if (text) {
 			$('#current-info').html(text);
 			setTimeout(function(){ displayAtmospheric(idx) }, 6000); // 6 second increment loop
 		} else {
 			// nothing to display - skip to the next one
-			setTimeout(function(){ displayAtmospheric(idx) }, 0); 
-		}	
+			setTimeout(function(){ displayAtmospheric(idx) }, 0);
+		}
 
 	}  // end function
-	
-	
+
+
 	function displayForecast(idx) {
-		
-		var displays = {		
+
+		var displays = {
 
 				text1() {
 					$('#forecast-title').text( possessiveForecast(foreDataDaily[0].name) );
 					resizeText(foreDataDaily[0].detailedForecast);
 				},
 				text2() {
-					$('#forecast-title').text( possessiveForecast(foreDataDaily[1].name) );		
+					$('#forecast-title').text( possessiveForecast(foreDataDaily[1].name) );
 					resizeText(foreDataDaily[1].detailedForecast);
 				},
 
@@ -84,84 +86,84 @@ function Loops(bindDataManager) {
 					var newtile, weekend, icons,
 						startidx = (foreDataDaily[0].name==='Tonight' ? 1 : 2),
 						days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-					
+
 					$('#forecast-title').text("5 DAY FORECAST");
 					$('#forecast-tiles').empty();
-					
+
 					for (var i=startidx; i<=10; i+=2 ) {
-						
+
 						weekend = ( dateFns.isWeekend(foreDataDaily[i].startTime) ? ' weekend' : '');
 						newtile = $("<div class='forecast-tile daily" + weekend + "'></div>");
-						
+
 						$("<div class='header'></div>") .appendTo(newtile) .text(days[ dateFns.getDay(foreDataDaily[i].startTime) ]);
-						
+
 						icons = mapNWSicons(foreDataDaily[i].icon);
 						for (x=icons.length-1; x>=0; x--){
-							$("<img class='icon' src=''/>") .appendTo(newtile) .attr('src', icons[x]);	
+							$("<img class='icon' src=''/>") .appendTo(newtile) .attr('src', icons[x]);
 						}
-						
+
 						$("<div class='high'></div>") .appendTo(newtile) .text(foreDataDaily[i].temperature);
 						$("<div class='low'></div>")  .appendTo(newtile) .text(foreDataDaily[i+1].temperature);
-						
-						$('#forecast-tiles').append(newtile);				
+
+						$('#forecast-tiles').append(newtile);
 					}
-					
-					$('#forecast-tiles').css('display','flex');					
+
+					$('#forecast-tiles').css('display','flex');
 				},
 
 			    hourly() {
 					var newtile, icons, sizer, highbar,
 					    indexes = calcHourlyReport(foreDataHourly),
 						data, label, temps=[];
-					
+
 					$('#forecast-title').text( buildHourlyHeaderTitle(foreDataHourly[indexes[0]].startTime) );
 					$('#forecast-tiles').empty();
-					
+
 					for (var i of indexes) {
 						data = foreDataHourly[i];
-						
+
 						newtile = $("<div class='forecast-tile hourly'></div>");
 						sizer   = $("<div class='width-sizer'></div>").appendTo(newtile);
-						
+
 						icons = mapNWSicons(data.icon);
 						for (var x=icons.length-1; x>=0; x--){
-							$("<img class='icon' src=''/>") .appendTo(sizer) .attr('src', icons[x]);	
+							$("<img class='icon' src=''/>") .appendTo(sizer) .attr('src', icons[x]);
 						}
-						
+
 						$("<div class='footer'></div>") .appendTo(newtile) .text(buildHourlyTimeTitle(data.startTime));
-						
+
 						highbar = $("<div class='hourly-high'></div>") .appendTo(sizer);
-						
+
 						$("<div class='high'></div>") .appendTo(highbar) .text(data.temperature);
 						temps.push(data.temperature);
-						
+
 						$("<div class='temp-bar'></div>") .appendTo(highbar);
-						
-						$('#forecast-tiles').append(newtile);				
+
+						$('#forecast-tiles').append(newtile);
 					}
-					
+
 					$('#forecast-tiles').css('display','flex');
-					
+
 					// animate grow and show temp
 					var min = Math.min(...temps),  // 54
 						max = Math.max(...temps),  // 73
 						range = (max-min),
 						prange = (100-78), // percent range for bar height
-						temp, value;  
+						temp, value;
 					$('.forecast-tile').each(function(){
 						temp = $(this).find('.high').first().text();
 						value = ((temp-min)/range) * prange + 78;  // find percentage of range and translate to percent and add that to the starting css % height number
 						$(this).find('.hourly-high').animate({height:value+"%"}, 1500,function(){
 							$(this).find('.high').fadeTo('slow', 1);
-						});											  
+						});
 					})
-				},		
+				},
 
 				dummy(){}
-	
+
 			},
 			keys = Object.keys(displays);
-		
+
 		displays[ keys[idx] ]();
 
 		// increment the pointer
@@ -170,7 +172,7 @@ function Loops(bindDataManager) {
 		setTimeout(function(){ displayForecast(idx) }, 15000); // 15 second increment loop
 
 	}
-	
+
 	function resizeText(text){
 		var s = 38,
 		$test = $('<div style="position:absolute;top:100%;"></div>') .appendTo('#forecast-text') .css('font-size', s + 'px') .html(text);
@@ -183,29 +185,29 @@ function Loops(bindDataManager) {
 			$('#forecast-text div') .text(text) .css('font-size', s + 'px');
 			$test.remove();
 			$('#forecast-tiles').hide();
-		//},100);  // delay is a workaround for Interstate font not updating display 
-	}	
-	
-	function possessiveForecast(text){		
-		return text + (text.toUpperCase() != 'OVERNIGHT' ? "'S" : '') + ' FORECAST';		
+		//},100);  // delay is a workaround for Interstate font not updating display
 	}
 
-	
+	function possessiveForecast(text){
+		return text + (text.toUpperCase() != 'OVERNIGHT' ? "'S" : '') + ' FORECAST';
+	}
+
+
 } // end Loops class
 
 
 function buildHourlyHeaderTitle(time) {
-	var today = new Date(), 
+	var today = new Date(),
 		tomorrow = dateFns.addDays(today, 1),
 		sforecast = "'s Forecast";
-	
+
 	// title based on the first hour reported
 	switch (dateFns.getHours(time)) {
-			
+
 	case 6: // 6 - Nextday's Forecast / Today's Forecast
 		// if 6am today
 		if (dateFns.isToday(time)) {
-			return dateFns.format(today, 'dddd') + sforecast;	
+			return dateFns.format(today, 'dddd') + sforecast;
 		}
 	case 0: // 0 - Nextday's Forecast
 		return dateFns.format(tomorrow, 'dddd') + sforecast;
@@ -221,7 +223,7 @@ function buildHourlyHeaderTitle(time) {
 
 	case 20:
 		return dateFns.format(today, 'ddd') + ' Night/' + dateFns.format(tomorrow, 'ddd');
-	
+
 	}
 
 }
@@ -229,13 +231,13 @@ function buildHourlyHeaderTitle(time) {
 
 function buildHourlyTimeTitle(time){
 	var hour=dateFns.getHours(time);
-	
+
 	if (hour===0) {
 		return 'midnight';
 	} else if (hour===12){
 		return 'noon';
 	}
-	
+
 	return dateFns.format(time,'h a');
 }
 
@@ -249,7 +251,7 @@ function calcHourlyReport(data) {
 		//firsthour = targets[ getNextHighestIndex(targets, current) ],
 		start,
 		hour, i=0;
-	
+
 	switch (true) {
 		case (current < 3):
 			start = 6;
@@ -263,20 +265,20 @@ function calcHourlyReport(data) {
 			start = 20; break;
 		case (current < 20):
 			start = 0; break;
-		default: 
-			start = 6;			
+		default:
+			start = 6;
 	}
-		
+
 	while(ret.length<4){
-			
+
 		// hour must be equal or greater than current
 		hour = dateFns.getHours( data[i].startTime );
 		if ( dateFns.isAfter(data[i].startTime, now) && (hour==start || ret.length>0) )  {
-			
+
 			if ( targets.indexOf(hour)>=0 ) { // it is in our target list so record its index
 				ret.push(i);
 			}
-			
+
 		}
 		i++;
 	}
@@ -324,28 +326,28 @@ function mapNWSicons(url){
 			fog:[15,15]
 	},
 	matches = url.match(/icons\/land\/(day|night)\/([a-z_]*)\/?([a-z_]*)/),  // day or night followed by one or more condition codes
-	idx = {day:0, night:1}[matches[1]], 
+	idx = {day:0, night:1}[matches[1]],
 	ret=[], match;
-	
+
 	for (i=2; i<matches.length; i++){
-		
+
 		if (matches[i]) {
 			match = map[ matches[i] ];
-		
+
 			ret.push( match[idx] );
 
-			// some icons are 2 layered 
+			// some icons are 2 layered
 			if (match.length>2) {
 				ret.push( match[2] );
 			}
 		}
 	}
-	
+
 	// place word icons last so they render on top
 	if (ret.length>1 && [15,47,41,42, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 20, 31, 33, 34, 38, 39, 40, 44].indexOf( ret[1] )>-1) {
 		ret.swap(0,1);
 	}
-	
+
 	return ret.map(function(num){
 		return 'images/icons/' + ('0'+num).slice(-2) + '.png';
 	});
@@ -370,8 +372,8 @@ partly cloudy
 /*
 
 https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.forecast where woeid=2402292
-			  
-"units":{  
+
+"units":{
    "distance":"mi",
    "pressure":"in",
    "speed":"mph",
@@ -383,47 +385,47 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 "language":"en-us",
 "lastBuildDate":"Thu, 12 Oct 2017 10:10 PM CDT",
 "ttl":"60",
-"location":{  
+"location":{
    "city":"Fargo",
    "country":"United States",
    "region":" ND"
 },
-"wind":{  
+"wind":{
    "chill":"52",
    "direction":"295",
    "speed":"18"
 },
-"atmosphere":{  
+"atmosphere":{
    "humidity":"54",
    "pressure":"978.0",
    "rising":"0",
    "visibility":"16.1"
 },
-"astronomy":{  
+"astronomy":{
    "sunrise":"7:41 am",
    "sunset":"6:46 pm"
 },
-"image":{  
+"image":{
    "title":"Yahoo! Weather",
    "width":"142",
    "height":"18",
    "link":"http://weather.yahoo.com",
    "url":"http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
 },
-"item":{  
+"item":{
    "title":"Conditions for Fargo, ND, US at 09:00 PM CDT",
    "lat":"46.865089",
    "long":"-96.829224",
    "link":"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/",
    "pubDate":"Thu, 12 Oct 2017 09:00 PM CDT",
-   "condition":{  
+   "condition":{
 	  "code":"27",
 	  "date":"Thu, 12 Oct 2017 09:00 PM CDT",
 	  "temp":"55",
 	  "text":"Mostly Cloudy"
    },
-   "forecast":[  
-	  {  
+   "forecast":[
+	  {
 		 "code":"30",
 		 "date":"12 Oct 2017",
 		 "day":"Thu",
@@ -431,7 +433,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"48",
 		 "text":"Partly Cloudy"
 	  },
-	  {  
+	  {
 		 "code":"32",
 		 "date":"13 Oct 2017",
 		 "day":"Fri",
@@ -439,7 +441,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"37",
 		 "text":"Sunny"
 	  },
-	  {  
+	  {
 		 "code":"39",
 		 "date":"14 Oct 2017",
 		 "day":"Sat",
@@ -447,7 +449,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"38",
 		 "text":"Scattered Showers"
 	  },
-	  {  
+	  {
 		 "code":"34",
 		 "date":"15 Oct 2017",
 		 "day":"Sun",
@@ -455,7 +457,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"31",
 		 "text":"Mostly Sunny"
 	  },
-	  {  
+	  {
 		 "code":"34",
 		 "date":"16 Oct 2017",
 		 "day":"Mon",
@@ -463,7 +465,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"35",
 		 "text":"Mostly Sunny"
 	  },
-	  {  
+	  {
 		 "code":"34",
 		 "date":"17 Oct 2017",
 		 "day":"Tue",
@@ -471,7 +473,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"39",
 		 "text":"Mostly Sunny"
 	  },
-	  {  
+	  {
 		 "code":"30",
 		 "date":"18 Oct 2017",
 		 "day":"Wed",
@@ -479,7 +481,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"48",
 		 "text":"Partly Cloudy"
 	  },
-	  {  
+	  {
 		 "code":"30",
 		 "date":"19 Oct 2017",
 		 "day":"Thu",
@@ -487,7 +489,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"44",
 		 "text":"Partly Cloudy"
 	  },
-	  {  
+	  {
 		 "code":"30",
 		 "date":"20 Oct 2017",
 		 "day":"Fri",
@@ -495,7 +497,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 		 "low":"49",
 		 "text":"Partly Cloudy"
 	  },
-	  {  
+	  {
 		 "code":"28",
 		 "date":"21 Oct 2017",
 		 "day":"Sat",
@@ -505,7 +507,7 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 	  }
    ],
    "description":"<![CDATA[<img src=\"http://l.yimg.com/a/i/us/we/52/27.gif\"/>\n<BR />\n<b>Current Conditions:</b>\n<BR />Mostly Cloudy\n<BR />\n<BR />\n<b>Forecast:</b>\n<BR /> Thu - Partly Cloudy. High: 70Low: 48\n<BR /> Fri - Sunny. High: 58Low: 37\n<BR /> Sat - Scattered Showers. High: 49Low: 38\n<BR /> Sun - Mostly Sunny. High: 56Low: 31\n<BR /> Mon - Mostly Sunny. High: 65Low: 35\n<BR />\n<BR />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/\">Full Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>",
-   "guid":{  
+   "guid":{
 	  "isPermaLink":"false"
    }
 
@@ -513,8 +515,8 @@ https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.fo
 
 
 Current Conditions:</b>\n<BR />Mostly Cloudy\n<BR />\n<BR />\n<b>
-Forecast:</b>\n<BR /> Thu - Partly Cloudy. High: 70Low: 48\n<BR /> Fri - Sunny. High: 58Low: 37\n<BR /> Sat - Scattered Showers. High: 49Low: 38\n<BR /> Sun - Mostly Sunny. High: 56Low: 31\n<BR /> 
+Forecast:</b>\n<BR /> Thu - Partly Cloudy. High: 70Low: 48\n<BR /> Fri - Sunny. High: 58Low: 37\n<BR /> Sat - Scattered Showers. High: 49Low: 38\n<BR /> Sun - Mostly Sunny. High: 56Low: 31\n<BR />
 Mon - Mostly Sunny. High: 65Low: 35\n<BR />\n<BR />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/\">Full Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>",
-   "guid":{  
+   "guid":{
 
 */

@@ -10,62 +10,62 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 	function Slides(dataMan) {
 		var radarSlideDuration = 60000,
 			slideDelay = 10000;
-				
-		buildHeader();	
-		
+
+		buildHeader();
+
 		setTimeout(nextCity, 5000);
-		
-		
+
+
 		// loop cities
 		function nextCity(){
-			
+
 			advanceHeader();
-			
+
 			var city = $('#info-slides-header .city.current');
-			
+
 			// is radar or city?
 			if (city[0].dataset.woeid) {
-				// show slide deck for the current city				
+				// show slide deck for the current city
 				showCitySlides( dataMan.location(city[0].dataset.woeid), 0 );
 
 			} else {
-				
-				
+
+
 				// radar
 				showRadar(dataMan.locations[0].lat, dataMan.locations[0].long, 8);
-				
+
 				//setTimeout(function() { weatherAudio.playLocalRadar() }, 2000 );
-				
+
 				// show for how long?
 				setTimeout(nextCity, 60000);
 
 			}
-	
+
 		}
-		
-			
-		
+
+
+
 		function showRadar(lat, long, zoom) {
-			
-			weatherMan.mainMap.setView(lat, long, zoom);			
-			
+
+			weatherMan.mainMap.setView(lat, long, zoom);
+
 			setTimeout(function() {
-	
+
 				// fade out info, fade in radar
 				$('.info-slide-content:visible').fadeOut(250, function(){
 					$('.info-slide').fadeOut(250, function() {
 						$('.radar-slide').fadeIn(500);
-					});				
+					});
 				});
-				
+
 			}, 1500); // give it time to load
-			
+
 		}
-					
-		
-		// show the set of slides for one city		
+
+
+		// show the set of slides for one city
 		function showCitySlides(location, idx) {
-				
+
 			var currentDisplay,
 				displays = {
 
@@ -73,35 +73,34 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				currentConditions() {
 					$('.city-info-slide #subhead-title').text('Currently');
 					$('.city-info-slide #subhead-city').text(location.city);
-					
-					var obsData = location.observations,		
-						strLabels =	'Humidity<br>Dew Point<br>Pressure<Br>Wind<br>Gusts<br>',
+					var obsData = location.observations,
+						strLabels =	'Humidity<br>Dew Point<br>Pressure<Br>Wind<br>',
 						strData =
-							obsData(0).atmosphere.humidity + '%<br>'+
-							dewPoint(obsData(0).item.condition.temp, obsData(0).atmosphere.humidity ) + '<br>' +
-							(obsData(0).atmosphere.pressure*0.0295301).toFixed(2) + ' ' + ['S','R','F'][obsData(0).atmosphere.rising] + '<br>' +
-							degToCompass(obsData(0).wind.direction) + ' ' + 
-							obsData(0).wind.speed + '<br>' + 
-							(obsData(1).windGust.value!=null ? mps2mph( obsData(1).windGust.value ) : 'none') + 
-							'<br>' // gusts show mph 					
-					;
-
-					if (parseInt(obsData(0).wind.chill) < parseInt(obsData(0).item.condition.temp)) {
+							obsData(0).current.humidity + '%<br>' + dewPoint(parseInt(obsData(0).current.temp), parseInt(obsData(0).current.humidity)) + '<br>' + (obsData(0).current.pressure*0.0295301).toFixed(2)  + '<br>' + degToCompass(obsData(0).current.wind_deg) + ' ' + obsData(0).current.wind_speed + '<br>';
+					if (obsData(0).current.wind_gust!=undefined) {
+						strLabels+='Gusts<Br>';
+						strData+=obsData(0).current.wind_gust +	'<br>';
+					} else {
+						strLabels+='Gusts<Br>';
+						strData+='none<br>';
+					}
+					var windchill =	35.74 + (0.6215 * parseInt(obsData(0).current.temp)) + (0.4275 * parseInt(obsData(0).current.temp) - 35.75)  *  parseInt(obsData(0).current.wind_speed) ^ 0.16;
+					if (windchill < parseInt(obsData(0).current.temp)) {
 						strLabels+='Wind Chill';
-						strData+= obsData(0).wind.chill + '&deg;';	
-					} else if (parseInt(obsData(0).item.condition.temp)>=80 && parseInt(obsData(0).atmosphere.humidity)>=40 ){
+						strData+= windchill;
+					} else if (parseInt(obsData(0).current.temp)>=80 && parseInt(obsData(0).current.humidity)>=40 ){
 						strLabels+='Heat Index';
-						return 'heat index ' + heatIndex(obsData(0).item.condition.temp, obsData(0).atmosphere.humidity) + '&deg;';
+						return 'heat index ' + heatIndex(obsData(0).current.temp, obsData(0).current.humidity) + '&deg;';
 					}
 
 					$('.city-info .frost-pane .labels').html(strLabels);
 					$('.city-info .frost-pane .data').html(strData);
 
 					// right pane
-					$('.city-info .icon').css('background-image', 'url("' + getCCicon(obsData(0).item.condition.code) + '")');	
-					$('.city-info .conditions').text( obsData(0).item.condition.text );
-					$('.city-info .temp').text( obsData(0).item.condition.temp );
-					
+					$('.city-info .icon').css('background-image', 'url("' + getCCicon(+obsData(0).current.weather[0].id + obsData(0).current.weather[0].icon) + '")');
+					$('.city-info .conditions').text( obsData(0).current.weather[0].description);
+					$('.city-info .temp').text( Math.round(parseInt(obsData(0).current.temp)) );
+
 					fadeToContent('.city-info');
 					wait(slideDelay);
 
@@ -117,9 +116,9 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				// Local Forecast -Today (10 sec)
 				,forecast(fidx) {
 					var div = '.info-slide-content.forecast ',
-						forecasts = location.forecasts('daily');					
-					
-					function fillinfo() {						
+						forecasts = location.forecasts('daily');
+
+					function fillinfo() {
 
 						fidx = (fidx===undefined ? 0 : fidx);
 
@@ -131,9 +130,9 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 						// content
 						resizeText( forecasts[fidx].detailedForecast );
 						$(div + '.content').text( forecasts[fidx].detailedForecast );
-						
+
 					}
-					
+
 					fadeToContent(div, fillinfo);
 
 					setTimeout( function() {
@@ -141,46 +140,46 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 						if (fidx<3) {
 							currentDisplay(++fidx);
 						} else {
-							wait(0);	
+							wait(0);
 						}
 
-					}, slideDelay);					
-					
+					}, slideDelay);
+
 				}
 
 
 
 				// Extended Forecast(5 day columns)
 				//,extendedForecast() {},
-				
+
 		},
 		keys = Object.keys(displays);
-				
-			
+
+
 		if (idx<keys.length) {
 			currentDisplay = displays[keys[idx]];
-			currentDisplay(); 
+			currentDisplay();
 		} else { // done - exit
-			nextCity(); 
+			nextCity();
 		}
 		return;
-						
+
 		function wait(duration){
-			setTimeout(function() { 
-				showCitySlides(location, ++idx); 
-			}, duration);			
+			setTimeout(function() {
+				showCitySlides(location, ++idx);
+			}, duration);
 		}
-			
-			
-			
+
+
+
 		function resizeText(text){
 			var s = 50,
 				$container = $('.info-slide-content.forecast .content'),
 				$test = $('<div style="position:absolute;top:100%;"></div>') .appendTo($container) .css('font-size', s + 'px') .html(text);
-			
+
 			// have to display parent so we can get measurements
 			$container.closest('.info-slide-content').show();
-			
+
 			$test.width($container.width() );
 			while ($test.outerHeight(true) >= ($container.height()) ) {
 				s -= 1;
@@ -190,13 +189,13 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			$container .text(text) .css('font-size', s + 'px');
 			$test.remove();
 
-		}			
-			
-			
+		}
+
+
 		function fadeToContent(to, callfirst) {
 			var $to = $(to),
 				$parent = $to.closest('.info-slide');
-			
+
 			if ( $parent.is(":hidden") ) {
 				// hide other visible slide then show the parent
 				$to.hide();
@@ -207,34 +206,34 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			} else {
 				hideOldShowMe();
 			}
-			
-			function hideOldShowMe() {				
+
+			function hideOldShowMe() {
 				if ($('.info-slide-content:visible')) {
 					$('.info-slide-content:visible').fadeOut(500, showMe);
 				} else {
 					showMe();
 				}
 			}
-			
+
 			function showMe() {
 				if (callfirst) { callfirst() };
 				$to.fadeIn(500);
 			}
 
-		}			
-			
+		}
+
 		//doDisplay = displays[ keys[idx] ]();
 
 			// increment the pointer
 			//idx = (++idx===keys.length ? 0 : idx);
 
-			//if (text) { 
+			//if (text) {
 			//	$('#current-info').html(text);
 			//	setTimeout(function(){ displayAtmospheric(idx) }, 6000); // 6 second increment loop
 			//} else {
 				// nothing to display - skip to the next one
-			//	setTimeout(function(){ displayAtmospheric(idx) }, 0); 
-			//}					
+			//	setTimeout(function(){ displayAtmospheric(idx) }, 0);
+			//}
 
 			/*
 			(Main City)
@@ -257,29 +256,29 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			Extended Forecast(5 day columns)
 			*/
 
-			
+
 
 			//idx++;
 			//if (idx<=0){
-				setTimeout(cityLoop, 3000);  // change to 60000 for production	
+				setTimeout(cityLoop, 3000);  // change to 60000 for production
 			//} else {
-				
+
 			//}
-			
+
 		}
 
-		
-		
+
+
 		function advanceHeader() {
-			
+
 			// swap current
 			var $cities = $('#info-slides-header .city'),
 				$scroller = $('#info-slides-header .hscroller'),
 				left;
-			
+
 			$($cities[0]).removeClass('current');
 			$($cities[1]).addClass('current');
-			
+
 			// animate move left
 			left = $scroller.position().left - $($cities[1]).position().left;
 			$scroller.animate({ 'left':	left+'px' }, 700,
@@ -287,12 +286,12 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				// on completion, move the old one to the end
 				$scroller.css('left','');
 				$($cities[0]).appendTo($scroller);
-				$('#info-slides-header span').first().appendTo($scroller);								
+				$('#info-slides-header span').first().appendTo($scroller);
 			})
-	
-			
+
+
 		}
-		
+
 	function buildHeader(){
 		var city, first, woeid,
 			cities='',
@@ -301,16 +300,13 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 
 		for (var location of dataMan.locations) {
 			city = location.city;
-			cities += arrow+'<span class="city" data-woeid="' + location.woeid + '">' + city + '</span>';			
+			cities += arrow+'<span class="city" data-woeid="' + location.woeid + '">' + city + '</span>';
 		}
 
 		$('#info-slides-header .hscroller').append(cities + arrow + (radar + cities + arrow).repeat(4));
-	}		
-	
+	}
+
 
 
 
 }  // end function
-
-
-

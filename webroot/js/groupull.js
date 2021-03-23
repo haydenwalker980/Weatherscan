@@ -1,5 +1,5 @@
 function GroupDataManager() {
-	var locations = 
+	var locations =
 		[
 			{name:'Chicago', n2:'IL'},
 			{name:'Minneapolis', n2:'MN'},
@@ -19,59 +19,57 @@ function GroupDataManager() {
 			{name:'Ixtapa', n2:'MX'}
 		]
 	;
-	
-	checkRefresh();	
+
+	checkRefresh();
 	setInterval(checkRefresh, 300000);
 
 
 	// check to see if data needs to be refreshed
     function checkRefresh() {
 		var woeid, location;
-		
+
 		for (location of locations) {
-			
+
 			// check the expiration
 			if (location.hasOwnProperty('xdate') && dateFns.isFuture(location.xdate)) { continue; }
-		
+
 			woeid = location.hasOwnProperty('woeid') ? location.woeid : '';
 
 
 			// woeid is the id for the location to pull data for
-			var url = 'https://query.yahooapis.com/v1/public/yql?format=json&q=' + 
-					  'select * from weather.forecast where woeid' +
-					  (woeid ? '='+woeid : ' in (select woeid from geo.places(1) where text="(' + (location.name + ' ' + location.n2).trim() + ')")' );
-			
+			var url = 'https://api.openweathermap.org/data/2.5/weather?q='+ location.name + '&appid=putapikeyhere&units=imperial'
+
 			pullData(url, location);
 
 		}
-		
+
     }
-	
+
 	function pullData(url, location) {
 		var $span;
-		
+
 		// ajax the latest observation
 		$.getJSON(url, function(data) {
-			location.data = data.query.results.channel;
+			location.data = data;
 
 			if ( !location.hasOwnProperty('woeid') ) {
-				location.woeid = location.data.link.match(/(\d*)\/$/)[1];
-				$span = $("<span id='" + location.woeid + "'></span>").appendTo('#marquee-now');					
+				location.woeid = location.data.id;
+				$span = $("<span id='" + location.woeid + "'></span>").appendTo('#marquee-now');
 			} else {
-				$span = $('#marquee-now>span#' + location.woeid);							  
+				$span = $('#marquee-now>span#' + location.woeid);
 			}
 
 			// display the current info
-			$span.text(location.name + ': ' + location.data.item.condition.temp + ' ' + location.data.item.condition.text.toLowerCase());
-						
+			$span.text(location.name + ': ' + Math.round(parseInt(location.data.main.temp)) + ' ' + location.data.weather[0].description.toLowerCase());
+
 
 			// set the expiration date/time
-			location.xdate = dateFns.addMinutes(location.data.lastBuildDate, location.data.ttl);			
+			location.xdate = dateFns.addMinutes(location.data.lastBuildDate, location.data.ttl);
 
 		});
-	
+
 	}
-	
-	
+
+
 }
 var groupDataManager = new GroupDataManager;
