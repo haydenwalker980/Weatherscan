@@ -1,7 +1,8 @@
 function DataManager(pointSearch){
 	var $this = $(this),
 		that = this,
-		includeRadiusMiles=20;
+		excludeRadiusMiles=5;
+		includeRadiusMiles=50;
 
 	var _locations = [];
 
@@ -49,7 +50,7 @@ function DataManager(pointSearch){
 				geo = feature.geometry.coordinates;
 				dist = distance(lat, lon, geo[1], geo[0]);
 
-				if (dist < includeRadiusMiles) {
+				if (dist < includeRadiusMiles && dist > excludeRadiusMiles) {
 					locList.push({lat: geo[1], long:geo[0], distance:dist, stationUrl:feature.id});
 				}
 			}
