@@ -25,9 +25,11 @@ function Location() { // onReady, onRefresh, onAllComplete
 
 	this.initForecasts = function() {
 		// start the forecast data pull
+		if (_observations[0] != undefined){
 		_forecastmgr = new ForecastManager(_observations[0].lat, _observations[0].lon, function() {
 			$this.trigger('ready');
 		});
+	}
 	};
 
 	this.initNWSObservations = function(){
@@ -78,7 +80,7 @@ function Location() { // onReady, onRefresh, onAllComplete
 
 		});
 		$.getJSON('http://api.openweathermap.org/geo/1.0/reverse?lat=' + loclat + '&lon=' + loclong + '&limit=1&appid=0cb279a98124446dd16dba02fbfb60ee', function(sloc) {
-		that.city = sloc[0].name;
+			that.city = (sloc[0].name);
 		});
 
 }
@@ -140,7 +142,7 @@ function ForecastManager (latitude, longitude, readyCallback) {
 function Forecast(type, lat, lon, readyCallback) {
 
 	var that = this,
-		url = 'https://api.weather.gov/points/' + lat + ',' + lon + '/forecast/' + (type==='hourly' ? type : '');
+		url = 'https://api.weather.gov/points/' + lat + ',' + lon + "/forecast/" + (type==='hourly' ? type : '');
 
 	this.data = {};
 
@@ -156,6 +158,7 @@ function Forecast(type, lat, lon, readyCallback) {
 
 		// ajax the forecast
 		$.getJSON(url, function(data) {
+
 			that.data = data.properties.periods;
 
 			// trigger ready callback on first data pull
@@ -164,7 +167,7 @@ function Forecast(type, lat, lon, readyCallback) {
 			}
 
 			// set the expiration date/time
-			//that.data.xdate = dateFns.addMinutes(data.properties.updated, 60);
+			that.data.xdate = dateFns.addMinutes(data.properties.updated, 60);
 			that.data.xdate = dateFns.addMinutes(new Date(), 5);
 			setTimeout(checkRefresh, getRandom(5000, 10000));
 
