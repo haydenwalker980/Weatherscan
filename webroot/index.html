@@ -44,13 +44,14 @@
 <div id="main" class="container">
 
   <img id="template" src="images/template-4k.jpg"/>
-
-  <div id="info-slides-container">
+  <div id="info-slides-bg"></div>
+    <div id="info-slides-container">
 
     <div id="info-slides-header">
       <div class="hscroller">
         <span class="city radar current">LOCAL RADAR</span>
       </div>
+      <div class="gradientthing"></div>
     </div>
 
     <div id='info-slide-container'>
@@ -59,15 +60,26 @@
       <!-- CURRENT CONDITIONS AND FORECAST-->
       <div class="info-slide city-info-slide" style="display:none">
         <div class="info-subheader">
-          <span id="subhead-title"></span><span id="subhead-city"></span>
+          <span id="subhead-titlei"></span><span id="subhead-city"></span>
+        </div>
+        <div class="info-subheadershadowfix">
+          <span id="subhead-title"></span>
         </div>
         <div class='blue curve left'></div>
+        <div class='blue curve bottom'></div>
         <div class='yellow curve left'></div>
         <div class='yellow curve right'></div>
         <div class='white curve right'></div>
+        <div class='white curve bottom'></div>
+
+        <div class='info-slide-content forecast' style="display:none">
+          <div class='frost-pane'>
+            <div class='title'></div>
+            <div class='content'></div>
+          </div>
+        </div>
 
         <div class='info-slide-content city-info' style="display:none">
-
           <div class='frost-pane left'>
             <div class='labels'></div>
             <div class='data'></div>
@@ -77,17 +89,111 @@
             <div class='conditions'></div>
             <div class='temp'></div>
           </div>
-
         </div>
 
-        <div class='info-slide-content forecast' style="display:none">
+        <div class='info-slide-content daypart' style="display:none">
           <div class='frost-pane'>
-            <div class='title'></div>
-            <div class='content'></div>
+            <div class='hour i'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'>rain</div>
+              <div class='tempbar'>
+                <div class='temp'>79</div>
+                <div class='wind'>NNE 12</div>
+              </div>
+            </div>
+            <div class='hour ii'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'></div>
+              <div class='tempbar'>
+                <div class='temp'></div>
+                <div class='wind'></div>
+              </div>
+            </div>
+            <div class='hour iii'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'></div>
+              <div class='tempbar'>
+                <div class='temp'></div>
+                <div class='wind'></div>
+              </div>
+            </div>
+            <div class='hour iv'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'></div>
+              <div class='tempbar'>
+                <div class='temp'></div>
+                <div class='wind'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='info-slide-content extended-forecast' style="display:none">
+          <div class='frost-pane iw'>
+            <div class='thing'><span class="textmove"></span></div>
+            <div class='icon'></div>
+            <div class='conditions'>Sct'd<br> T'storms</div>
+            <div class='temphigh'>87</div>
+            <div class='templow'>74</div>
+          </div>
+          <div class='linebreak i'>
+            <div class='thing'></div>
+          </div>
+          <div class='frost-pane iiw'>
+            <div class='thing'></div>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'></div>
+            <div class='templow'></div>
+          </div>
+          <div class='linebreak ii'>
+            <div class='thing'></div>
+          </div>
+          <div class='frost-pane iiiw'>
+            <div class='thing'></div>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'></div>
+            <div class='templow'></div>
+          </div>
+          <div class='linebreak iii'>
+            <div class='thing'></div>
+          </div>
+          <div class='frost-pane ivw'>
+            <div class='thing'></div>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'></div>
+            <div class='templow'></div>
+          </div>
+          <div class='linebreak iv'>
+            <div class='thing'></div>
+          </div>
+          <div class='lfrost-pane vw'>
+            <div class='thing'>
+              <div class='thingtext'></div>
+            </div>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'>
+              <div class='temphightext'></div>
+            </div>
+            <div class='templow'></div>
           </div>
         </div>
       </div>
-
 
       <!-- DOPPLER RADAR -->
       <div class="info-slide radar-slide">
