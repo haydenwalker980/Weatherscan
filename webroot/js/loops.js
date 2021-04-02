@@ -19,7 +19,7 @@ function Loops(bindDataManager) {
 		var displays = {
 
 				conditions() {
-					return obsData(0).current.weather[0].description.toLowerCase();
+					return (getCC(obsData(0).current.weather[0].id + obsData(0).current.weather[0].icon, obsData(0).current.wind_speed)).toLowerCase();
 				},
 
 				wind(){ return 'wind ' + degToCompass(obsData(0).current.wind_deg) + ' ' + Math.round(parseInt(obsData(0).current.wind_speed)); },
@@ -148,7 +148,7 @@ function Loops(bindDataManager) {
 					var min = Math.min(...temps),  // 54
 						max = Math.max(...temps),  // 73
 						range = (max-min),
-						prange = (100-78), // percent range for bar height
+						prange = (95-78), // percent range for bar height
 						temp, value;
 					$('.forecast-tile').each(function(){
 						temp = $(this).find('.high').first().text();
