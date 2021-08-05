@@ -3,7 +3,7 @@ Weatherscan simulation in HTML/JS/CSS
 Remade with Openweathermaps api
 
 ## Running locally
-1. Create OpenWeatherMaps (https://openweathermap.org/api) and Mapbox (https://mapbox.com) API keys.
+1. Create OpenWeatherMaps (https://home.openweathermap.org/api_keys) and Mapbox (https://account.mapbox.com/) API keys.
 2. Go to `webroot/js/groupull.js`, search for and replace `putapikeyhere` with your OpenWeatherMaps API key.
 3. Go to `webroot/js/location.js`, search for and replace `putapikeyhere` with your OpenWeatherMapsApi key.
 4. Go to `webroot/js/radar.js`, search for and replace `putapikeyhere` with your Mapbox API key.
