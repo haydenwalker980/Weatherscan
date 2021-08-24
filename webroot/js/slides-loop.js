@@ -5,7 +5,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 */
 
 	// load slide data
-	function Slides(dataMan) { [
+	function Slides(dataMan) {
 		severemode = false;
 		var radarSlideDuration = 60000,
 			slideDelay = 10000;
