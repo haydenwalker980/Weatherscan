@@ -2,7 +2,7 @@
   "name": "weatherscan",
   "description": "weatherscan wmulator",
   "scripts": {
-    "start": "live-server ./webroot"
+    "start": "https-server ./webroot"
   },
   "repository": {
     "type": "git",
