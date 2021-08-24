@@ -42,15 +42,15 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 		// weatherscan green cj8owq50n926g2smvagdxg9t8
 		// mapbox://styles/goldbblazez/ckgc7fwvr4qmn19pevtvhyabl
 	//	https://api.mapbox.com/styles/v1/goldbblazez/ckgc8lzdz4lzh19qt7q9wbbr9.html?fresh=true&title=copy&access_token=pk.eyJ1IjoiZ29sZGJibGF6ZXoiLCJhIjoiY2tiZTRnb2Q2MGkxajJwbzV2bWd5dXI5MyJ9.jU-2DqGCBI14K-acyN9RCw
-		L.tileLayer('https://api.mapbox.com/styles/v1/goldbblazez/ckgc8lzdz4lzh19qt7q9wbbr9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ29sZGJibGF6ZXoiLCJhIjoiY2ttbTRyYjlsMGMwdDJvbnh6ZDd3b3l4ZyJ9.AcR8BHOrQGjoISQfC-dNFw', {
+		L.tileLayer('https://api.mapbox.com/styles/v1/goldbblazez/ckgc8lzdz4lzh19qt7q9wbbr9/tiles/{z}/{x}/{y}?access_token=' + process.env.MAP_API_KEY, {
 			tileSize: 512,
 			zoomOffset: -1
 		}).addTo(map);
 
-		$.getJSON("https://api.weather.com/v3/TileServer/series/productSet/PPAcore?filter=radar&apiKey=e1f10a1e78da46f5b10a1e78da96f525", function(data) {
+		$.getJSON("https://api.weather.com/v3/TileServer/series/productSet/PPAcore?filter=radar&apiKey=" + process.env.API_KEY, function(data) {
 			for (var i = 0; i < data.seriesInfo.radar.series.length; i++) {
 				timeLayers.push(
-					L.tileLayer("https://api.weather.com/v3/TileServer/tile/radar?ts="+ data.seriesInfo.radar.series[i].ts +"&xyz={x}:{y}:{z}&apiKey=e1f10a1e78da46f5b10a1e78da96f525", {
+					L.tileLayer("https://api.weather.com/v3/TileServer/tile/radar?ts="+ data.seriesInfo.radar.series[i].ts +"&xyz={x}:{y}:{z}&apiKey=" + process.env.API_KEY, {
 						opacity: 0
 				}))
 			}

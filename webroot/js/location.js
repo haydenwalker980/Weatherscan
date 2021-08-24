@@ -51,7 +51,7 @@ function Location() { // onReady, onRefresh, onAllComplete
 		//old var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + loclat + '&lon=' + loclong + '&appid=0cb279a98124446dd16dba02fbfb60ee&units=imperial'
 		https://api.weather.com/v3/aggcommon/v3-wx-observations-current;v3-location-point?geocode=33.74,-84.39&language=en-US&units=e&format=json&apiKey=yourApiKey
 
-		var url = 'https://api.weather.com/v3/aggcommon/v3-wx-observations-current;v3-location-point?geocode=' + loclat + ',' + loclong + '&language=en-US&units=e&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+		var url = 'https://api.weather.com/v3/aggcommon/v3-wx-observations-current;v3-location-point?geocode=' + loclat + ',' + loclong + '&language=en-US&units=e&format=json&apiKey=' + process.env.API_KEY
 
 		// ajax the latest observation
 		$.getJSON(url, function(data) {
@@ -123,25 +123,25 @@ function Forecast(type, lat, lon, readyCallback) {
 	var that = this;
 	var url;
 		if (type == 'hourly') {
-			url = 'https://api.weather.com/v3/wx/forecast/hourly/2day?geocode=' + lat + ',' + lon + "&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v3/wx/forecast/hourly/2day?geocode=' + lat + ',' + lon + "&format=json&units=e&language=en-US&apiKey=" + process.env.API_KEY
 		} else if (type == 'daily') {
-			url = 'https://api.weather.com/v3/wx/forecast/daily/5day?geocode=' + lat + ',' + lon + "&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v3/wx/forecast/daily/5day?geocode=' + lat + ',' + lon + "&format=json&units=e&language=en-US&apiKey=" + process.env.API_KEY
 		} else if (type == 'alert') {
-			url = 'https://api.weather.com/v3/alerts/headlines?geocode=' + lat + ',' + lon + "&format=json&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v3/alerts/headlines?geocode=' + lat + ',' + lon + "&format=json&language=en-US&apiKey=" + process.env.API_KEY
 		} else if (type == 'almanac') {
-			url = 'https://api.weather.com/v3/wx/almanac/daily/1day?geocode=' + lat + ',' + lon + "&format=json&units=e" + "&day=" + dateFns.format(new Date(), "D") + "&month=" + dateFns.format(new Date(),"M") + "&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v3/wx/almanac/daily/1day?geocode=' + lat + ',' + lon + "&format=json&units=e" + "&day=" + dateFns.format(new Date(), "D") + "&month=" + dateFns.format(new Date(),"M") + "&apiKey=" + process.env.API_KEY
 		} else if (type == 'pollen') {
-			url = 'https://api.weather.com/v1/geocode/'+ lat + '/' + lon + '/observations/pollen.json?language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+			url = 'https://api.weather.com/v1/geocode/'+ lat + '/' + lon + '/observations/pollen.json?language=en-US&apiKey=' + process.env.API_KEY
 		} else if (type == 'achesindex') {
-			url = 'https://api.weather.com/v2/indices/achePain/daypart/3day?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v2/indices/achePain/daypart/3day?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=" + process.env.API_KEY
 		} else if (type == 'breathindex') {
-			url = 'https://api.weather.com/v2/indices/breathing/daypart/3day?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v2/indices/breathing/daypart/3day?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=" + process.env.API_KEY
 		} else if (type == 'airquality') {
-			url = 'https://api.weather.com/v3/wx/globalAirQuality?geocode=' + lat + ',' + lon + "&language=en-US&scale=EPA&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v3/wx/globalAirQuality?geocode=' + lat + ',' + lon + "&language=en-US&scale=EPA&format=json&apiKey=" + process.env.API_KEY
 		} else if (type == 'forecastuvindex') {
-			url = 'https://api.weather.com/v2/indices/uv/hourly/48hour?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v2/indices/uv/hourly/48hour?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=" + process.env.API_KEY
 		}else if (type == 'uvindex') {
-			url = 'https://api.weather.com/v2/indices/uv/current?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+			url = 'https://api.weather.com/v2/indices/uv/current?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=" + process.env.API_KEY
 		}
 
 	this.data = {};

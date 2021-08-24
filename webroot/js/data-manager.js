@@ -41,7 +41,7 @@ function DataManager(pointSearch){
 		_locations[0].initForecasts();
 
 		// get a list of observation stations info //https://api.weather.com/v3/location/near?geocode=33.74,-84.39&product=observation&format=json&apiKey=yourApiKey
-		$.getJSON('https://api.weather.com/v3/location/near?geocode=' + lat + ',' + lon + '&product=observation&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525', function(data) {
+		$.getJSON('https://api.weather.com/v3/location/near?geocode=' + lat + ',' + lon + '&product=observation&format=json&apiKey=' + process.env.API_KEY, function(data) {
 
 			var feature, geo, station, dist;
 			for (var i=0; i < data.location.stationName.length || i <= 3; i++) {

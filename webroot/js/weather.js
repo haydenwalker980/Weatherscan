@@ -52,7 +52,7 @@ function WeatherManager() {
 		var queryString = window.location.search;
 
 		if (queryString) {
-			$.getJSON("https://api.weather.com/v3/location/search?query="+queryString.split("?")[1]+"&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525", function(data) {
+			$.getJSON("https://api.weather.com/v3/location/search?query="+queryString.split("?")[1]+"&language=en-US&format=json&apiKey=" + process.env.API_KEY, function(data) {
 				dataMan = createDataManager( data.location.latitude[0]+','+data.location.longitude[0] );
 				mainloc = data.location.city[0]
 			});

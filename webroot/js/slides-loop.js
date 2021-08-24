@@ -47,7 +47,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				$('.marqueeheadersevere').css("text-shadow","2px 2px 4px #000")
 				var severeidx = 0;
 				function switchSevereMarquee() {
-				$.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ foreDataAlert.alerts[sret[severeidx]].detailKey +'&format=json&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525', function(data) {
+				$.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ foreDataAlert.alerts[sret[severeidx]].detailKey +'&format=json&language=en-US&apiKey=' + process.env.API_KEY, function(data) {
 					$('.marqueeheadersevere').text((foreDataAlert.alerts[sret[severeidx]].eventDescription + ((foreDataAlert.alerts[sret[severeidx]].messageType == " Update") ? 'UPDATE' : (foreDataAlert.alerts[sret[severeidx]].messageType == "Cancel") ? " CANCELLATION" : "")).toUpperCase());
 					$('#arrow-img').fadeOut(0)
 					$('#marqueeSevere').fadeIn(0)
@@ -65,7 +65,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			switchSevereMarquee()
 			} else {
 			var warningdata;
-				$.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ foreDataAlert.alerts[ret[0]].detailKey +'&format=json&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525', function(data) {
+				$.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ foreDataAlert.alerts[ret[0]].detailKey +'&format=json&language=en-US&apiKey=' + process.env.API_KEY, function(data) {
 					$('.marqueeheadersevere').text((foreDataAlert.alerts[ret[0]].eventDescription + ((foreDataAlert.alerts[ret[0]].messageType == " Update") ? 'UPDATE' : (foreDataAlert.alerts[ret[0]].messageType == "Cancel") ? " CANCELLATION" : "")).toUpperCase());
 					if (foreDataAlert.alerts[ret[0]].significance == "Y" || foreDataAlert.alerts[ret[0]].significance == "S") {
 						$('#marqueeSevere').css('background','linear-gradient(to right, #853302 0, #a84503 100%)')
