@@ -9,7 +9,7 @@ function Location() { // onReady, onRefresh, onAllComplete
 		if (_observations[1]!=null && _observations[1].temperature.value) {
 			return C2F(_observations[1].temperature.value);
 		} else {
-			return Math.round( _observations[0].current.temp );
+			return Math.round( _observations[0].temperature );
 		}
 	}
 
@@ -26,15 +26,12 @@ function Location() { // onReady, onRefresh, onAllComplete
 	this.initForecasts = function() {
 		// start the forecast data pull
 		if (_observations[0] != undefined){
-		_forecastmgr = new ForecastManager(_observations[0].lat, _observations[0].lon, function() {
+		_forecastmgr = new ForecastManager(_observations[0].latitude, _observations[0].longitude, function() {
 			$this.trigger('ready');
 		});
 	}
 	};
 
-	this.initNWSObservations = function(){
-		stationObservations();
-	};
 
 
 	// check to see if data needs to be refreshed
@@ -51,24 +48,28 @@ function Location() { // onReady, onRefresh, onAllComplete
 		if (location != undefined) {
 		var loclat = location.split(",")[0]
 		var loclong = location.split(",")[1]
-		var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + loclat + '&lon=' + loclong + '&appid=putkeyhere&units=imperial'
+		//old var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + loclat + '&lon=' + loclong + '&appid=0cb279a98124446dd16dba02fbfb60ee&units=imperial'
+		https://api.weather.com/v3/aggcommon/v3-wx-observations-current;v3-location-point?geocode=33.74,-84.39&language=en-US&units=e&format=json&apiKey=yourApiKey
 
+		var url = 'https://api.weather.com/v3/aggcommon/v3-wx-observations-current;v3-location-point?geocode=' + loclat + ',' + loclong + '&language=en-US&units=e&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
 
 		// ajax the latest observation
 		$.getJSON(url, function(data) {
-			_observations[0] = json = data;
-
+			_observations[0] = json = data['v3-wx-observations-current'];
+			_observations[0].latitude = loclat;
+			_observations[0].longitude = loclong;
+			_observations[0].cityname = data['v3-location-point'].location.city;
 			$this.trigger('refresh');
 
 			 // the following block only runs on init
 			if (that.woeid===undefined) {
 
-			that.woeid = loclat
+			that.woeid = loclat;
 
-			that.lat = data.lat
-			that.long = data.lon;
+			that.lat = loclat;
+			that.long = loclong;
 
-			//that.city = data.query.results.channel.location.city;
+			that.city = data['v3-location-point'].location.city;
 
 			$this.trigger('init');
 
@@ -79,42 +80,20 @@ function Location() { // onReady, onRefresh, onAllComplete
 			setTimeout(checkRefresh, getRandom(5000, 10000));
 
 		});
-		$.getJSON('http://api.openweathermap.org/geo/1.0/reverse?lat=' + loclat + '&lon=' + loclong + '&limit=1&appid=0cb279a98124446dd16dba02fbfb60ee', function(sloc) {
-			that.city = (sloc[0].name);
-		});
 
 }
 
 }
 
 	// pull observations from the location observation station
-	function stationObservations() {
 
-		var url = that.stationUrl + '/observations/current';
-
-		// check the expiration
-		if ( _observations[1]!=undefined && dateFns.isFuture( _observations[1].xdate ) ) {
-			setTimeout(checkRefresh, getRandom(5000, 10000));
-			return;
-		}
-
-		// ajax the current conditions
-		$.getJSON(url, function(data) {
-			_observations[1] = data.properties;
-
-			// set the expiration date/time
-			_observations[1].xdate = dateFns.addMinutes(data.properties.timestamp, 60);
-			setTimeout(stationObservations, getRandom(5000, 10000));
-
-		});
-	}
 
 
 
 
 function ForecastManager (latitude, longitude, readyCallback) {
 	var _forecasts = {},
-		keys =['daily','hourly'],
+		keys =['alert','daily','hourly','almanac','pollen','achesindex','breathindex','airquality','forecastuvindex', 'uvindex'],
 		key,
 		readycount = 0;
 
@@ -141,8 +120,29 @@ function ForecastManager (latitude, longitude, readyCallback) {
 
 function Forecast(type, lat, lon, readyCallback) {
 
-	var that = this,
-		url = 'https://api.weather.gov/points/' + lat + ',' + lon + "/forecast/" + (type==='hourly' ? type : '');
+	var that = this;
+	var url;
+		if (type == 'hourly') {
+			url = 'https://api.weather.com/v3/wx/forecast/hourly/2day?geocode=' + lat + ',' + lon + "&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'daily') {
+			url = 'https://api.weather.com/v3/wx/forecast/daily/5day?geocode=' + lat + ',' + lon + "&format=json&units=e&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'alert') {
+			url = 'https://api.weather.com/v3/alerts/headlines?geocode=' + lat + ',' + lon + "&format=json&language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'almanac') {
+			url = 'https://api.weather.com/v3/wx/almanac/daily/1day?geocode=' + lat + ',' + lon + "&format=json&units=e" + "&day=" + dateFns.format(new Date(), "D") + "&month=" + dateFns.format(new Date(),"M") + "&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'pollen') {
+			url = 'https://api.weather.com/v1/geocode/'+ lat + '/' + lon + '/observations/pollen.json?language=en-US&apiKey=e1f10a1e78da46f5b10a1e78da96f525'
+		} else if (type == 'achesindex') {
+			url = 'https://api.weather.com/v2/indices/achePain/daypart/3day?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'breathindex') {
+			url = 'https://api.weather.com/v2/indices/breathing/daypart/3day?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'airquality') {
+			url = 'https://api.weather.com/v3/wx/globalAirQuality?geocode=' + lat + ',' + lon + "&language=en-US&scale=EPA&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		} else if (type == 'forecastuvindex') {
+			url = 'https://api.weather.com/v2/indices/uv/hourly/48hour?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		}else if (type == 'uvindex') {
+			url = 'https://api.weather.com/v2/indices/uv/current?geocode=' + lat + ',' + lon + "&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525"
+		}
 
 	this.data = {};
 
@@ -159,20 +159,17 @@ function Forecast(type, lat, lon, readyCallback) {
 		// ajax the forecast
 		$.getJSON(url, function(data) {
 
-			that.data = data.properties.periods;
+			that.data = data
 
 			// trigger ready callback on first data pull
+
+			// set the expiration date/time
+		})
+		.always(function() {
 			if (readyCallback){
 				readyCallback();
 			}
-
-			// set the expiration date/time
-			that.data.xdate = dateFns.addMinutes(data.properties.updated, 60);
-			that.data.xdate = dateFns.addMinutes(new Date(), 5);
-			setTimeout(checkRefresh, getRandom(5000, 10000));
-
-		});
-
+		 });
     }
 
 }

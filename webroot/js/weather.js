@@ -3,14 +3,13 @@ function WeatherManager() {
 
 	var mainloc
 	var mainMap, miniMap, slides,
-		dataMan, loops, // weatherAudio,
+		dataMan, loops, //weatherAudio,
 		that = this;
 
 	$(function(){
 
 		// init marquees
 		function refreshMarquee () {
-
 			$('#marquee-container')
 				.marquee('destroy')
 				.marquee({speed: 200, pauseOnHover:true, delayBeforeStart:3000})
@@ -53,7 +52,10 @@ function WeatherManager() {
 		var queryString = window.location.search;
 
 		if (queryString) {
-			dataMan = createDataManager( queryString.split("?")[1] );
+			$.getJSON("https://api.weather.com/v3/location/search?query="+queryString.split("?")[1]+"&language=en-US&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525", function(data) {
+				dataMan = createDataManager( data.location.latitude[0]+','+data.location.longitude[0] );
+				mainloc = data.location.city[0]
+			});
 		} else {
 
 			// get lat lon from user's ip
@@ -89,19 +91,17 @@ function WeatherManager() {
 
 	function refreshObservationDisplay() {
 		var data = dataMan.locations[0].observations(0),
-			cond = data.current.weather[0];
+			cond = data.wxPhraseLong;
 
 		if (mainMap===undefined) {
-			mainMap = that.mainMap = new Radar("radar-1", 3, 8, data.lat, data.lon, false);
-			miniMap = new Radar("minimap", 3, 5, data.lat, data.lon);
+			mainMap = that.mainMap = new Radar("radar-1", 3, 8, data.latitude, data.longitude, false);
+			miniMap = new Radar("minimap", 3, 6, data.latitude, data.longitude);
 		}
 
 		$('#city').text(mainloc);
 		$('#forecast-city').text(mainloc + ':');
 		$('#current-temp').text( dataMan.locations[0].temperature() ) ;
-		$('#conditions-icon').css('background-image', 'url("' + getCCicon(cond.id + cond.icon) + '")');
-
-		//weatherAudio.playCurrentConditions(cond);
+		$('#conditions-icon').css('background-image', 'url("' + getCCicon(+data.iconCode, data.windSpeed) + '")');
 
 	}
 

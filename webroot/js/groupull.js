@@ -37,7 +37,7 @@ function GroupDataManager() {
 
 
 			// woeid is the id for the location to pull data for
-			var url = 'https://api.openweathermap.org/data/2.5/weather?q='+ location.name + '&appid=putapikeyhere&units=imperial'
+			var url = 'https://api.openweathermap.org/data/2.5/weather?q='+ location.name + '&appid=0cb279a98124446dd16dba02fbfb60ee&units=imperial'
 
 			pullData(url, location);
 
@@ -60,7 +60,7 @@ function GroupDataManager() {
 			}
 
 			// display the current info
-			$span.text(location.name + ': ' + Math.round(parseInt(location.data.main.temp)) + ' ' + location.data.weather[0].description.toLowerCase());
+			$span.text(location.name + ': ' + Math.round(parseInt(location.data.main.temp)) + ' ' + (getCC(location.data.weather[0].id + location.data.weather[0].icon, location.data.wind.speed)).toLowerCase());
 
 
 			// set the expiration date/time

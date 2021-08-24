@@ -1,4 +1,4 @@
-
+var severemode
 function Loops(bindDataManager) {
 	var //dataManager,
 		obsData,
@@ -17,45 +17,59 @@ function Loops(bindDataManager) {
 	function displayAtmospheric(idx) {
 
 		var displays = {
+			conditions() {
+				return (obsData(0).wxPhraseLong).toLowerCase();
+			},
 
-				conditions() {
-					return (getCC(obsData(0).current.weather[0].id + obsData(0).current.weather[0].icon, obsData(0).current.wind_speed)).toLowerCase();
-				},
-
-				wind(){ return 'wind ' + degToCompass(obsData(0).current.wind_deg) + ' ' + Math.round(parseInt(obsData(0).current.wind_speed)); },
+				wind(){ return 'wind ' + ((obsData(0).windDirectionCardinal == "CALM") ? 'calm' :  obsData(0).windDirectionCardinal) + ' ' + ((obsData(0).windSpeed === 0) ? '' : obsData(0).windSpeed); },
 
 				gusts(){
 					if ( obsData(1)!=undefined ) {
-						return obsData(1).windGust.value!=null ? 'gusts ' + mps2mph( obsData(1).windGust.value ) : '';
+						return obsData(1).windGust.value!=null ? 'gusts ' +  obsData(1).windGust.value : '';
 					}
 				},
 
-				humidity(){ return 'humidity ' + obsData(0).current.humidity + '%'; },
+				humidity(){ return 'humidity ' + obsData(0).relativeHumidity + '%'; },
 
-				dewpoint(){ return 'dew point ' + dewPoint(obsData(0).current.temp, obsData(0).current.humidity ) + '&deg;'; },
+				dewpoint(){ return 'dew point ' + obsData(0).temperatureDewPoint + '&deg;'; },
 
 				heatindex_windchill(){
-					var windchill =	35.74 + (0.6215 * parseInt(obsData(0).current.temp)) + (0.4275 * parseInt(obsData(0).current.temp) - 35.75)  *  parseInt(obsData(0).current.wind_speed) ^ 0.16;
-					if (parseInt(obsData(0).current.temp)<80 && windchill < parseInt(obsData(0).current.temp)) {
+					var windchill =	Math.round(35.74 + 0.6215 * parseInt(obsData(0).temperature) - 35.75 * Math.pow(parseInt(obsData(0).windSpeed),0.16) + 0.4275 * parseInt(obsData(0).temperature) * Math.pow(parseInt(obsData(0).windSpeed),0.16) -1);
+					if (parseInt(obsData(0).temperature)<80 && windchill < parseInt(obsData(0).temperature)) {
 
 						return 'wind chill ' + windchill + '&deg;';
-					} else if (parseInt(obsData(0).current.temp)>=80 && parseInt(obsData(0).current.humidity)>=40 ){
-						return 'heat index ' + heatIndex(obsData(0).current.temp, obsData(0).current.humidity) + '&deg;';
+					} else if (parseInt(obsData(0).temperature)>=80 && parseInt(obsData(0).relativeHumidity)>=40 ){
+						return 'heat index ' + heatIndex(obsData(0).temperature, obsData(0).relativeHumidity) + '&deg;';
 					}
 					else return '';
 				},
 
-				pressure(){ return 'pressure ' + (obsData(0).current.pressure*0.0295301).toFixed(2) },
+				pressure(){ return 'pressure ' + obsData(0).pressureAltimeter },
 //+ ['S','R','F'][obsData(0).current.rising];
-				visibility() { return 'visibility ' + (parseInt(obsData(0).current.visibility) / 1000) + ' mile' + (obsData(0).current.visibility != 1 ? 's' : ''); },
+				visibility() { return 'visibility ' + obsData(0).visibility + ' mile' + (obsData(0).visibility != 1 ? 's' : ''); },
 
-				uvindex() { return 'UV index ' + obsData(0).current.uvi; },
+				uvindex() { return 'UV index ' + obsData(0).uvDescription; },
 
 		},
 		keys = Object.keys(displays),
 		text = displays[ keys[idx] ]();
 
 		// increment the pointer
+		if (severemode == true) {
+			var si = 0;
+			function resetInfo() {
+				if (si == 0) {
+					stext = (obsData(0).wxPhraseLong).toLowerCase() + '<br><br>' + 'wind ' + ((obsData(0).windDirectionCardinal == "CALM") ? 'calm' :  obsData(0).windDirectionCardinal) + ' ' + ((obsData(0).windSpeed === 0) ? '' : obsData(0).windSpeed) + '<br>' + 'humidity ' + obsData(0).relativeHumidity + '%' + '<br>' + 'dew point ' + obsData(0).temperatureDewPoint + '&deg;'
+					$('#current-info').html(stext);
+					si = 1;
+				} else {
+				$('#current-info').html((obsData(0).wxPhraseLong).toLowerCase() + '<br><br>' + 'pressure ' + obsData(0).pressureAltimeter + '<br>' + 'visibility ' + obsData(0).visibility + ((obsData(0).visibility != 1 ) ? 'miles' : 'mile') + '<br>' + 'ceiling' + ((obsData(0).cloudCeiling != null) ? ((obsData(0).cloudCeiling).toString() + 'ft') : ''));
+				si = 0;
+			}
+				setTimeout(function(){resetInfo()}, 6000);
+			}
+			resetInfo()
+		} else {
 		idx = (++idx===keys.length ? 0 : idx);
 
 		if (text) {
@@ -65,7 +79,7 @@ function Loops(bindDataManager) {
 			// nothing to display - skip to the next one
 			setTimeout(function(){ displayAtmospheric(idx) }, 0);
 		}
-
+	}
 	}  // end function
 
 
@@ -74,36 +88,45 @@ function Loops(bindDataManager) {
 		var displays = {
 
 				text1() {
-					$('#forecast-title').text( possessiveForecast(foreDataDaily[0].name) );
-					resizeText(foreDataDaily[0].detailedForecast);
+					if (foreDataDaily.daypart[0].daypartName[0] != null) {
+					$('#forecast-title').text(foreDataDaily.daypart[0].daypartName[0] + "'S" + " FORECAST");
+					resizeText(foreDataDaily.daypart[0].narrative[0] + ((foreDataDaily.daypart[0].qualifierPhrase[0] != null && foreDataDaily.daypart[0].narrative[0].includes(foreDataDaily.daypart[0].qualifierPhrase[0]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[0] : '') + ((foreDataDaily.daypart[0].windPhrase[0] != null && foreDataDaily.daypart[0].narrative[0].includes(foreDataDaily.daypart[0].windPhrase[0]) === false) ? foreDataDaily.daypart[0].windPhrase[0] : ''));
+				} else {
+					$('#forecast-title').text(foreDataDaily.daypart[0].daypartName[1] + "'S" + " FORECAST");
+					resizeText(foreDataDaily.daypart[0].narrative[1] + ((foreDataDaily.daypart[0].qualifierPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].qualifierPhrase[1]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[1] : '') + ((foreDataDaily.daypart[0].windPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].windPhrase[1]) === false) ? foreDataDaily.daypart[0].windPhrase[1] : ''));
+				}
 				},
 				text2() {
-					$('#forecast-title').text( possessiveForecast(foreDataDaily[1].name) );
-					resizeText(foreDataDaily[1].detailedForecast);
+					if (foreDataDaily.daypart[0].daypartName[0] != null) {
+					$('#forecast-title').text( foreDataDaily.daypart[0].daypartName[1] + "'S" + " FORECAST" );
+					resizeText(foreDataDaily.daypart[0].narrative[1] + ((foreDataDaily.daypart[0].qualifierPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].qualifierPhrase[1]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[1] : '') + ((foreDataDaily.daypart[0].windPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].windPhrase[1]) === false) ? foreDataDaily.daypart[0].windPhrase[1] : ''));
+				} else {
+					$('#forecast-title').text(foreDataDaily.dayOfWeek[1] + "'S" + " FORECAST");
+					resizeText(foreDataDaily.daypart[0].narrative[2] + ((foreDataDaily.daypart[0].qualifierPhrase[2] != null && foreDataDaily.daypart[0].narrative[2].includes(foreDataDaily.daypart[0].qualifierPhrase[2]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[2] : '') + ((foreDataDaily.daypart[0].windPhrase[2] != null && foreDataDaily.daypart[0].narrative[2].includes(foreDataDaily.daypart[0].windPhrase[2]) === false) ? foreDataDaily.daypart[0].windPhrase[2] : ''));
+				}
 				},
 
 			    fiveday() {
 					var newtile, weekend, icons,
-						startidx = (foreDataDaily[0].name==='Tonight' ? 1 : 2),
-						days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+						startidx = (foreDataDaily.daypart[0].daypartName[0] != null ? 0 : 2);
 
 					$('#forecast-title').text("5 DAY FORECAST");
 					$('#forecast-tiles').empty();
 
-					for (var i=startidx; i<=10; i+=2 ) {
+					for (var i=startidx; i<=(startidx + 8); i+=2 ) {
 
-						weekend = ( dateFns.isWeekend(foreDataDaily[i].startTime) ? ' weekend' : '');
+						weekend = ( dateFns.isWeekend(foreDataDaily.validTimeLocal[i/2]) ? ' weekend' : '');
 						newtile = $("<div class='forecast-tile daily" + weekend + "'></div>");
 
-						$("<div class='header'></div>") .appendTo(newtile) .text(days[ dateFns.getDay(foreDataDaily[i].startTime) ]);
+						$("<div class='header'></div>") .appendTo(newtile) .text((foreDataDaily.dayOfWeek[i/2]).substring(0,3));
 
-						icons = mapNWSicons(foreDataDaily[i].icon);
-						for (x=icons.length-1; x>=0; x--){
-							$("<img class='icon' src=''/>") .appendTo(newtile) .attr('src', icons[x]);
-						}
+						icons = getCCicon(+foreDataDaily.daypart[0].iconCode[i], foreDataDaily.daypart[0].windSpeed[i]);
 
-						$("<div class='high'></div>") .appendTo(newtile) .text(foreDataDaily[i].temperature);
-						$("<div class='low'></div>")  .appendTo(newtile) .text(foreDataDaily[i+1].temperature);
+							$("<img class='icon' src=''/>") .appendTo(newtile) .attr('src', icons);
+
+
+						$("<div class='high'></div>") .appendTo(newtile) .text(foreDataDaily.temperatureMax[i/2]);
+						$("<div class='low'></div>")  .appendTo(newtile) .text(foreDataDaily.temperatureMin[i/2]);
 
 						$('#forecast-tiles').append(newtile);
 					}
@@ -116,26 +139,26 @@ function Loops(bindDataManager) {
 					    indexes = calcHourlyReport(foreDataHourly),
 						data, label, temps=[];
 
-					$('#forecast-title').text( buildHourlyHeaderTitle(foreDataHourly[indexes[0]].startTime) );
+					$('#forecast-title').text( buildHourlyHeaderTitle(foreDataHourly.validTimeLocal[indexes[0]]) );
 					$('#forecast-tiles').empty();
 
 					for (var i of indexes) {
-						data = foreDataHourly[i];
+						data = foreDataHourly;
 
 						newtile = $("<div class='forecast-tile hourly'></div>");
 						sizer   = $("<div class='width-sizer'></div>").appendTo(newtile);
 
-						icons = mapNWSicons(data.icon);
-						for (var x=icons.length-1; x>=0; x--){
-							$("<img class='icon' src=''/>") .appendTo(sizer) .attr('src', icons[x]);
-						}
+						icons = getCCicon(data.iconCode[i], data.windSpeed[i]);
 
-						$("<div class='footer'></div>") .appendTo(newtile) .text(buildHourlyTimeTitle(data.startTime));
+							$("<img class='icon' src=''/>") .appendTo(sizer) .attr('src', icons);
+
+
+						$("<div class='footer'></div>") .appendTo(newtile) .text(buildHourlyTimeTitle(data.validTimeLocal[i]));
 
 						highbar = $("<div class='hourly-high'></div>") .appendTo(sizer);
 
-						$("<div class='high'></div>") .appendTo(highbar) .text(data.temperature);
-						temps.push(data.temperature);
+						$("<div class='high'></div>") .appendTo(highbar) .text(data.temperature[i]);
+						temps.push(data.temperature[i]);
 
 						$("<div class='temp-bar'></div>") .appendTo(highbar);
 
@@ -188,9 +211,7 @@ function Loops(bindDataManager) {
 		//},100);  // delay is a workaround for Interstate font not updating display
 	}
 
-	function possessiveForecast(text){
-		return text + (text.toUpperCase() != 'OVERNIGHT' ? "'S" : '') + ' FORECAST';
-	}
+
 
 
 } // end Loops class
@@ -272,8 +293,8 @@ function calcHourlyReport(data) {
 	while(ret.length<4){
 
 		// hour must be equal or greater than current
-		hour = dateFns.getHours( data[i].startTime );
-		if ( dateFns.isAfter(data[i].startTime, now) && (hour==start || ret.length>0) )  {
+		hour = dateFns.getHours( data.validTimeLocal[i] );
+		if ( dateFns.isAfter(data.validTimeLocal[i], now) && (hour==start || ret.length>0) )  {
 
 			if ( targets.indexOf(hour)>=0 ) { // it is in our target list so record its index
 				ret.push(i);

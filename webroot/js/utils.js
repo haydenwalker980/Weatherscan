@@ -90,24 +90,134 @@ function heatIndex(T, R) { // T = temp, R = relative humidity
 
 // maps current condition code to icon
 function getCCicon(ccCode, windData){
-	var icon = "images/icons/" + ( "0" +  {"20011d":1,"20011n":1,"20111d":1,"20111n":1,"20211d":1,"20211n":1,"21011d":46,"21011n":46,"21111d":46,"21111n":46,"21211d":46,"21211n":46,"22111d":1,"22111n":1,"23011d":1,"23011n":1,"23111d":1,"23111n":1,"23211d":1,"23211n":1,"30009d":5,"30009n":5,"30109d":5,"30109n":5,"30209d":5,"30209n":5,"31009d":5,"31009n":5,"31109d":5,"31109n":5,"31209d":5,"31209n":5,"31309d":5,"31309n":5,"31409d":5,"31409n":5,"32109d":5,"32109n":5,"50010d":7,"50010n":7,"50110d":8,"50110n":8,"50210d":31,"50210n":31,"50310d":31,"50310n":31,"50410d":31,"50410d":31,"51110d":6,"51110n":6,"52010d":7,"52010n":7,"52110d":8,"52110n":8,"52210d":31,"52210n":31,"53110d":29,"53110n":37,"60013d":10,"60013n":10,"60113d":12,"60113n":12,"60213d":33,"60213n":33,"61113d":13,"61113n":13,"61213d":13,"61213n":13,"61313d":13,"61313n":13,"61513d":2,"61513n":2,"61613d":2,"61613n":2,"62013d":10,"62013n":10,"62113d":12,"62113n":12,"62213d":33,"62213n":33,"70150d":15,"70150n":15,"71150d":14,"71150n":14,"72150d":16,"72150n":16,"73150d":16,"73150n":16,"74150d":15,"74150n":15,"75150d":16,"75150n":16,"76150d":14,"76150n":14,"76250d":14,"76250n":14,"77150d":18,"77150n":18,"78150d":1,"78150n":1,"80001d":26,"80001n":25,"80102d":28,"80102n":27,"80203d":22,"80203n":21,"80304d":24,"80304n":23,"80404d":20,"80404n":20}[ccCode]).slice(-2) + ".png";
+	var icon = "images/icons/" + ( "0" +  {"0":0,"1":0,"2":0,"3":47,"4":01,"5":02,"6":38,"7":03,"8":04,"9":05,"10":06,"11":08,"12":08,"13":09,"14":12,"15":11,"16":12,"17":48,"18":48,"19":16,"20":49,"21":16,"22":14,"23":0,"24":50,"25":34,"26":20,"27":21,"28":22,"29":23,"30":24,"31":25,"32":26,"33":27,"34":28,"35":13,"36":41,"37":29,"38":29,"39":30,"40":31,"41":32,"42":33,"43":34,"44":19,"45":35,"46":36,"47":37}[ccCode]).slice(-2) + ".png";
 	if (parseInt(windData) >= 20) {
-		if (ccCode === "50110d" || "50110n" || "52110d" || "52110d") {
+		if (ccCode === "11" || "12" || "40") {
 			icon = "images/icons/45.png"
 		}
-		if (ccCode === "60113d" || "60113n" || "62113d" || "62113n") {
+		if (ccCode === "14" || "16" || "42") {
 			icon = "images/icons/34.png"
 		}
 	}
 	return icon
 }
-function getCC(ccCode, windData){
-	var condition = {"20011d":"Light Thunderstorm","20011n":"Light Thunderstorm","20111d":"Thunderstorm","20111n":"Thunderstorm","20211d":"Heavy Thunderstorm","20211n":"Heavy Thunderstorm","21011d":"Thunder","21011n":"Thunder","21111d":"Thunder","21111n":"Thunder","21211d":"Thunder","21211n":"Thunder","22111d":"Scattered Thunderstorm","22111n":"Scattered Thunderstorm","23011d":"Light Thunderstorm","23011n":"Light Thunderstorm","23111d":"Light Thunderstorm","23111n":"Light Thunderstorm","23211d":"Light Thunderstorm","23211n":"Light Thunderstorm","30009d":"Drizzle","30009n":"Drizzle","30109d":"Drizzle","30109n":"Drizzle","30209d":"Drizzle","30209n":"Drizzle","31009d":"Drizzle","31009n":"Drizzle","31109d":"Drizzle","31109n":"Drizzle","31209d":"Drizzle","31209n":"Drizzle","31309d":"Drizzle","31309n":"Drizzle","31409d":"Drizzle","31409n":"Drizzle","32109d":"Drizzle","32109n":"Drizzle","50010d":"Light Rain","50010n":"Light Rain","50110d":"Rain","50110n":"Rain","50210d":"Heavy Rain","50210n":"Heavy Rain","50310d":"Heavy Rain","50310n":"Heavy Rain","50410d":"Heavy Rain","50410d":"Heavy Rain","51110d":"Freezing Rain","51110n":"Freezing Rain","52010d":"Light Rain Shower","52010n":"Light Rain Shower","52110d":"Rain Shower","52110n":"Rain Shower","52210d":"Heavy Rain Shower","52210n":"Heavy Rain Shower","53110d":"Scattered Rain Showers","53110n":"Scattered Rain Showers","60013d":"Light Snow","60013n":"Light snow","60113d":"Snow","60113n":"Snow","60213d":"Heavy Snow","60213n":"Heavy Snow","61113d":"Sleet","61113n":"Sleet","61213d":"Sleet","61213n":"Sleet","61313d":"Sleet","61313n":"Sleet","61513d":"Light Rain and Snow","61513n":"Light Rain and Snow","61613d":"Rain and Snow","61613n":"Rain and Snow","62013d":"Light Snow Shower","62013n":"Light Snow Shower","62113d":"Snow Shower","62113n":"Snow Shower","62213d":"Heavy Snow Shower","62213n":"Heavy Snow Shower","70150d":"Mist","70150n":"Mist","71150d":"Smoke","71150n":"Smoke","72150d":"Haze","72150n":"Haze","73150d":"Blowing Dust","73150n":"Blowing Dust","74150d":"Fog","74150n":"Fog","75150d":"Blowing Dust","75150n":"Blowing Dust","76150d":"Blowing Dust","76150n":"Blowing Dust","76250d":"Ash","76250n":"Ash","77150d":"Squalls","77150n":"Squalls","78150d":"Tornado","78150n":"Tornado","80001d":"Sunny","80001n":"Clear","80102d":"Fair","80102n":"Fair","80203d":"Partly Cloudy","80203n":"Partly Cloudy","80304d":"Mostly Cloudy","80304n":"Mostly Cloudy","80404d":"Cloudy","80404n":"Cloudy"}[ccCode]
-	if (parseInt(windData) >= 20) {
-		condition = condition + ", windy"
+function getWarningPosition(warning) {
+var warnpos = { "Tsunami Warning":	1,
+"Tornado Warning":	2,
+"Extreme Wind Warning":	3,
+"Severe Thunderstorm Warning":	4,
+"Flash Flood Warning":	5,
+"Flash Flood Statement":	6,
+"Severe Weather Statement":	7,
+"Fire Warning":	14,
+"Storm Surge Warning":	17,
+"Hurricane Force Wind Warning":	18,
+"Hurricane Warning":	19,
+"Typhoon Warning":	20,
+"Special Marine Warning":	21,
+"Blizzard Warning":	22,
+"Snow Squall Warning":	23,
+"Ice Storm Warning":	24,
+"Winter Storm Warning":	25,
+"High Wind Warning":	26,
+"Tropical Storm Warning":	27,
+"Storm Warning":	28,
+"Tsunami Advisory":	29,
+"Tsunami Watch":	30,
+"Avalanche Warning":	31,
+"Earthquake Warning":	32,
+"Volcano Warning":	33,
+"Ashfall Warning":	34,
+"Coastal Flood Warning":	35,
+"Lakeshore Flood Warning":	36,
+"Flood Warning":	37,
+"River Flood Warning":	37.5,
+"High Surf Warning":	38,
+"Dust Storm Warning":	39,
+"Blowing Dust Warning":	40,
+"Lake Effect Snow Warning":	41,
+"Excessive Heat Warning":	42,
+"Tornado Watch":	43,
+"Severe Thunderstorm Watch":	44,
+"Flash Flood Watch":	45,
+"Gale Warning":	46,
+"Flood Statement":	47,
+"Wind Chill Warning":	48,
+"Extreme Cold Warning":	49,
+"Hard Freeze Warning":	50,
+"Freeze Warning":	51,
+"Red Flag Warning":	52,
+"Storm Surge Watch":	53,
+"Hurricane Watch":	54,
+"Hurricane Force Wind Watch":	55,
+"Typhoon Watch":	56,
+"Tropical Storm Watch":	57,
+"Storm Watch":	58,
+"Hurricane Local Statement":	59,
+"Typhoon Local Statement":	60,
+"Tropical Storm Local Statement":	61,
+"Tropical Depression Local Statement":	62,
+"Avalanche Advisory":	63,
+"Winter Weather Advisory":	64,
+"Wind Chill Advisory":	65,
+"Heat Advisory":	66,
+"Urban and Small Stream Flood Advisory":	67,
+"Small Stream Flood Advisory":	68,
+"Arroyo and Small Stream Flood Advisory":	69,
+"Flood Advisory":	70,
+"Hydrologic Advisory":	71,
+"Lakeshore Flood Advisory":	72,
+"Coastal Flood Advisory":	73,
+"High Surf Advisory":	74,
+"Heavy Freezing Spray Warning":	75,
+"Dense Fog Advisory":	76,
+"Dense Smoke Advisory":	77,
+"Small Craft Advisory For Hazardous Seas":	78,
+"Small Craft Advisory for Rough Bar":	79,
+"Small Craft Advisory for Winds":	80,
+"Small Craft Advisory":	81,
+"Brisk Wind Advisory":	82,
+"Hazardous Seas Warning":	83,
+"Dust Advisory":	84,
+"Blowing Dust Advisory":	85,
+"Lake Wind Advisory":	86,
+"Wind Advisory":	87,
+"Frost Advisory":	88,
+"Ashfall Advisory":	89,
+"Freezing Fog Advisory":	90,
+"Freezing Spray Advisory":	91,
+"Low Water Advisory":	92,
+"Avalanche Watch":	94,
+"Blizzard Watch":	95,
+"Rip Current Statement":	96,
+"Beach Hazards Statement":	97,
+"Gale Watch":	98,
+"Winter Storm Watch":	99,
+"Hazardous Seas Watch":	100,
+"Heavy Freezing Spray Watch":	101,
+"Coastal Flood Watch":	102,
+"Lakeshore Flood Watch":	103,
+"Flood Watch":	104,
+"High Wind Watch":	105,
+"Excessive Heat Watch":	106,
+"Extreme Cold Watch":	107,
+"Wind Chill Watch":	108,
+"Lake Effect Snow Watch":	109,
+"Hard Freeze Watch":	110,
+"Freeze Watch":	111,
+"Fire Weather Watch":	112,
+"Extreme Fire Danger":	113,
+"Coastal Flood Statement":	115,
+"Lakeshore Flood Statement":	116,
+"Special Weather Statement":	117,
+"Marine Weather Statement":	118,
+"Air Quality Alert":	119,
+"Air Stagnation Advisory":	120,
+"Hazardous Weather Outlook":	121,
+}[warning]
+	if (warnpos !== undefined) {
+		return warnpos;
+	} else {
+		return 140;
 	}
-	return condition
-
-}
-
-// https://date-fns.org/docs/Getting-Started
+}// https://date-fns.org/docs/Getting-Started

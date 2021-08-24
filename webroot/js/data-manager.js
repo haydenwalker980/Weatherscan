@@ -1,8 +1,8 @@
 function DataManager(pointSearch){
 	var $this = $(this),
 		that = this,
-		excludeRadiusMiles=5;
-		includeRadiusMiles=50;
+		excludeRadiusMiles=10;
+		includeRadiusMiles=30;
 
 	var _locations = [];
 
@@ -33,25 +33,25 @@ function DataManager(pointSearch){
 
 		// find reporting stations
 		var observationData = _locations[0].observations(0),
-			lat = observationData.lat,
-			lon = observationData.lon,
+			lat = observationData.latitude,
+			lon = observationData.longitude,
 			locList = [];
 
 		// begin the forcast pull
 		_locations[0].initForecasts();
 
-		// get a list of observation stations info
-		$.getJSON('https://api.weather.gov/points/' + lat + ',' + lon + '/stations', function(data) {
+		// get a list of observation stations info //https://api.weather.com/v3/location/near?geocode=33.74,-84.39&product=observation&format=json&apiKey=yourApiKey
+		$.getJSON('https://api.weather.com/v3/location/near?geocode=' + lat + ',' + lon + '&product=observation&format=json&apiKey=e1f10a1e78da46f5b10a1e78da96f525', function(data) {
 
 			var feature, geo, station, dist;
-			for (var i=0; i < data.features.length; i++) {
-
-				feature = data.features[i];
-				geo = feature.geometry.coordinates;
-				dist = distance(lat, lon, geo[1], geo[0]);
+			for (var i=0; i < data.location.stationName.length || i <= 3; i++) {
+				feature = data.location;
+				latgeo = feature.latitude[i];
+				longeo = feature.longitude[i];
+				dist = feature.distanceMi[i];
 
 				if (dist < includeRadiusMiles && dist > excludeRadiusMiles) {
-					locList.push({lat: geo[1], long:geo[0], distance:dist, stationUrl:feature.id});
+					locList.push({lat: latgeo, long:longeo, distance:dist, stationUrl:feature.stationId[i]});
 				}
 			}
 
@@ -67,13 +67,12 @@ function DataManager(pointSearch){
 
 			// set the station for location 0
 			_locations[0].stationUrl = locList[0].stationUrl
-			_locations[0].initNWSObservations();
 
 			// create location objects, get inital pull
 			for(var loc of locList) {
 				loc.location = new Location();
 				$(loc.location).on('init',onLocationInit);
-				loc.location.init(loc.lat+','+loc.long);
+				loc.location.init(loc.lat+','+loc.long, loc.location.stationName);
 				loc.location.stationUrl = loc.stationUrl;
 			}
 
@@ -99,8 +98,7 @@ function DataManager(pointSearch){
 
 				if (_locations.filter(e => e.city == loc.location.city).length === 0) {
 				    _locations.push(loc.location);
-					loc.location.initForecasts();
-					loc.location.initNWSObservations();
+					//loc.location.initForecasts();
 				}
 
 			}

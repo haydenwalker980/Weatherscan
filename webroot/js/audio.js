@@ -6,49 +6,49 @@ function WeatherAudio() {
 		mobilePlaying = false;
 
 	(function() {
-		
+
 		$('body').append($players);
 
 		// start the music
 		buildMusicArray(musicarr);
-		shuffle(musicarr);	
+		shuffle(musicarr);
 
 		startPlaying(musicarr, true);
-				
+
 		function buildMusicArray(arr) {
 
 			var musicpath = "music/";
 
 			// insert track names
-			for (var i = 1; i<66; i++) {
+			for (var i = 32; i<66; i++) {
 				arr.push(musicpath + "Track " + String('0'+i).slice(-2) + '.mp3');
-			}	
+			}
 
-		}			
+		}
 
 	})();
 
-	
+
 	function startPlaying(arrPlayList, bLoop) {
-		
-	
+
+
 		// only allow one set of players to be created
 		var myclass = (bLoop ? 'music' : 'voice');
 		if ($players.find('.' + myclass).length>0) {return}
 
-		var current=-1, 
+		var current=-1,
 			len = arrPlayList.length,
-			$player = initPlayer('p1'), 
+			$player = initPlayer('p1'),
 			$preloader = initPlayer('p2'),
 			$myplayers = $players.find('.' + myclass);
 
 		// init the event to output ID3 track info if this is a music play
 		if (myclass=='music') {
-			$players.find('.music').bind($.jPlayer.event.play, 
+			$players.find('.music').bind($.jPlayer.event.play,
 				function() { // event.jPlayer.status.media
-				
-					if (that.playCallback) {				
-				
+
+					if (that.playCallback) {
+
 						var mp3url = $(this).data('jPlayer').status.src,
 							relativeUrl = mp3url.replace('%20',' ').slice(-arrPlayList[current].length);
 
@@ -62,27 +62,27 @@ function WeatherAudio() {
 						}
 					}
 				}
-			);			
+			);
 		} else {
 			// duck the music if we're going to play a vocal
 			$players.find('.music').jPlayer('volume', 0.30);
 		}
 
 		// prime the preloader
-		$preloader.jPlayer("setMedia", {mp3:arrPlayList[0]});	
+		$preloader.jPlayer("setMedia", {mp3:arrPlayList[0]});
 
-		playNext();	
+		playNext();
 
-	
+
 		function playNext() {
 
-			current = nextIndex();		
+			current = nextIndex();
 
 			if (nextIndex()===null) {
 				// nothing to preload so don't fire off a playNext after this play
 				$preloader.unbind($.jPlayer.event.ended);
-				$preloader.bind($.jPlayer.event.ended, 
-					function() { 
+				$preloader.bind($.jPlayer.event.ended,
+					function() {
 						$players.find('.music').jPlayer('volume', 0.80); // bring music volume back up
 						$player.remove();
 						$preloader.remove();
@@ -95,12 +95,12 @@ function WeatherAudio() {
 				// preload the next track
 				function doPreload(trackname) {
 					try {
-						$preloader.jPlayer("setMedia", {mp3:arrPlayList[nextIndex()]}).jPlayer("play").jPlayer("stop");	
+						$preloader.jPlayer("setMedia", {mp3:arrPlayList[nextIndex()]}).jPlayer("play").jPlayer("stop");
 					} catch(e) {
 						setTimeout( function() {doPreload(trackname)}, 500);
-					}				
+					}
 				}
-				doPreload( arrPlayList[nextIndex()] );			
+				doPreload( arrPlayList[nextIndex()] );
 
 			}
 
@@ -115,8 +115,8 @@ function WeatherAudio() {
 
 
 		}
-	
-		
+
+
 		function initPlayer(id){
 			var $div;
 			$div = $('<div id=' + id + ' class="jplayer ' + myclass + '">');
@@ -134,63 +134,57 @@ function WeatherAudio() {
 		function swapAndPlay() {
 			// who would think swapping two vars would be so hard?
 			var $temp1 = $player,
-				$temp2 = $preloader;		
+				$temp2 = $preloader;
 			$player = null; $preloader = null;
 			$player=$temp2; $preloader=$temp1;
 
-			$player.jPlayer("play");	
-			
+			$player.jPlayer("play");
+
 			$(document).mousedown( function() {
 				if (!mobilePlaying) {
 					$player.jPlayer("play");
 					mobilePlaying = true;
 				}
-			});			
+			});
 		}
-		
+
 
 
 	}
-		
-	
 
 
-	// click for debugging or whater you want	
+
+
+	// click for debugging or whater you want
 	$('body').on('click', function(){
 		//$player.jPlayer("playHead", 100);
 		//getWeatherbyLocation();
 	});
-	
-	
+
+
 	this.playCallback = {};
-	
-	
+
+
 	// plays the vocal current conditions announcement
-	this.playCurrentConditions = function (currentConditions) {
-		
-		var array2play = ['CC_INTRO' + (Math.floor(Math.random()*2)+1), currentConditions.temp.replace('-', 'M')],
-			condfile = mapCurrentConditions(currentConditions.code);
-
-		if (condfile) { array2play.push(condfile); }
-
-		$.each(array2play, function(i,v){
-			array2play[i] = '/localvocals/' + v + '.mp3';	
-		});
-
-		startPlaying(array2play, false);		
-		
-		function mapCurrentConditions(ccCode){
-			return "CC" +  {0:"422",1:"EF300",2:"EF300",3:"422",4:"400",5:"500",6:"600",7:"700",8:"800",9:"901",10:"1000",11:"1100",12:"2680",13:"1601",14:"1312",15:"1500",16:"1600",17:"1730",18:"1800",19:"1939",20:"2000",21:"2000",22:"2200",23:"2410",24:"2410",26:"2600",27:"2700",28:"2700",29:"2900",30:"2900",31:"3100",32:"3200",33:"3400",34:"3400",35:"1730",37:"429",38:"429",39:"429",40:"2680",41:"1402",42:"1312",43:"1402",44:"2900",45:"1100",46:"1312",47:"EF3900"}[ccCode];
-		}
-		
+	this.playCurrentConditions = function () {
+		startPlaying(['/localvocals/narrations/Your_current_conditions.mp3'], false);
 	}
-	
-	
+	this.playwarningbeep = function () {
+		startPlaying(['/localvocals/narrations/warningbeep.mp3'], false);
+	}
+
+
 	this.playLocalRadar = function() {
-		startPlaying(['/localvocals/RADAR.mp3'], false);	
+		startPlaying(['/localvocals/narrations/The_local_Doppler_radar.mp3'], false);
+	}
+	this.playLocalforecasti = function() {
+		startPlaying(['/localvocals/narrations/Your_local_forecast_1.mp3'], false);
+	}
+	this.playLocalforecastii = function() {
+		startPlaying(['/localvocals/narrations/Your_local_forecast_2.mp3'], false);
 	}
 
-	
+
 
 }
 var weatherAudio = new WeatherAudio();

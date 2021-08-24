@@ -58,6 +58,26 @@
 
 
       <!-- CURRENT CONDITIONS AND FORECAST-->
+      <div class="info-slide bulletin" style="display: none">
+        <div class="info-subheader">
+          <span id="subhead-titlei">WEATHER BULLETIN</span><span id="subhead-noaa" style="display:">FROM THE NATIONAL WEATHER SERVICE</span>
+        </div>
+        <div class='blue curve left'></div>
+        <div class='blue curve bottom'></div>
+        <div class='yellow curve left'></div>
+        <div class='yellow curve right'></div>
+        <div class='white curve right'></div>
+        <div class='white curve bottom'></div>
+        <div class='frost-pane' style="display:">
+          <div class='cityname'>Gainesville Area</div>
+          <div class='warnings'>Severe Thunderstorm Watch 720 in effect until 4:30 PM EST Tuesday.
+          </br>
+        </br>
+            Severe Thunderstorm Watch 720 in effect until 4:30 PM EST Tuesday.
+          </div>
+        </div>
+
+      </div>
       <div class="info-slide city-info-slide" style="display:none">
         <div class="info-subheader">
           <span id="subhead-titlei"></span><span id="subhead-city"></span>
@@ -69,6 +89,7 @@
         <div class='blue curve bottom'></div>
         <div class='yellow curve left'></div>
         <div class='yellow curve right'></div>
+        <div class='yellow curve right2'></div>
         <div class='white curve right'></div>
         <div class='white curve bottom'></div>
 
@@ -193,18 +214,457 @@
             <div class='templow'></div>
           </div>
         </div>
+
+        <div class='info-slide-content almanac' style="display:none">
+          <div class='frost-pane half'>
+            <div class='thing'>Jul 26</div>
+            <div class='averagetitle'>Average</div>
+            <div class='recordtitle'>Record</div>
+            <div class='ahigh'>High</div>
+            <div class='ahightext'>90</div>
+            <div class='alow'>Low</div>
+            <div class='alowtext'>70</div>
+            <div class='rhigh'>High</div>
+            <div class='rhightext'>98</div>
+            <div class='rlow'>Low</div>
+            <div class='rlowtext'>54</div>
+            <div class='rhighyear'>1987</div>
+            <div class='rlowyear'>1999</div>
+          </div>
+          <div class='frost-pane purple'>
+            <div class='icon'></div>
+            <div class='sunrisetitle'>Sunrise</div>
+            <div class='sunsettitle'>Sunset</div>
+            <div class='sunrisetext'>7:02 am</div>
+            <div class='sunsettext'>8:37</div>
+            <div class='phase i'>
+              <div class ='phasetext'>NEW</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 3</div>
+            </div>
+            <div class='phase ii'>
+              <div class ='phasetext'>FIRST</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 11</div>
+            </div>
+            <div class='phase iii'>
+              <div class ='phasetext'>FULL</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 18</div>
+            </div>
+            <div class='phase iv'>
+              <div class ='phasetext'>LAST</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 25</div>
+            </div>
+          </div>
+        </div>
+
+        <div class='info-slide-content aroundcityinfo' style="display:none">
+          <div class="frost-pane city i">
+            <div class="cityname">Jacksonville</div>
+            <div class="temp">82</div>
+            <div class="icon"></div>
+            <div class="wind">SE 12</div>
+          </div>
+          <div class="frost-pane city ii">
+            <div class="cityname">Gainesville</div>
+            <div class="temp">80</div>
+            <div class="icon"></div>
+            <div class="wind">SW 12</div>
+          </div>
+          <div class="frost-pane city iii">
+            <div class="cityname">Tampa</div>
+            <div class="temp">85</div>
+            <div class="icon"></div>
+            <div class="wind">W 6</div>
+          </div>
+          <div class="frost-pane city iv">
+            <div class="cityname">Fort</div>
+            <div class="temp">83</div>
+            <div class="icon"></div>
+            <div class="wind">W 6</div>
+          </div>
+        </div>
+
       </div>
 
       <!-- DOPPLER RADAR -->
-      <div class="info-slide radar-slide">
+      <div class="info-slide radar-slide" style="display: none">
         <div class="info-subheader">
           <span>Local Doppler Radar</span>
-          <span class="radar-color-legend">Past 3 Hours<br>Light&nbsp;<img src="images/precip-legend.png" alt="Past 3 Hours"/>&nbsp;Heavy</span>
+          <span class="radar-color-legend" style="display: none">Past 3 Hours<br>Light&nbsp;<img src="images/precip-legend.png" alt="Past 3 Hours"/>&nbsp;Heavy</span>
         </div>
-        <div id="radar-container" class="info-slide-content">
+        <div id="radar-container" class="info-slide-content radar-content" style="">
           <div id="radar-1" class="map"></div>
         </div>
       </div>
+
+      <!-- Intros -->
+      <div class="info-slide city-slide-intro" style="display:none">
+        <div class="weatherscancopyright" style="display:none"> <span class="copyrighttext"> Weatherscan is brought to you by The Weather Channel® and MIDCO </span></div>
+        <div class='cityaccent viii curve' style="display:none"></div>
+        <div class='cityaccent ii curve' style="display:none"></div>
+        <div class='cityaccent i curve' style="display:none"></div>
+        <div class='cityaccent iii curve' style="display:none"></div>
+        <div class='cityaccent iv curve' style="display:none"></div>
+        <div class='cityaccent v curve' style="display:none"></div>
+        <div class='cityaccentviishadow curve'></div>
+        <div class='cityaccentvii curve'></div>
+        <div class='cityaccent ix curve' style="display:none"></div>
+        <div class='cityweatherscanmarquee' style="display:none">weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan</div>
+        <div class='segment' style="display:none">Airport Conditions</div>
+      </div>
+      <div class="info-slide airport-slide-intro" style="display:none">
+        <div class='accent i curve' style="display:none"></div>
+        <div class='accent ii curve' style="display:none"></div>
+        <div class='accent iii curve' style="display:none"></div>
+        <div class='accent iv curve' style="display:none"></div>
+        <div class='accent v curve' style="display:none"></div>
+        <div class='accent vi curve' style="display:none"></div>
+        <div class='accentviishadow curve'></div>
+        <div class='accentvii curve'></div>
+        <div class='accent viii curve' style="display:none"></div>
+        <div class='accent ix curve' style="display:none"></div>
+        <div class='weatherscanmarquee' style="display:none">weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan</div>
+        <div class='segment' style="display:none">Airport Conditions</div>
+      </div>
+      <div class="info-slide health-slide-intro" style="display: none">
+        <div class='accent i curve' style="display:none"></div>
+        <div class='accent ii curve' style="display:none"></div>
+        <div class='accent iii curve' style="display:none"></div>
+        <div class='accent iv curve' style="display:none"></div>
+        <div class='accent v curve' style="display:none"></div>
+        <div class='accent vi curve' style="display:none"></div>
+        <div class='accentviishadow curve'></div>
+        <div class='accentvii curve'></div>
+        <div class='accent viii curve' style="display:none"></div>
+        <div class='accent ix curve' style="display:none"></div>
+        <div class='weatherscanmarquee' style="display:none">weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan</div>
+        <div class='segment' style="display:none">Weather & Your Health</div>
+      </div>
+      <!-- AIRPORT -->
+      <div class="info-slide airport-slide" style="display:none">
+        <div class="info-subheader">
+          <span id="subhead-titlei"></span><span id="subhead-city"></span>
+        </div>
+        <div class="info-subheadershadowfix">
+          <span id="subhead-title">Current Airport Conditions</span>
+        </div>
+        <div class='blue curve left'></div>
+        <div class='blue curve bottom'></div>
+        <div class='yellow curve left'></div>
+        <div class='yellow curve right'></div>
+        <div class='white curve right'></div>
+        <div class='white curve bottom'></div>
+      <div class='info-slide-content airportpanel'>
+      <div class='leftpanel'>
+        <div class='thing'>Gainesvile International Airport</div>
+        <div class='frost-pane top'>
+          <div class='title'>Arrivals</div>
+          <div class='delay'>DELAY</div>
+          <div class='delayfill'>No Delay</div>
+          <div class='reason'>REASON</div>
+          <div class='reasonfill'></div>
+        </div>
+        <div class='frost-pane bottom'>
+          <div class='title'>Departure</div>
+          <div class='delay'>DELAY</div>
+          <div class='delayfill'>No Delay</div>
+          <div class='reason'>REASON</div>
+          <div class='reasonfill'></div>
+          <div class='source'>Source: FAA</div>
+        </div>
+      </div>
+      <div class='frost-pane right'>
+        <div class='thing'></div>
+        <div class='icon'></div>
+        <div class='conditions'>Mostly Cloudy</div>
+        <div class='temp'>87</div>
+      </div>
+      </div>
+    </div>
+
+    <!-- BOAT & BEACH -->
+    <div class="info-slide beach-slide" style="display: none">
+      <div class="info-subheader">
+        <span id="subhead-titlei"></span><span id="subhead-city"></span>
+      </div>
+      <div class="info-subheadershadowfix">
+        <span id="subhead-title">Current Surf Report</span>
+      </div>
+      <div class='blue curve left'></div>
+      <div class='blue curve bottom'></div>
+      <div class='yellow curve left'></div>
+      <div class='yellow curve right'></div>
+      <div class='white curve right'></div>
+      <div class='white curve bottom'></div>
+    <div class='info-slide-content surfreport' style="display:none">
+    <div class='leftpanel'>
+      <div class='thing'>St Augustine Pier</div>
+      <div class='frost-pane'>
+        <div class='title wind'>Wind</div>
+        <div class='title waveperiod'>Wave Period</div>
+        <div class='windvalue'>E 10 mph</div>
+        <div class='waveperiodvalue'>5 seconds</div>
+        <div class='title watertemp'>Surface Water Temperature</div>
+        <div class='watertempbar'>30 40 50 60 70 80 90
+          <div class='temparrow'>
+            <div class='temp'>80</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='frost-pane right'>
+      <div class='thing'></div>
+      <div class='title waveheight'>Average Wave Height</div>
+      <div class='wavebar'>
+        <div class='wavevalue'>5</div>
+        <div class='feet'>feet</div>
+      </div>
+    </div>
+    </div>
+    <div class='info-slide-content coastalwaters warnings' style="display:none">
+      <div class='thing'>FROM THE NATIONAL WEATHER SERVICE</div>
+      <div class='frost-pane content'>Small craft should exercise caution until 2 AM EDT
+      <br></br>
+      Small Craft Advisory in effect from 2 AM EDT Monday through Monday evening.</div>
+    </div>
+    <div class='info-slide-content coastalwaters forecasts' style="display:none">
+      <div class='thing'>FROM THE NATIONAL WEATHER SERVICE</div>
+      <div class='frost-pane content'>
+        <div class='title day'>Rest of Today</div>
+        <div class='forecasttext'>a</div>
+      </div>
+
+    </div>
+    <div class='info-slide-content tides' style="display:none">
+      <div class='thingnotpurple'>
+        <span class='hightide'>HIGH TIDE</span>
+        <span class='lowtide'>LOW TIDE</span>
+      </div>
+      <div class='frost-pane top'>
+        <div class='place'>St Augustine Beach</div>
+        <div class='hightide'>
+          12:39 am Mon </br>
+          12:50 pm Mon
+        </div>
+        <div class='lowtide'>
+          12:39 am Mon </br>
+          12:50 pm Mon
+        </div>
+      </div>
+      <div class='frost-pane mid'>
+        <div class='place'>St Augustine Beach</div>
+        <div class='hightide'>
+          12:39 am Mon </br>
+          12:50 pm Mon
+        </div>
+        <div class='lowtide'>
+          12:39 am Mon </br>
+          12:50 pm Mon
+        </div>
+      </div>
+      <div class='frost-pane bottom'>
+        <div class='place'>St Augustine Beach</div>
+        <div class='title sunrise'>Sunrise</div>
+        <div class='title sunset'>Sunset</div>
+        <div class='sunrisetext'>11:00 am</div>
+        <div class='sunsettext'> 11:59 pm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-slide health" style="display: ">
+    <div class="info-subheader">
+      <span id="subhead-titlei"></span><span id="subhead-city"></span>
+    </div>
+    <div class="info-subheadershadowfix">
+      <span id="subhead-title">Health Forecast</span>
+    </div>
+    <div class='blue curve left'></div>
+    <div class='blue curve bottom'></div>
+    <div class='yellow curve left'></div>
+    <div class='yellow curve right'></div>
+    <div class='white curve right'></div>
+    <div class='white curve bottom'></div>
+
+    <div class='info-slide-content health-forecast' style="display: none">
+      <div class='thing'>Forecast for Thursday</div>
+      <div class='frost-pane mainforecast'>
+        <div class='icon'></div>
+        <div class='low'>Low</div>
+        <div class='high'>High</div>
+        <div class='lowtext'>62</div>
+        <div class='hightext'>78</div>
+        <div class='title heatwind'>Heat Index‏‏‎ ‎‏‏‎ ‎ 78</div>
+      </div>
+      <div class='frost-pane forecastdetails'>
+        <div class='title chanceprecip'>Chance of Precipitation</div>
+        <div class='title humid'>Humidity</div>
+        <div class='title wind'>Wind</div>
+        <div class='chancepreciptext'>50%</div>
+        <div class='humidtext'>100%</div>
+        <div class='windtext'>SSE 5</div>
+      </div>
+    </div>
+    <div class='info-slide-content allergy' style="display: none">
+      <div class='frost-pane pollen'>
+        <div class='thing'>As of Aug 7</div>
+        <div class='pollenbar tree'>
+          <div class='bar'>
+            <div class='bararrow'>
+            </div>
+          </div>
+          <div class='type'>Tree Pollen<br>Oak</div>
+        </div>
+        <div class='pollenbar grass'>
+          <div class='bar'>
+            <div class='bararrow'>
+            </div>
+          </div>
+          <div class='type'>Grass Pollen</div>
+        </div>
+        <div class='pollenbar weed'>
+          <div class='bar'>
+            <div class='bararrow'>
+            </div>
+          </div>
+          <div class='type'>Weed Pollen</div>
+        </div>
+        <div class='pollenbar mold'>
+          <div class='bar'>
+            <div class='bararrow'></div>
+          </div>
+          <div class='type'>Mold Spores</div>
+        </div>
+        <div class='scale low'>None</div>
+        <div class='scale high'>Very High</div>
+      </div>
+      <div class='frost-pane totalpollen'>
+        <div class='thing'><span class='thingtext'>Total <br> Pollen Count</span></div>
+        <div class='cat'>9</div>
+        <div class='desc'>Low</div>
+      </div>
+    </div>
+    <div class='info-slide-content Aches-Breath' style="display: none">
+      <div class='thing'>Thursday</div>
+      <div class='frost-pane aches'>
+        <div class='whitetitle aches'>Aches and Pains Index</div>
+        <div class='desc aches'>Potentional for feeling aches and pains based on weather conditions.</div>
+        <div class='bar'>
+          <div class='bararrow'>
+            <div class='bararrowtext' style='display:none'>Low</div>
+          </div>
+        </div>
+      </div>
+      <div class='frost-pane breath'>
+        <div class='whitetitle breath'>Respiratory Index</div>
+        <div class='desc breath'>Weather's influence on breathing conditions, excluding pollen or<br>‏‏‎ ‎air quality.</div>
+        <div class='bar'>
+          <div class='bararrow'>
+            <div class='bararrowtext' style='display:none'>Good</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='info-slide-content airquality' style="display: none">
+      <div class='frost-pane airforecast'>
+        <div class='thing'>Thursday</div>
+        <div class='bar'>
+          <div class='bar red' style="background-color:#bc1264"><span class='forecast' style="display:none">Very unhealthy</span></div>
+          <div class='bar deeporange' style="background-color:#ff552a"><span class='forecast' style="display:none">Unhealthy</span></div>
+          <div class='bar orange' style="background-color:#e5a51d"><span class='forecast' style="display:none">Unhealthy for <br>sensitive groups</span></div>
+          <div class='bar yellow' style="background-color:#d9d320"><span class='forecast' style="display:none">Moderate</span></div>
+          <div class='bar green' style="background-color:#3b9f3c"><span class='forecast' style="display:none">Good</span></div>
+          <div class='arrow'></div>
+        </div>
+      </div>
+      <div class='frost-pane primarypolute'>
+        <div class='thing'><span class=pollutetext>Primary<br>Contributing Pollutant</span></div>
+        <div class='pollutant'>Ozone</div>
+        <div class='source'>Source: EPA</div>
+        <div class='ozoneaction' style="display:none">
+          <div class='icon'></div>
+          <div class='ozone'>OZONE</div>
+          <div class='actionday'>Action Day</div>
+        </div>
+      </div>
+    </div>
+    <div class='info-slide-content uvindex' style="display:">
+      <div class='weatherreadyheader'>
+        <div class='icon'></div>
+        <div class='weathertext'>W</div>
+        <div class='weathertext2'>eather</div>
+        <div class='readytext'>READY</div>
+      </div>
+      <div class='thing'>
+        <div class='currentlytext'>Currently</div>
+        <div class='uvtime i'>
+          <div class='uvtime'>9pm</div>
+          <div class='uvday'>Mon</div>
+        </div>
+        <div class='uvtime ii'>
+          <div class='uvtime'>12pm</div>
+          <div class='uvday'>Mon</div>
+        </div>
+        <div class='uvtime iii'>
+          <div class='uvtime'>12pm</div>
+          <div class='uvday'>Mon</div>
+        </div>
+      </div>
+      <div class='frost-pane currentuv'>
+        <div class='bar'>
+          <div class='num' style="display:none">10</div>
+          <div class='cat' style="display:none">Extreme</div>
+        </div>
+      </div>
+        <div class='frost-pane forecastuv'>
+          <div class='bar i'>
+            <div class='num' style="display:none">11</div>
+            <div class='cat' style="display:none">Extreme</div>
+          </div>
+          <div class='bar ii'>
+            <div class='num' style="display:none">9</div>
+            <div class='cat' style="display:none">Very High</div>
+          </div>
+          <div class='bar iii'>
+            <div class='num' style="display:none">11</div>
+            <div class='cat' style="display:none">Extreme</div>
+          </div>
+          <div class='scalebar'>
+            <div class='low'>0</div>
+            <div class='mid'>5</div>
+            <div class='high'>10+</div>
+          </div>
+          </div>
+      </div>
+      <div class='info-slide-content healthtip' style="display:none">
+        <div class='weatherreadyheader'>
+          <div class='icon'></div>
+          <div class='weathertext'>W</div>
+          <div class='weathertext2'>eather</div>
+          <div class='readytext'>READY</div>
+        </div>
+        <div class='frost-pane tipcontent'>
+          Incase of Lightning -
+          <br>
+          An automobile provides better insulation against<br>
+          lightning than being in the open. <br>
+          <br>
+          Avoid contact with any metal conducting surfaces<br>
+          either inside your car or outside.
+        </div>
+      </div>
+      <div class='info-slide-content moreinfoimage' style="display:none">
+        <div class='frost-pane image'>
+          <div class='moreinfotext'>For more on weather and your health<br>
+            tune to The Weather Channel or<br>
+            go to weather.com/health
+          </div>
+        </div>
+      </div>
+  </div>
 
     </div>
   </div>
@@ -225,6 +685,11 @@
     <div id="current-info"></div>
   </div>
 
+  <div id="minimap-cover" style="display:none">
+    <div class="gradient1"></div>
+    <div class="gradient2"></div>
+    <div class="gradient3"></div>
+  </div>
   <div id="minimap-title">PAST 3 HOURS</div>
   <div id="minimap"></div>
   <div id="logo-area"><img src="images/midco_logo_shadow.png"/></div>
@@ -255,7 +720,26 @@
     information in graphical format on a continuous loop that is generated by an IntelliStar unit installed at the cable
     provider's headend; unlike The Weather Channel, Weatherscan does not feature on-air talent of any kind.
   </div>
-
+  <div class="marqueeheadersevere" style="display:none">SEVERE THUNDERSTORM WARNING</div>
+  <div id="marqueeSevere" class="marquee" style="display:none">
+    Severe Thunderstorm Warning National Weather Service Lincoln IL 113 AM CDT Thu May 23 2019 The National Weather Service in Lincoln has issued a * Severe Thunderstorm Warning for...
+Piatt County in central Illinois...
+Southeastern De Witt County in central Illinois...
+Champaign County in east central Illinois...
+Northeastern Macon County in central Illinois...
+* Until 200 AM CDT.
+* At 113 AM CDT, a severe thunderstorm was located near Monticello,
+moving east at 55 mph.
+HAZARD...70 mph wind gusts and quarter size hail.
+SOURCE...Trained weather spotters.
+IMPACT...Hail damage to vehicles is expected. Expect considerable
+tree damage. Wind damage is also likely to mobile homes,
+roofs, and outbuildings.
+* Locations impacted include...
+Champaign, Monticello, Urbana, Savoy, Mahomet, St. Joseph, Tolono,
+Bement, Philo, Sidney, Homer, Thomasboro, Gifford, Ogden, Pesotum,
+De Land, Bondville, Broadlands, Allerton and Lake Of The Woods.
+  </div>
 </div>
 
 </body>

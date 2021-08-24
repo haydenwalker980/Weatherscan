@@ -6,7 +6,8 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 	intervalHours = intervalHoursIn,
 	zoom = zoomIn,
 	latitude  = latitudeIn,
-	longitude = longitudeIn;
+	longitude = longitudeIn,
+	timeLayers = [];
 
 	this.setView = function(lat, long, zoomLevel){
 		map.setView(L.latLng(lat, long), zoomLevel)
@@ -14,16 +15,6 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 
 
 	startAnimation();
-	setInterval(updatePeriod, 300000);
-
-	function updatePeriod() {
-		var endDate = roundDate(new Date()),
-		    startDate = dateFns.subHours(endDate, 3),
-		    newAvailableTimes = L.TimeDimension.Util.explodeTimeRange(startDate, endDate, 'PT5M');
-
-		map.timeDimension.setAvailableTimes(newAvailableTimes, 'replace');
-		map.timeDimension.setCurrentTime(startDate);
-	}
 
 	// snap date to 5 minute intervals
 	function roundDate(date) {
@@ -40,31 +31,8 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 		map = L.map(divID, {
 			zoom: zoom,
 			fullscreenControl: false,
-			timeDimension: true,
-			timeDimensionControl: true,
-			timeDimensionOptions:{
-				timeInterval: "PT" + intervalHours + "H/" + endDate.toISOString(),
-				period: "PT5M",
-				currentTime: endDate
-			},
-
-			timeDimensionControlOptions: {
-				autoPlay: true,
-				playerOptions: {
-					buffer: 36,
-					transitionTime: 100,
-					loop: false,
-					startOver:true
-				}
-			},
-			center: [latitude, longitude] // 31.205482,-82.4331197 test coordinates
-		});
-		map.timeDimensionControl._player.on('stop', function(){
-			setTimeout( function() {
-				map.timeDimensionControl._player.setLooped(true);
-				map.timeDimensionControl._player.start();
-				setTimeout(function(){map.timeDimensionControl._player.setLooped(false)}, 1000);
-			}, 1000)
+			center: [latitude, longitude]
+			 // 31.205482,-82.4331197 test coordinates
 		});
 
 
@@ -73,18 +41,43 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 		// satellite streets cj8p1qym6976p2rqut8oo6vxr
 		// weatherscan green cj8owq50n926g2smvagdxg9t8
 		// mapbox://styles/goldbblazez/ckgc7fwvr4qmn19pevtvhyabl
-		L.tileLayer('https://api.mapbox.com/styles/v1/goldbblazez/ckgc8lzdz4lzh19qt7q9wbbr9/tiles/{z}/{x}/{y}?access_token=putapikeyhere', {
+	//	https://api.mapbox.com/styles/v1/goldbblazez/ckgc8lzdz4lzh19qt7q9wbbr9.html?fresh=true&title=copy&access_token=pk.eyJ1IjoiZ29sZGJibGF6ZXoiLCJhIjoiY2tiZTRnb2Q2MGkxajJwbzV2bWd5dXI5MyJ9.jU-2DqGCBI14K-acyN9RCw
+		L.tileLayer('https://api.mapbox.com/styles/v1/goldbblazez/ckgc8lzdz4lzh19qt7q9wbbr9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ29sZGJibGF6ZXoiLCJhIjoiY2ttbTRyYjlsMGMwdDJvbnh6ZDd3b3l4ZyJ9.AcR8BHOrQGjoISQfC-dNFw', {
 			tileSize: 512,
 			zoomOffset: -1
 		}).addTo(map);
 
+		$.getJSON("https://api.weather.com/v3/TileServer/series/productSet/PPAcore?filter=radar&apiKey=e1f10a1e78da46f5b10a1e78da96f525", function(data) {
+			for (var i = 0; i < data.seriesInfo.radar.series.length; i++) {
+				timeLayers.push(
+					L.tileLayer("https://api.weather.com/v3/TileServer/tile/radar?ts="+ data.seriesInfo.radar.series[i].ts +"&xyz={x}:{y}:{z}&apiKey=e1f10a1e78da46f5b10a1e78da96f525", {
+						opacity: 0
+				}))
+			}
+			timeLayers.forEach(timeLayers => {
 
-		var radarWMS = L.nonTiledLayer.wms("https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer", {
-			layers: '1',
-			format: 'image/png',
-			transparent: true,
-			opacity: 0.8
+          timeLayers.addTo(map);
+        });
 		});
+
+		const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+		async function animationLoop() {
+		  for (let i = timeLayers.length; i > 0; i--) {
+				timeLayers[i - 1].setOpacity(1)
+		    await sleepNow(100)
+				timeLayers[i - 1].setOpacity(0)
+		    if (i === 1) {
+				timeLayers[i - 1].setOpacity(1)
+				await	sleepNow(1750)
+				timeLayers[i - 1].setOpacity(0)
+					animationLoop()
+				}
+		  }
+		}
+		setTimeout(function() {
+				animationLoop()
+		}, 1000);
 
 		if (withSat) {
 
@@ -147,15 +140,6 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 
 			});
 		}
-
-
-		var proxy = 'js/leaflet/proxy.php';
-		var radarTimeLayer = L.timeDimension.layer.wms(radarWMS, {
-			proxy: proxy,
-			updateTimeDimension: false
-		});
-
-		radarTimeLayer.addTo(map);
 
 
 	}
