@@ -2,20 +2,22 @@
   "name": "weatherscan",
   "description": "weatherscan wmulator",
   "scripts": {
-    "start": "http-server ./webroot"
+    "start": "live-server ./webroot"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jessecar96/Weatherscan.git"
   },
   "dependencies": {
-    "http-server": "^0.11.1"
+    "date-fns": "^2.23.0",
+    "http-server": "^0.12.3",
+    "live-server": "^1.2.1"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.2.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^2.6.5"
   }
 }
