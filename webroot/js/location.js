@@ -70,7 +70,7 @@ function Location() { // onReady, onRefresh, onAllComplete
 			that.lat = loclat;
 			that.long = loclong;
 
-			that.city = data['v3-location-point'].location.city;
+			that.city = data['v3-location-point'].location.displayName;
 
 
 			$this.trigger('init');
