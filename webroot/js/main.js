@@ -1,6 +1,4 @@
-
 $(function(){
-	require('dotenv').config()
 	var $main = $("#main"),
 		$window = $( window ),
 	    mainHeight = $main.outerHeight(),
