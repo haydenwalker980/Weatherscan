@@ -1,6 +1,6 @@
 {
   "name": "weatherscan",
-  "description": "weatherscan wmulator",
+  "description": "weatherscan emulator",
   "scripts": {
     "start": "live-server ./webroot"
   },
@@ -14,7 +14,6 @@
     "live-server": "^1.1.0"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.2.0",

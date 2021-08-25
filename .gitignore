@@ -6,7 +6,7 @@ ehthumbs.db
 ehthumbs_vista.db
 
 #secrets
-secrets.json
+secrets.js
 # Dump file
 *.stackdump
 
