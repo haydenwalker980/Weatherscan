@@ -1215,7 +1215,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			cities += arrow+'<span class="city" data-woeid="' + location.woeid + '">' + city + '</span>';
 		}
 
-		$('#info-slides-header .hscroller').append(arrow + cities + arrow + (radar + arrow + airport + arrow + health + cities + arrow).repeat(4));
+		$('#info-slides-header .hscroller').append(cities + arrow + (radar + arrow + airport + arrow + health + cities + arrow).repeat(4));
 	}
 
 
