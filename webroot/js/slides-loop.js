@@ -1211,8 +1211,10 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			airport='<span class="city airport">AIRPORTS</span>';
 
 		for (var location of dataMan.locations) {
+		if (location.city !== undefined) {
 			city = location.city;
 			cities += arrow+'<span class="city" data-woeid="' + location.woeid + '">' + city + '</span>';
+		}
 		}
 
 		$('#info-slides-header .hscroller').append(cities + arrow + (radar + arrow + airport + arrow + health + cities + arrow).repeat(4));

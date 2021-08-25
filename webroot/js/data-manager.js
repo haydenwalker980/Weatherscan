@@ -54,7 +54,6 @@ function DataManager(pointSearch){
 					locList.push({lat: latgeo, long:longeo, distance:dist, stationUrl:feature.stationId[i]});
 				}
 			}
-
 			if (locList.length===0) {
 				$this.trigger('allinit');
 				return

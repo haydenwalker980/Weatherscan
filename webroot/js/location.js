@@ -55,10 +55,11 @@ function Location() { // onReady, onRefresh, onAllComplete
 
 		// ajax the latest observation
 		$.getJSON(url, function(data) {
+			if (data['v3-location-point'] != null) {
 			_observations[0] = json = data['v3-wx-observations-current'];
 			_observations[0].latitude = loclat;
 			_observations[0].longitude = loclong;
-			_observations[0].cityname = data['v3-location-point'].location.city;
+			_observations[0].cityname = data['v3-location-point'].location.displayName;
 			$this.trigger('refresh');
 
 			 // the following block only runs on init
@@ -71,14 +72,16 @@ function Location() { // onReady, onRefresh, onAllComplete
 
 			that.city = data['v3-location-point'].location.city;
 
-			$this.trigger('init');
 
+			$this.trigger('init');
 			}
 			// set the expiration date/time
 			_observations[0].xdate = dateFns.addMinutes(json.lastBuildDate, json.ttl);
 
 			setTimeout(checkRefresh, getRandom(5000, 10000));
-
+		} else {
+			$this.trigger('init');
+		}
 		});
 
 }
