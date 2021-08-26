@@ -2629,6 +2629,41 @@ body, html {
 .health-slide-intro .accent.ix {
   background-color: #fff;
 }
+.beach-slide-intro {
+  position: relative;
+  background: transparent url(/images/beachslideintro5.png) no-repeat 100%;
+  background-size: 105% 100%;
+}
+.beach-slide-intro .accent.i {
+  background-color: #218912;
+}
+.beach-slide-intro .accent.ii {
+  background-color: #8dcd5a;
+  opacity: 100%;
+}
+.beach-slide-intro .accent.iii {
+  background-color: #145b23;
+}
+.beach-slide-intro .accent.iv {
+  background-color: #12780d;
+  opacity: .3;
+}
+.beach-slide-intro .accent.v {
+  background-color: #145b23;
+}
+.beach-slide-intro .accent.vi {
+  background-color: #2d7816;
+}
+.beach-slide-intro .accentvii {
+  background-color: #137f0d;
+}
+.beach-slide-intro .accent.viii {
+  background-color: #8dcd5a;
+  opacity: 100%;
+}
+.beach-slide-intro .accent.ix {
+  background-color: #fff;
+}
 .city-slide-intro .segment {
   color: #fff;
   font-family: Frutiger;
