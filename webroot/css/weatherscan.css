@@ -1252,7 +1252,7 @@ flex-direction: row;
 .info-slide-content.health-forecast .frost-pane.mainforecast .title.heatwind {
   width: 100%;
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   font-size: 37px;
   text-align: center;
 }
@@ -1934,6 +1934,7 @@ flex-direction: row;
   line-height: 125%;
   padding-right: 10px;
   font-stretch: condensed;
+  white-space: pre;
 }
 
 

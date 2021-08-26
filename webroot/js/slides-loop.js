@@ -167,63 +167,78 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 								}
 								return dateFns.format(new Date(expiretime), "h:mm A ") + displayday
 							}
-							if (i < 3) {
-							$('.bulletin .frost-pane .warnings').append(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "</br></br>")
+							if (i != ret.length - 1) {
+								$('.bulletin .frost-pane .warnings').append(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "\n \n")
 							} else {
-							page2.push(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "</br></br>")
+								$('.bulletin .frost-pane .warnings').append(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "\n \n")
+							}
 						}
+						function splitLines() {
+
+							 var warningsplitstr = $('.bulletin .frost-pane .warnings').text().split(/(?![^\n]{1,40}$)([^\n]{1,40})\s/g)
+							 warningsplitstr.pop()
+							 warningsplitstr.pop()
+							 var warningpageidx = 0;
+							 var warninglineidx = 0;
+							 console.log(pages)
+							 console.log(warningsplitstr)
+							 warningsplitstr.forEach(warningline => {
+								if (warningline != "") {
+									if (warninglineidx == 0) {
+										pages[warningpageidx] = ""
+									}
+								 console.log(warningline)
+							 	pages[warningpageidx] += (warningline + '<br>')
+								warninglineidx += 1;
+								if (warninglineidx == 7) {
+									warningpageidx += 1
+									warninglineidx = 0
+								}
+							}
+						});
+							//$('.bulletin .frost-pane .warnings').text($('.bulletin .frost-pane .warnings').text().replace(/(?![^\n]{1,40}$)([^\n]{1,40})\s/g, '$1\n'))
+							 //console.log($('.bulletin .frost-pane .warnings').html())
+							 makewarningPage(0)
 						}
+						splitLines()
+
 						$('.bulletin').fadeIn(0);
 						$('.bulletin .frost-pane').fadeIn(500);
 						$('#subhead-noaa').fadeIn(500);
-						setTimeout(function() {
-							if (page2.length !== 0) {
-								$('.bulletin .frost-pane').fadeOut(500, function(){
-									$('.bulletin .frost-pane .warnings').empty()
-									for (i=0; i<=foreDataAlert.alerts.length; i++){
-										$('.bulletin .frost-pane .warnings').append(page2[i])
-									}
+						function makewarningPage(warningpagenum) {
+							if (warningpagenum > 0) {
+								$('.bulletin .frost-pane').fadeOut(500, function() {
+									$('.bulletin .frost-pane .warnings').html(pages[warningpagenum])
+									$('.bulletin .frost-pane').fadeIn(500);
 								});
+							} else {
+								$('.bulletin .frost-pane .warnings').html(pages[warningpagenum])
 								$('.bulletin .frost-pane').fadeIn(500);
-								setTimeout(function() {
+							}
+							setTimeout(function() {
+								if (warningpagenum < (pages.length - 1)) {
+									makewarningPage(warningpagenum + 1)
+								} else {
 									$('.bulletin').fadeIn(0);
 									$('.bulletin .frost-pane').fadeOut(500);
-									$('#subhead-noaa').fadeOut(500, function() {
-										$('.bulletin').fadeOut(0);
-										if (severemode == true) {
-											showRadarS(dataMan.locations[0].lat, dataMan.locations[0].long, 8, 60000)
-										} else {
-											$('#minimap-cover').fadeOut(0)
-											$('#info-slides-header .hscroller').empty();
-											$('#marqueeSevere').fadeOut(0)
-											$('.marqueeheadersevere').fadeOut(0)
-											$('#arrow-img').fadeIn(0)
-											$('.radar-slide .infosubheader').css('background','linear-gradient(to top, #fffe21 0, #db5a14 100%);')
-											buildHeader();
-											nextCity();
-										}
-									});
-								}, slideDelay);
-							} else {
-							$('.bulletin').fadeIn(0);
-							$('.bulletin .frost-pane').fadeOut(500);
-							$('#subhead-noaa').fadeOut(500, function() {
-								$('.bulletin').fadeOut(0);
-								if (severemode == true) {
-									showRadarS(dataMan.locations[0].lat, dataMan.locations[0].long, 8, 60000)
-								} else {
-									$('#minimap-cover').fadeOut(0)
-									$('#info-slides-header .hscroller').empty();
-									$('#marqueeSevere').fadeOut(0)
-									$('.marqueeheadersevere').fadeOut(0)
-									$('#arrow-img').fadeIn(0)
-									$('.radar-slide .infosubheader').css('background','linear-gradient(to top, #fffe21 0, #db5a14 100%);')
-									buildHeader();
-									nextCity();
+										$('#subhead-noaa').fadeOut(500, function() {
+											$('.bulletin').fadeOut(0);
+											if (severemode == true) {
+												showRadarS(dataMan.locations[0].lat, dataMan.locations[0].long, 8, 60000)
+											} else {
+												$('#minimap-cover').fadeOut(0)
+												$('#info-slides-header .hscroller').empty();
+												$('#marqueeSevere').fadeOut(0)
+												$('.marqueeheadersevere').fadeOut(0)
+												$('#arrow-img').fadeIn(0)
+												$('.radar-slide .infosubheader').css('background','linear-gradient(to top, #fffe21 0, #db5a14 100%);')
+												buildHeader();
+												nextCity();
+											}
+										});
 								}
-							});
+							}, slideDelay);
 						}
-						}, slideDelay);
 					} else {
 						if (severemode == true) {
 							showRadarS(dataMan.locations[0].lat, dataMan.locations[0].long, 8, 60000)
@@ -670,7 +685,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				}
 				,showBulletin() {
 
-					var page2 = [];
+					var pages = [""];
 					if (foreDataAlert !== undefined){
 						$('.bulletin .frost-pane .warnings').empty()
 						var displayday;
@@ -691,44 +706,73 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 								}
 								return dateFns.format(new Date(expiretime), "h:mm A ") + displayday
 							}
-							if (i < 3) {
-							$('.bulletin .frost-pane .warnings').append(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "</br></br>")
+							if (i != ret.length - 1) {
+								$('.bulletin .frost-pane .warnings').append(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "\n \n")
 							} else {
-							page2.push(foreDataAlert.alerts[i].eventDescription + "in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "</br></br>")
+								$('.bulletin .frost-pane .warnings').append(foreDataAlert.alerts[i].eventDescription + " in effect until " + getexpiredate(foreDataAlert.alerts[ret[i]].expireTimeLocal) + "\n \n")
+							}
+
 						}
+
+						function splitLines() {
+
+							 var warningsplitstr = $('.bulletin .frost-pane .warnings').text().split(/(?![^\n]{1,40}$)([^\n]{1,40})\s/g)
+							 warningsplitstr.pop()
+							 warningsplitstr.pop()
+							 var warningpageidx = 0;
+							 var warninglineidx = 0;
+							 console.log(pages)
+							 console.log(warningsplitstr)
+							 warningsplitstr.forEach(warningline => {
+								if (warningline != "") {
+									if (warninglineidx == 0) {
+										pages[warningpageidx] = ""
+									}
+								 console.log(warningline)
+								pages[warningpageidx] += (warningline + '<br>')
+								warninglineidx += 1;
+								if (warninglineidx == 7) {
+									warningpageidx += 1
+									warninglineidx = 0
+								}
+							}
+						});
+							//$('.bulletin .frost-pane .warnings').text($('.bulletin .frost-pane .warnings').text().replace(/(?![^\n]{1,40}$)([^\n]{1,40})\s/g, '$1\n'))
+							 //console.log($('.bulletin .frost-pane .warnings').html())
+							 makewarningPage(0)
 						}
+						splitLines()
 						$('.bulletin .frost-pane .cityname').text(location.city + " Area");
 						//fade in
 						$('.bulletin').fadeIn(0);
 						$('.bulletin .frost-pane').fadeIn(500);
+
 						$('#subhead-noaa').fadeIn(500);
-						setTimeout(function() {
-							if (page2.length !== 0) {
-								$('.bulletin .frost-pane').fadeOut(500);
-								$('.bulletin .frost-pane .warnings').empty()
-								for (i=0; i<=foreDataAlert.alerts.length; i++){
-									$('.bulletin .frost-pane .warnings').append(page2[i])
-								}
+						function makewarningPage(warningpagenum) {
+							if (warningpagenum > 0) {
+								$('.bulletin .frost-pane').fadeOut(500, function() {
+									$('.bulletin .frost-pane .warnings').html(pages[warningpagenum])
+									$('.bulletin .frost-pane').fadeIn(500);
+								});
+							} else {
+								$('.bulletin .frost-pane .warnings').html(pages[warningpagenum])
 								$('.bulletin .frost-pane').fadeIn(500);
-								setTimeout(function() {
+							}
+							setTimeout(function() {
+								if (warningpagenum < (pages.length - 1)) {
+									makewarningPage(warningpagenum + 1)
+								} else {
 									$('.bulletin').fadeIn(0);
 									$('.bulletin .frost-pane').fadeOut(500);
 									$('#subhead-noaa').fadeOut(500, function() {
 										$('.bulletin').fadeOut(0);
 										wait(0)
 									});
-								}, slideDelay);
-							} else {
-							$('.bulletin').fadeIn(0);
-							$('.bulletin .frost-pane').fadeOut(500);
-							$('#subhead-noaa').fadeOut(500, function() {
-								$('.bulletin').fadeOut(0);
-								wait(0)
-							});
+								}
+							}, slideDelay);
 						}
-						}, slideDelay);
 					} else {wait(0)}
-					} else {wait(0)};
+				} else {wait(0)};
 				}
 
 				// Currently (10 sec)
