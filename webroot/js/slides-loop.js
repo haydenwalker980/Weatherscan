@@ -32,10 +32,10 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 			if (ret.length != 0) {
 				ret.sort(function(a, b){
 					if (foreDataAlert.alerts[a].eventDescription < foreDataAlert.alerts[b].eventDescription) {
-				    return 1;
+				    return -1;
 				  }
 				  if (foreDataAlert.alerts[a].eventDescription > foreDataAlert.alerts[b].eventDescription) {
-				    return -1;
+				    return 1;
 				  }
   				return 0
 				});
@@ -118,7 +118,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				showBulletin();
 				function showRadarS(lat, long, zoom, time) {
 
-					weatherMan.mainMap.setView(lat, long, zoom);
+				weatherMan.mainMap = new Radar("radar-1", 3, zoom, lat, long, false);
 						// fade out info, fade in radar
 						weatherAudio.playLocalRadar();
 						$('.radar-slide').fadeIn(0);
@@ -175,7 +175,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 						}
 						function splitLines() {
 
-							 var warningsplitstr = $('.bulletin .frost-pane .warnings').text().split(/(?![^\n]{1,40}$)([^\n]{1,40})\s/g)
+							 var warningsplitstr = $('.bulletin .frost-pane .warnings').text().split(/(?![^\n]{1,45}$)([^\n]{1,45})\s/g)
 							 warningsplitstr.pop()
 							 warningsplitstr.pop()
 							 var warningpageidx = 0;
@@ -280,7 +280,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 
 			} else {
 				if (city[0].classList.contains("radar")) {
-					showRadar(dataMan.locations[0].lat, dataMan.locations[0].long, 8, 60000);
+					showRadar(dataMan.locations[0].lat, dataMan.locations[0].long, 8, 60000, false);
 					setTimeout(nextCity, 60500);
 				} else if (city[0].classList.contains("airport")) {
 					showAirport(0);
@@ -301,13 +301,13 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 
 
 
-		function showRadar(lat, long, zoom, time) {
+		function showRadar(lat, long, zoom, time, withsat) {
 
-			weatherMan.mainMap.setView(lat, long, zoom);
 				// fade out info, fade in radar
 				weatherAudio.playLocalRadar();
 				$('.radar-slide').fadeIn(0);
 				$('.radar-content').fadeIn(500);
+				weatherMan.mainMap = Radar("radar-1", 3, zoom, lat, long, withsat);
 				$('.radar-color-legend').fadeIn(500);
 				setTimeout(function() {
 					$('.radar-content').fadeOut(500);
@@ -592,7 +592,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 							$('.info-slide-content.uvindex .currentuv .bar .num').fadeTo('slow', 1);
 						});
 					$('.info-slide-content.uvindex .forecastuv .bar').each(function(){
-						var ulength = {"-2":0, "-1":0, 0:"1", 1:"25", 2:"40", 3:"55", 4:"70", 5:"85", 6:"100", 7:"115", 8:"130", 9:"145", 10:"160", 11:"175"}[foreUvData.uvIndex1hour.uvIndex[indexes[i]]]
+						var ulength = {"-2":0, "-1":0, 0:"25", 1:"25", 2:"40", 3:"55", 4:"70", 5:"85", 6:"100", 7:"115", 8:"130", 9:"145", 10:"160", 11:"175"}[foreUvData.uvIndex1hour.uvIndex[indexes[i]]]
 						var utime = {"-2":0, "-1":0, 0:0, 1:125, 2:250, 3:375, 4:500, 5:625, 6:750, 7:1000, 8:1250, 9:1325, 10:1500, 11:1625}[foreUvData.uvIndex1hour.uvIndex[indexes[i]]]
 						$('.info-slide-content.uvindex .forecastuv .bar.' + hourlable[i] + ' .cat').text(foreUvData.uvIndex1hour.uvDesc[indexes[i]])
 						$('.info-slide-content.uvindex .forecastuv .bar.' + hourlable[i] + ' .num').text(foreUvData.uvIndex1hour.uvIndex[indexes[i]])
@@ -824,7 +824,12 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				}
 				// Local Doppler Radar or Radar/Satellite (15 sec, zoomed out with cloud cover)
 				,localDoppler(){
-					showRadar(location.lat, location.long, 8, slideDelay);
+					var showsat = Math.random()
+					if (showsat <=  .5) {
+						showRadar(location.lat, location.long, 6, slideDelay, true);
+					} else {
+						showRadar(location.lat, location.long, 8, slideDelay, false);
+					}
 					wait(slideDelay + 500);
 				}
 

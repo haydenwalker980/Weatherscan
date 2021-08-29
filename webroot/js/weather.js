@@ -94,8 +94,8 @@ function WeatherManager() {
 			cond = data.wxPhraseLong;
 
 		if (mainMap===undefined) {
-			mainMap = that.mainMap = new Radar("radar-1", 3, 8, data.latitude, data.longitude, false);
 			miniMap = new Radar("minimap", 3, 6, data.latitude, data.longitude);
+			mainMap = that.mainMap = new Radar("radar-1", 3, 8, data.latitude, data.longitude, true);
 		}
 
 		$('#city').text(mainloc);

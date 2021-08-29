@@ -1,6 +1,5 @@
-
+var mmap
 function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSat) {
-
 	var map,
 	divID = divIDin,
 	intervalHours = intervalHoursIn,
@@ -8,7 +7,6 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 	latitude  = latitudeIn,
 	longitude = longitudeIn,
 	timeLayers = [];
-
 	this.setView = function(lat, long, zoomLevel){
 		map.setView(L.latLng(lat, long), zoomLevel)
 	};
@@ -27,14 +25,16 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 
 		var endDate = roundDate(new Date()),
 			player;
-
+		if (mmap !== undefined) { mmap.remove(); }
 		map = L.map(divID, {
 			zoom: zoom,
 			fullscreenControl: false,
 			center: [latitude, longitude]
 			 // 31.205482,-82.4331197 test coordinates
 		});
-
+		if (divID == "radar-1") {
+			mmap = map;
+		}
 
 		// basemap
 		// streets cj9fqw1e88aag2rs2al6m3ko2
@@ -46,7 +46,20 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 			tileSize: 512,
 			zoomOffset: -1
 		}).addTo(map);
+		if (withSat == true) {
+			$.getJSON("https://api.weather.com/v3/TileServer/series/productSet/PPAcore?filter=satrad&apiKey=" + api_key, function(data) {
+				for (var i = 0; i < data.seriesInfo.satrad.series.length; i++) {
+					timeLayers.push(
+						L.tileLayer("https://api.weather.com/v3/TileServer/tile/satrad?ts="+ data.seriesInfo.satrad.series[i].ts +"&xyz={x}:{y}:{z}&apiKey=" + api_key, {
+							opacity: 0
+					}))
+				}
+				timeLayers.forEach(timeLayers => {
 
+	          timeLayers.addTo(map);
+	        });
+			});
+		} else {
 		$.getJSON("https://api.weather.com/v3/TileServer/series/productSet/PPAcore?filter=radar&apiKey=" + api_key, function(data) {
 			for (var i = 0; i < data.seriesInfo.radar.series.length; i++) {
 				timeLayers.push(
@@ -59,10 +72,11 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
           timeLayers.addTo(map);
         });
 		});
-
+	}
 		const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
 		async function animationLoop() {
+
 		  for (let i = timeLayers.length; i > 0; i--) {
 				timeLayers[i - 1].setOpacity(1)
 		    await sleepNow(100)
@@ -78,68 +92,6 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 		setTimeout(function() {
 				animationLoop()
 		}, 1000);
-
-		if (withSat) {
-
-			var goes_visible_sat = L.nonTiledLayer.wms('https://nowcoast.noaa.gov/arcgis/services/nowcoast/sat_meteo_imagery_time/MapServer/WMSServer', {
-				layers: '9',  // 9 for visible sat
-				format: 'image/png',
-				transparent: true,
-				opacity:0.7,
-				useCanvas:true
-			}),
-			    satellitetimeLayer = L.timeDimension.layer.wms(goes_visible_sat, {
-				proxy: proxy,
-				updateTimeDimension: false,
-				cache:1
-			});
-
-			satellitetimeLayer.addTo(map).on('timeload',function(t) {
-				var canvas, ctx,
-					imageData, data,
-					i,
-					layers = t.target._layers,
-					keys = Object.keys(layers);
-
-				for (var key of keys) {
-					canvas = layers[key]._bufferCanvas;
-
-					if (canvas.dataset.isAlpha){continue}
-
-					ctx = canvas.getContext('2d');
-
-					imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-					var pixels = imageData.data,
-						brighten = 0,
-						contrast = 10;
-					for(var i = 0; i < pixels.length; i+=4){//loop through all data
-
-						pixels[i] += brighten;
-						pixels[i+1] += brighten;
-						pixels[i+2] += brighten;
-
-						var brightness = (pixels[i]+pixels[i+1]+pixels[i+2])/3; //get the brightness
-
-						pixels[i]   += brightness > 127 ? contrast : -contrast;
-						pixels[i+1] += brightness > 127 ? contrast : -contrast;
-						pixels[i+2] += brightness > 127 ? contrast : -contrast;
-
-						var rgb = pixels[i] + pixels[i+1] + pixels[i+2];
-						pixels[i] = pixels[i+1] = pixels[i+2] = 255;
-						pixels[i+3] = rgb / 3;
-					}
-					imageData.data = pixels;
-
-					// overwrite original image
-					ctx.putImageData(imageData, 0, 0);
-
-					canvas.dataset.isAlpha = true;
-
-				}
-
-			});
-		}
 
 
 	}

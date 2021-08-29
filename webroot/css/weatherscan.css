@@ -2664,6 +2664,41 @@ body, html {
 .beach-slide-intro .accent.ix {
   background-color: #fff;
 }
+.golf-slide-intro {
+  position: relative;
+  background: transparent url(/images/beachslideintro5.png) no-repeat 100%;
+  background-size: 105% 100%;
+}
+.golf-slide-intro .accent.i {
+  background-color: #218912;
+}
+.golf-slide-intro .accent.ii {
+  background-color: #8dcd5a;
+  opacity: 100%;
+}
+.golf-slide-intro .accent.iii {
+  background-color: #145b23;
+}
+.golf-slide-intro .accent.iv {
+  background-color: #12780d;
+  opacity: .3;
+}
+.golf-slide-intro .accent.v {
+  background-color: #145b23;
+}
+.golf-slide-intro .accent.vi {
+  background-color: #2d7816;
+}
+.golf-slide-intro .accentvii {
+  background-color: #137f0d;
+}
+.golf-slide-intro .accent.viii {
+  background-color: #8dcd5a;
+  opacity: 100%;
+}
+.golf-slide-intro .accent.ix {
+  background-color: #fff;
+}
 .city-slide-intro .segment {
   color: #fff;
   font-family: Frutiger;
@@ -3139,6 +3174,99 @@ body, html {
   opacity: .2;
   z-index: 2;
 }
+
+.golf {
+  position: relative;
+  background: transparent url(/images/golfslide.png) no-repeat;
+  background-size: 110% 92%;
+  background-position: 90% 100%;
+}
+
+
+.golf .curve {
+  position: absolute;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+}
+
+
+.golf .yellow {
+  background-image: url(/images/golf-curve.svg);
+  -webkit-filter: drop-shadow(40x 0 4px rgba(0, 0, 0, .75));
+  filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
+}
+
+.golf .yellow.left {
+  top: 7.5%;
+  left: -11.25%;
+  z-index: 3;
+  width: 21%;
+  height: 80%;
+  z-index: 5
+}
+
+.golf .yellow.right {
+  background-position: 100% 0;
+  top: -15%;
+  right: -18%;
+  width: 51%;
+  height: 85%;
+  z-index: 7;
+  -webkit-filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .65));
+  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .75));
+}
+
+
+.golf .blue.left {
+  background-image: url(/images/blue-curve.svg);
+  background-size: 200% 100%;
+  width: 22%;
+  height: 150%;
+  top: 6%;
+  left: -8%;
+  opacity: .7;
+  z-index: 2;
+}
+
+
+.golf .blue.bottom {
+  background-image: url(/images/blue-curve.svg);
+  background-size: 200% 100%;
+  width: 22%;
+  height: 150%;
+  top: -37.5%;
+  left: -9.25%;
+  opacity: .7;
+  z-index: 2;
+}
+
+
+.golf .white.right {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: 7%;
+  right: -8.8%;
+  opacity: .2;
+  z-index: 2;
+}
+
+
+.golf .white.bottom {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: -39.25%;
+  right: -9.9%;
+  opacity: .2;
+  z-index: 2;
+}
+
 
 .radar-color-legend {
   font-size: 18px;
@@ -3734,4 +3862,5 @@ body, html {
   color: #fff;
   background: linear-gradient(to right, #510d08 0, #b41a08 100%);
   text-transform: uppercase;
+  white-space:nowrap;
 }
