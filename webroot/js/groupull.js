@@ -1,4 +1,5 @@
 function GroupDataManager() {
+	var locationx = {};
 	var locations =
 		[
 			{name:'Chicago', n2:'IL'},
@@ -25,50 +26,51 @@ function GroupDataManager() {
 
 
 	// check to see if data needs to be refreshed
-    function checkRefresh() {
-		var woeid, location;
+  function checkRefresh() {
 
-		for (location of locations) {
+
 
 			// check the expiration
-			if (location.hasOwnProperty('xdate') && dateFns.isFuture(location.xdate)) { continue; }
 
 			woeid = location.hasOwnProperty('woeid') ? location.woeid : '';
 
 
 			// woeid is the id for the location to pull data for
-			var url = 'https://api.openweathermap.org/data/2.5/weather?q='+ location.name + '&appid=0cb279a98124446dd16dba02fbfb60ee&units=imperial'
+			https://api.weather.com/v3/aggcommon/v2fcstdaily3;v2obs;v3-location-point?geocodes=34.44,-83.00;41.40,-38.19&language=en-US&units=e&format=json&apiKey=yourApiKey
+			var url = 'https://api.weather.com/v3/aggcommon/v3-wx-observations-current;v3-location-point?geocodes=41.881832,-87.623177;44.986656,-93.258133;33.427204,-111.939896;46.877186,-96.789803;34.187042,-118.381256;33.660057,-117.998970;36.114647,-115.172813;21.315603,-157.858093;28.538336,-81.379234;43.0,-75.0;&language=en-US&units=e&format=json&apiKey='+ api_key
 
-			pullData(url, location);
-
-		}
+			pullData(url);
 
     }
 
-	function pullData(url, location) {
+	function pullData(url) {
 		var $span;
 
 		// ajax the latest observation
 		$.getJSON(url, function(data) {
-			location.data = data;
+					data.forEach((locationdata, i) => {
+						locationx.data = locationdata;
 
-			if ( !location.hasOwnProperty('woeid') ) {
-				location.woeid = location.data.id;
-				$span = $("<span id='" + location.woeid + "'></span>").appendTo('#marquee-now');
-			} else {
-				$span = $('#marquee-now>span#' + location.woeid);
-			}
+						if ( !location.hasOwnProperty('woeid') ) {
+							locationx.woeid = locationx.data.id;
+							$span = $("<span id='" + locationx.woeid + "'></span>").appendTo('#marquee-now');
+						} else {
+							$span = $('#marquee-now>span#' + locationx.woeid);
+						}
 
-			// display the current info
-			$span.text(location.name + ': ' + Math.round(parseInt(location.data.main.temp)) + ' ' + (getCC(location.data.weather[0].id + location.data.weather[0].icon, location.data.wind.speed)).toLowerCase());
+						// display the current info
+						$span.text(locationx.data['v3-location-point'].location.displayName + ': ' + Math.round(parseInt(locationx.data['v3-wx-observations-current'].temperature)) + ' ' + (locationx.data['v3-wx-observations-current'].wxPhraseLong).toLowerCase());
 
 
-			// set the expiration date/time
-			location.xdate = dateFns.addMinutes(location.data.lastBuildDate, location.data.ttl);
+						// set the expiration date/time
+						//location.xdate = dateFns.addMinutes(location.data.lastBuildDate, location.data.ttl);
 
-		});
+					});
 
-	}
+				});
+			};
+
+
 
 
 }
