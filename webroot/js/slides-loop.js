@@ -388,13 +388,13 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 						}
 				,healthforecast() {
 					var healthforecastdata = dataMan.locations[0].forecasts("daily")
-					var startidx = 0;
-					var startidxdayonly = 0;
-					if (healthforecastdata.daypart[0].daypartName[0] == null) {
-						startidx = 2;
-						startidxdayonly = 1;
+					var starthidx = 0;
+					var starthidxdayonly = 0;
+					if (healthforecastdata.daypart[0].daypartName[0] == undefined) {
+						starthidx = 2;
+						starthidxdayonly = 1;
 					}
-					if (startidx = 0 && dateFns.getHours(new Date()) >= 4) {
+					if (starthidx == 0 && dateFns.getHours(new Date()) >= 4) {
 						$('.info-slide-content.health-forecast .mainforecast .hightext').css("right","85px");
 						$('.info-slide-content.health-forecast .mainforecast .hightext').css("top","220px");
 						$('.info-slide-content.health-forecast .mainforecast .high').css("left","91px");
@@ -402,13 +402,13 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 						$('.info-slide-content.health-forecast .mainforecast .lowtext').fadeOut(0)
 						$('.info-slide-content.health-forecast .mainforecast .low').fadeOut(0)
 					}
-					$('.info-slide-content.health-forecast .thing').text("Forecast for " + healthforecastdata.dayOfWeek[startidxdayonly])
-					$('.info-slide-content.health-forecast .mainforecast .hightext').text(healthforecastdata.temperatureMax[startidxdayonly])
-					$('.info-slide-content.health-forecast .mainforecast .lowtext').text(healthforecastdata.temperatureMin[startidxdayonly])
-					$('.info-slide-content.health-forecast .forecastdetails .chancepreciptext').text(healthforecastdata.daypart[0].precipChance[startidx] + '%')
-					$('.info-slide-content.health-forecast .forecastdetails .humidtext').text(healthforecastdata.daypart[0].relativeHumidity[startidx] + '%')
-					$('.info-slide-content.health-forecast .forecastdetails .windtext').text(((healthforecastdata.daypart[0].windDirectionCardinal[startidx] == "CALM") ? 'calm' :  healthforecastdata.daypart[0].windDirectionCardinal[startidx]) + ' ' + ((healthforecastdata.daypart[0].windSpeed[startidx] === 0) ? '' : healthforecastdata.daypart[0].windSpeed[startidx]))
-					$('.info-slide-content.health-forecast .mainforecast .icon').css('background-image', 'url("' + getCCicon(+healthforecastdata.daypart[0].iconCode[startidx], healthforecastdata.daypart[0].windSpeed[startidx]) + '")');
+					$('.info-slide-content.health-forecast .thing').text("Forecast for " + healthforecastdata.dayOfWeek[starthidxdayonly])
+					$('.info-slide-content.health-forecast .mainforecast .hightext').text(healthforecastdata.temperatureMax[starthidxdayonly])
+					$('.info-slide-content.health-forecast .mainforecast .lowtext').text(healthforecastdata.temperatureMin[starthidxdayonly])
+					$('.info-slide-content.health-forecast .forecastdetails .chancepreciptext').text(healthforecastdata.daypart[0].precipChance[starthidx] + '%')
+					$('.info-slide-content.health-forecast .forecastdetails .humidtext').text(healthforecastdata.daypart[0].relativeHumidity[starthidx] + '%')
+					$('.info-slide-content.health-forecast .forecastdetails .windtext').text(((healthforecastdata.daypart[0].windDirectionCardinal[starthidx] == "CALM") ? 'calm' :  healthforecastdata.daypart[0].windDirectionCardinal[starthidx]) + ' ' + ((healthforecastdata.daypart[0].windSpeed[starthidx] === 0) ? '' : healthforecastdata.daypart[0].windSpeed[starthidx]))
+					$('.info-slide-content.health-forecast .mainforecast .icon').css('background-image', 'url("' + getCCicon(+healthforecastdata.daypart[0].iconCode[starthidx], healthforecastdata.daypart[0].windSpeed[starthidx]) + '")');
 					$('.info-slide.health #subhead-title').text('Outdoor Activity');
 					$('.info-slide.health #subhead-city').text(dataMan.locations[0].city);
 					$('.info-slide.health').fadeIn(0);
