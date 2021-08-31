@@ -1,15 +1,34 @@
-
+var mainstate
 function WeatherManager() {
 
-	var mainloc
+	var mainloc;
 	var mainMap, miniMap, slides,
 		dataMan, loops, //weatherAudio,
 		that = this;
-
+var marqueeforecasttype = 'now';
 	$(function(){
 
 		// init marquees
+
 		function refreshMarquee () {
+			if (marqueeforecasttype == 'now') {
+				marqueeforecasttype = 'forecast'
+				$('#arrow-img').attr("src",'/images/' + foreMarqueeDay + 'arrow.png');
+				$('.marquee-fore').each(function(i, item) {
+					item.style.display = ''
+				});$('.marquee-now').each(function(i, item) {
+					item.style.display = 'none'
+				});
+			} else {
+				marqueeforecasttype = 'now'
+				$('#arrow-img').attr("src",'/images/now.png');
+				$('.marquee-fore').each(function(i, item) {
+					item.style.display = 'none'
+				});
+				$('.marquee-now').each(function(i, item) {
+					item.style.display = ''
+				});
+			}
 			$('#marquee-container')
 				.marquee('destroy')
 				.marquee({speed: 200, pauseOnHover:true, delayBeforeStart:3000})
@@ -55,6 +74,8 @@ function WeatherManager() {
 			$.getJSON("https://api.weather.com/v3/location/search?query="+queryString.split("?")[1]+"&language=en-US&format=json&apiKey=" + api_key, function(data) {
 				dataMan = createDataManager( data.location.latitude[0]+','+data.location.longitude[0] );
 				mainloc = data.location.city[0]
+				mainstate = data.location.adminDistrict[0]
+				groupDataManager = new GroupDataManager;
 			});
 		} else {
 
@@ -62,6 +83,8 @@ function WeatherManager() {
 			$.getJSON("http://ip-api.com/json/?callback=?", function(data) {
 				dataMan = createDataManager( data.lat+','+data.lon );
 				mainloc = data.city
+				mainstate = data.regionName
+				groupDataManager = new GroupDataManager;
 			});
 
 		}
