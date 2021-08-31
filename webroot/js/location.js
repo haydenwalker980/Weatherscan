@@ -78,7 +78,7 @@ function Location() { // onReady, onRefresh, onAllComplete
 			// set the expiration date/time
 			_observations[0].xdate = dateFns.addMinutes(json.lastBuildDate, json.ttl);
 
-			setTimeout(checkRefresh, getRandom(5000, 10000));
+			setTimeout(function() {checkRefresh(loclat + "," + loclong)}, 100000);
 		} else {
 			$this.trigger('init');
 		}
@@ -155,7 +155,7 @@ function Forecast(type, lat, lon, readyCallback) {
 
 		// check the expiration
 		if ( that.data!={} && dateFns.isFuture( that.data.xdate ) ) {
-			setTimeout(checkRefresh, getRandom(5000, 10000));
+			setTimeout(function() {checkRefresh}, 100000);
 			return;
 		}
 
