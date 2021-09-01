@@ -118,11 +118,12 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				showBulletin();
 				function showRadarS(lat, long, zoom, time) {
 
-				weatherMan.mainMap = new Radar("radar-1", 3, zoom, lat, long, false);
+
 						// fade out info, fade in radar
 						weatherAudio.playLocalRadar();
 						$('.radar-slide').fadeIn(0);
 						$('.radar-content').fadeIn(500);
+						weatherMan.mainMap = Radar("radar-1", 3, zoom, lat, long, false);
 						$('.radar-color-legend').fadeIn(500);
 						setTimeout(function() {
 							$('.radar-content').fadeOut(500);
@@ -146,7 +147,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 				}
 				function showBulletin() {
 					var foreDataAlert = dataMan.locations[0].forecasts('alert');
-					var page2 = [];
+					var pages = [""];
 					if (foreDataAlert !== undefined){
 						$('.bulletin .frost-pane .warnings').empty()
 						var displayday;
