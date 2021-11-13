@@ -1001,15 +1001,15 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 
 								fidx = (fidx===undefined ? 0 : fidx);
 
-								if (forecasts.daypart[0].daypartName[0] == null && fidx == 0) {
+								if (forecasts.daypart[0].daypartName[0] == null) {
 									correct = 1;
-									fidx = 1;
+									fidx = (fidx===0 ? 1 : fidx);
 								}
 
 								$('.city-info-slide #subhead-title').text('Local Forecast');
 								//replace tomorrow
 
-								$(div + '.title').text(forecasts.daypart[0].daypartName[fidx].replace('Tomorrow', forecasts.dayOfWeek[fidx]));
+								$(div + '.title').text(forecasts.daypart[0].daypartName[fidx].replace('Tomorrow', forecasts.dayOfWeek[1]));
 
 								// content
 								resizeText(forecasts.daypart[0].narrative[fidx] + ((forecasts.daypart[0].qualifierPhrase[fidx] != null && forecasts.daypart[0].narrative[fidx].includes(forecasts.daypart[0].qualifierPhrase[fidx]) === false) ? forecasts.daypart[0].qualifierPhrase[fidx] : '') + ((forecasts.daypart[0].windPhrase[fidx] != null && forecasts.daypart[0].narrative[fidx].includes(forecasts.daypart[0].windPhrase[fidx]) === false) ? forecasts.daypart[0].windPhrase[fidx] : ''));
@@ -1028,8 +1028,8 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 
 								if (fidx<3 + correct) {
 									$('.info-slide-content.forecast').fadeOut(500, function() {
-										currentDisplay(++fidx);
-										fillinfo();
+										currentDisplay(fidx+1);
+										//fillinfo();
 									});
 								} else {
 									$('.info-slide-content.forecast').fadeOut(500, function() {
