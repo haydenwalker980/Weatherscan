@@ -92,9 +92,9 @@ function heatIndex(T, R) { // T = temp, R = relative humidity
 function getCCicon(ccCode, windData){
 	var icon = "images/icons/" + ( "0" +  {"0":0,"1":0,"2":0,"3":47,"4":01,"5":02,"6":38,"7":03,"8":04,"9":05,"10":06,"11":08,"12":08,"13":09,"14":12,"15":11,"16":12,"17":48,"18":48,"19":16,"20":49,"21":16,"22":14,"23":0,"24":50,"25":34,"26":20,"27":21,"28":22,"29":23,"30":24,"31":25,"32":26,"33":27,"34":28,"35":13,"36":41,"37":29,"38":29,"39":30,"40":31,"41":32,"42":33,"43":34,"44":19,"45":35,"46":36,"47":37}[ccCode]).slice(-2) + ".png";
 	if (parseInt(windData) >= 20) {
-		if (icon === "12" || icon ===  "10" || icon ===  "9") {
+		if (icon === "images/icons/12.png" || icon ===  "images/icons/10.png" || icon ===  "images/icons/09.png") {
 			icon = "images/icons/34.png"
-		} else if (icon === "31" || icon === "08" || icon === "07") {
+		} else if (icon === "images/icons/31" || icon === "images/icons/08" || icon === "images/icons/07.png") {
 			icon = "images/icons/45.png"
 		}
 	}
