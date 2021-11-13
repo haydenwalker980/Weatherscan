@@ -1029,7 +1029,7 @@ RADAR < MAIN CITY < CITY 1 < CITY 2
 								if (fidx<3 + correct) {
 									$('.info-slide-content.forecast').fadeOut(500, function() {
 										currentDisplay(fidx+1);
-										//fillinfo();
+										fillinfo();
 									});
 								} else {
 									$('.info-slide-content.forecast').fadeOut(500, function() {
