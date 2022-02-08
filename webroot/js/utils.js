@@ -87,6 +87,39 @@ function heatIndex(T, R) { // T = temp, R = relative humidity
 	return Math.round(c1 + c2*T + c3 *R + c4*T*R + c5*T2 + c6*R2 + c7*T2*R + c8*T*R2 + c9*T2*R2);
 }
 
+// ----------------------------------------
+// Calculate new Lat/Lng from original points
+// on a distance and bearing (angle)
+// ----------------------------------------
+let llFromDistance = function(latitude, longitude, distance, bearing) {
+		// taken from: https://stackoverflow.com/a/46410871/13549
+    // distance in KM, bearing in degrees
+
+    const R 		= 6378.1;                         // Radius of the Earth
+    const brng	= bearing  	* Math.PI / 180;     // Convert bearing to radian
+    let lat 		= latitude	* Math.PI / 180;      // Current coords to radians
+    let lon 		= longitude	* Math.PI / 180;
+
+    // Do the math magic
+    lat = Math.asin(Math.sin(lat) * Math.cos(distance / R) + Math.cos(lat) * Math.sin(distance / R) * Math.cos(brng));
+    lon += Math.atan2(Math.sin(brng) * Math.sin(distance / R) * Math.cos(lat), Math.cos(distance/R)-Math.sin(lat)*Math.sin(lat));
+
+    // Coords back to degrees and return
+    return [ (lat  * 180 / Math.PI), (lon  * 180 / Math.PI) ];
+
+}
+
+let pointsOnMapCircle = function(latitude, longitude, distance, numPoints) {
+	const points = [];
+  for (let i=0; i <= numPoints - 1; i++) {
+  	const bearing = Math.round((360 / numPoints) * i);
+    console.log(bearing, i);
+  	const newPoints = llFromDistance(latitude, longitude, distance, bearing);
+    points.push(newPoints);
+  }
+ return points;
+}
+
 
 // maps current condition code to icon
 function getCCicon(ccCode, windData){

@@ -1,164 +1,245 @@
-var severemode
-function Loops(bindDataManager) {
-	var //dataManager,
-		obsData,
-		foreDataDaily,
-		foreDataHourly;
-
-	obsData = bindDataManager.observations;
-	foreDataDaily = bindDataManager.forecasts('daily');
-	foreDataHourly = bindDataManager.forecasts('hourly');
-
+var loopssevereweathermode = false;
+var displayingAtmospheric = false;
+var miniMap;
+function Loops() {
 
 	// init the display loops
-	displayAtmospheric(0);
+
 	displayForecast(0);
+	refreshObservationDisplay()
+	setInterval(refreshObservationDisplay,300000);
+
+}
+	function refreshObservationDisplay() {
+		var cond = weatherInfo.currentCond.sidebar.cond;
+		$('#city').text(maincitycoords.displayname);
+		$('#forecast-city').text(maincitycoords.displayname + ':');
+		if (weatherInfo.radarTempUnavialable == false) {
+			if (loopssevereweathermode == false){
+				$('#minimap').fadeIn(0)
+				$('#minimap-title').fadeIn(0)
+				if (miniMap===undefined) {
+					miniMap = new Radar("minimap", 3, 7, maincitycoords.lat, maincitycoords.lon);
+				}
+			}
+		} else {
+			$('#minimap').fadeOut(0)
+			$('#minimap-title').fadeOut(0)
+		}
+		if (weatherInfo.currentCond.sidebar.noReport == true) {
+			$('#now').fadeOut(0)
+			$('#current-temp').fadeOut(0)
+			$('#current-info').fadeOut(0)
+			$('#conditions-icon').fadeOut(0)
+			$('#current-info-severe').fadeOut(0)
+			$('#current-info-details').fadeOut(0)
+			$('#current-noreport').fadeIn(0)
+		} else {
+			if (displayingAtmospheric == false) {
+				if (loopssevereweathermode == false) { displayAtmospheric(0)	} else { displaySevereAtmospheric(0) }
+			}
+			$('#now').fadeIn(0)
+			$('#current-temp').fadeIn(0)
+			if (loopssevereweathermode == false) { $('#current-info').fadeIn(0) } else {
+				$('#current-info-severe').fadeIn(0);
+				$('#current-info-details').fadeIn(0);
+			}
+			$('#current-noreport').fadeOut(0)
+			$('#conditions-icon').fadeIn(0)
+			$('#current-temp').text( weatherInfo.currentCond.sidebar.temp ) ;
+			$('#conditions-icon').css('background-image', 'url("' + getCCicon(+weatherInfo.currentCond.sidebar.icon, weatherInfo.currentCond.sidebar.windspeed) + '")');
+		}
+	}
+
 
 	function displayAtmospheric(idx) {
-
+		if (weatherInfo.currentCond.sidebar.noReport == false){
+		displayingAtmospheric = true;
 		var displays = {
 			conditions() {
-				return (obsData(0).wxPhraseLong).toLowerCase();
+				return (weatherInfo.currentCond.sidebar.cond).toLowerCase();
 			},
 
-				wind(){ return 'wind ' + ((obsData(0).windDirectionCardinal == "CALM") ? 'calm' :  obsData(0).windDirectionCardinal) + ' ' + ((obsData(0).windSpeed === 0) ? '' : obsData(0).windSpeed); },
+				wind(){ return 'wind ' + weatherInfo.currentCond.sidebar.wind; },
 
 				gusts(){
-					if ( obsData(1)!=undefined ) {
-						return obsData(1).windGust.value!=null ? 'gusts ' +  obsData(1).windGust.value : '';
+					if ( weatherInfo.currentCond.sidebar.gust!=undefined ) {
+						return (weatherInfo.currentCond.sidebar.gust!="none") ? 'gusts ' +  weatherInfo.currentCond.sidebar.gust : '';
 					}
 				},
 
-				humidity(){ return 'humidity ' + obsData(0).relativeHumidity + '%'; },
+				humidity(){ return 'humidity ' + weatherInfo.currentCond.sidebar.humid + '%'; },
 
-				dewpoint(){ return 'dew point ' + obsData(0).temperatureDewPoint + '&deg;'; },
+				dewpoint(){ return 'dew point ' + weatherInfo.currentCond.sidebar.dewpt + '&deg;'; },
 
 				heatindex_windchill(){
-					var windchill =	Math.round(35.74 + 0.6215 * parseInt(obsData(0).temperature) - 35.75 * Math.pow(parseInt(obsData(0).windSpeed),0.16) + 0.4275 * parseInt(obsData(0).temperature) * Math.pow(parseInt(obsData(0).windSpeed),0.16) -1);
-					if (parseInt(obsData(0).temperature)<80 && windchill < parseInt(obsData(0).temperature)) {
-
-						return 'wind chill ' + windchill + '&deg;';
-					} else if (parseInt(obsData(0).temperature)>=80 && parseInt(obsData(0).relativeHumidity)>=40 ){
-						return 'heat index ' + heatIndex(obsData(0).temperature, obsData(0).relativeHumidity) + '&deg;';
+					if (weatherInfo.currentCond.sidebar.feelslike.type != "dontdisplay") {
+						return weatherInfo.currentCond.sidebar.feelslike.type + " " + weatherInfo.currentCond.sidebar.feelslike.val +  '&deg;'
 					}
-					else return '';
 				},
 
-				pressure(){ return 'pressure ' + obsData(0).pressureAltimeter },
-//+ ['S','R','F'][obsData(0).current.rising];
-				visibility() { return 'visibility ' + obsData(0).visibility + ' mile' + (obsData(0).visibility != 1 ? 's' : ''); },
+				pressure(){ return 'pressure ' + weatherInfo.currentCond.sidebar.pressure + ' ' + weatherInfo.currentCond.sidebar.pressureTrend},
 
-				uvindex() { return 'UV index ' + obsData(0).uvDescription; },
+				visibility() { return 'visibility ' + weatherInfo.currentCond.sidebar.visibility + ' mile' + (weatherInfo.currentCond.sidebar.visibility != 1 ? 's' : ''); },
+
+				uvindex() { return 'UV index ' + weatherInfo.currentCond.sidebar.uvidx; },
 
 		},
 		keys = Object.keys(displays),
 		text = displays[ keys[idx] ]();
 
 		// increment the pointer
-		if (severemode == true) {
-			var si = 0;
-			function resetInfo() {
-				if (si == 0) {
-					stext = (obsData(0).wxPhraseLong).toLowerCase() + '<br><br>' + 'wind ' + ((obsData(0).windDirectionCardinal == "CALM") ? 'calm' :  obsData(0).windDirectionCardinal) + ' ' + ((obsData(0).windSpeed === 0) ? '' : obsData(0).windSpeed) + '<br>' + 'humidity ' + obsData(0).relativeHumidity + '%' + '<br>' + 'dew point ' + obsData(0).temperatureDewPoint + '&deg;'
-					$('#current-info').html(stext);
-					si = 1;
-				} else {
-				$('#current-info').html((obsData(0).wxPhraseLong).toLowerCase() + '<br><br>' + 'pressure ' + obsData(0).pressureAltimeter + '<br>' + 'visibility ' + obsData(0).visibility + ((obsData(0).visibility != 1 ) ? 'miles' : 'mile') + '<br>' + 'ceiling' + ((obsData(0).cloudCeiling != null) ? ((obsData(0).cloudCeiling).toString() + 'ft') : ''));
-				si = 0;
-			}
-				setTimeout(function(){resetInfo()}, 6000);
-			}
-			resetInfo()
-		} else {
-		idx = (++idx===keys.length ? 0 : idx);
+		if (loopssevereweathermode == false) {
+			idx = (++idx===keys.length ? 0 : idx);
 
-		if (text) {
-			$('#current-info').html(text);
-			setTimeout(function(){ displayAtmospheric(idx) }, 6000); // 6 second increment loop
-		} else {
-			// nothing to display - skip to the next one
-			setTimeout(function(){ displayAtmospheric(idx) }, 0);
+			if (text) {
+				$('#current-info').html(text);
+				setTimeout(function(){ displayAtmospheric(idx) }, 6000); // 6 second increment loop
+			} else {
+				// nothing to display - skip to the next one
+				setTimeout(function(){ displayAtmospheric(idx) }, 0);
+			}
 		}
-	}
+	} else {displayingAtmospheric = false}
 	}  // end function
 
+	function displaySevereAtmospheric(idx) {
+		if (weatherInfo.currentCond.sidebar.noReport == false) {
+		displayingAtmospheric = true
+		$('#current-info-severe').text((weatherInfo.currentCond.sidebar.cond).toLowerCase());
+		var displays = {
+			display1() {
+				return 'wind ' + weatherInfo.currentCond.sidebar.wind + '<br>' + ((weatherInfo.currentCond.sidebar.gust!="none") ? 'gusts ' +  weatherInfo.currentCond.sidebar.gust + '<br>' : '' ) + 'humidity ' + weatherInfo.currentCond.sidebar.humid + '%' + '<br>' + 'dew point ' + weatherInfo.currentCond.sidebar.dewpt + '&deg;'
+			},
+			display2() {
+				return (((weatherInfo.currentCond.sidebar.feelslike.type != "dontdisplay") ?  weatherInfo.currentCond.sidebar.feelslike.type + " " + weatherInfo.currentCond.sidebar.feelslike.val +  '&deg;' + '<br>' : '' ) + 'pressure ' + weatherInfo.currentCond.sidebar.pressure + weatherInfo.currentCond.sidebar.pressureTrend + '<br>' + 'visibility ' + weatherInfo.currentCond.sidebar.visibility + ((weatherInfo.currentCond.sidebar.visibility != 1 ) ? ' miles' : ' mile') + '<br>' + 'ceiling ' + ((weatherInfo.currentCond.sidebar.ceiling != null) ? ((weatherInfo.currentCond.sidebar.ceiling).toString() + ' ft') : ''))
+			}
+		},
+		keys = Object.keys(displays),
+		text = displays[ keys[idx] ]();
+
+		idx = (++idx===keys.length ? 0 : idx);
+		if (loopssevereweathermode == true) {
+			if (text) {
+				$('#current-info-details').html(text);
+				setTimeout(function(){ displaySevereAtmospheric(idx) }, 6000); // 6 second increment loop
+			} else {
+				// nothing to display - skip to the next one
+				setTimeout(function(){ displaySevereAtmospheric(idx) }, 0);
+			}
+		}
+		} else {displayingAtmospheric = false}
+	} //end function
 
 	function displayForecast(idx) {
 
 		var displays = {
 
 				text1() {
-					if (foreDataDaily.daypart[0].daypartName[0] != null) {
-					$('#forecast-title').text(foreDataDaily.daypart[0].daypartName[0] + "'S" + " FORECAST");
-					resizeText(foreDataDaily.daypart[0].narrative[0] + ((foreDataDaily.daypart[0].qualifierPhrase[0] != null && foreDataDaily.daypart[0].narrative[0].includes(foreDataDaily.daypart[0].qualifierPhrase[0]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[0] : '') + ((foreDataDaily.daypart[0].windPhrase[0] != null && foreDataDaily.daypart[0].narrative[0].includes(foreDataDaily.daypart[0].windPhrase[0]) === false) ? foreDataDaily.daypart[0].windPhrase[0] : ''));
-				} else {
-					$('#forecast-title').text(foreDataDaily.daypart[0].daypartName[1] + "'S" + " FORECAST");
-					resizeText(foreDataDaily.daypart[0].narrative[1] + ((foreDataDaily.daypart[0].qualifierPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].qualifierPhrase[1]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[1] : '') + ((foreDataDaily.daypart[0].windPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].windPhrase[1]) === false) ? foreDataDaily.daypart[0].windPhrase[1] : ''));
-				}
+					if (weatherInfo.dayDesc.lowerbar.noReport == true) {
+						$('#forecast-title').fadeOut(0)
+						$('#forecast-text').fadeOut(0)
+						$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
+						$('#forecast-shadow').css('background','rgba(0,0,0,0)')
+						$('#forecast-tiles').fadeOut(0)
+						$('#forecast-noreport').fadeIn(0)
+					} else {
+						$('#forecast-noreport').fadeOut(0)
+						$('#forecast-shadow').css('background','#8cadd1')
+						$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, .35)')
+						$('#forecast-text').fadeIn(0)
+						$('#forecast-title').fadeIn(0)
+						$('#forecast-title').text(weatherInfo.dayDesc.lowerbar.day[0].name + "'S" + " FORECAST");
+						resizeText(weatherInfo.dayDesc.lowerbar.day[0].desc);
+					}
 				},
 				text2() {
-					if (foreDataDaily.daypart[0].daypartName[0] != null) {
-					$('#forecast-title').text( foreDataDaily.daypart[0].daypartName[1] + "'S" + " FORECAST" );
-					resizeText(foreDataDaily.daypart[0].narrative[1] + ((foreDataDaily.daypart[0].qualifierPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].qualifierPhrase[1]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[1] : '') + ((foreDataDaily.daypart[0].windPhrase[1] != null && foreDataDaily.daypart[0].narrative[1].includes(foreDataDaily.daypart[0].windPhrase[1]) === false) ? foreDataDaily.daypart[0].windPhrase[1] : ''));
-				} else {
-					$('#forecast-title').text(foreDataDaily.dayOfWeek[1] + "'S" + " FORECAST");
-					resizeText(foreDataDaily.daypart[0].narrative[2] + ((foreDataDaily.daypart[0].qualifierPhrase[2] != null && foreDataDaily.daypart[0].narrative[2].includes(foreDataDaily.daypart[0].qualifierPhrase[2]) === false) ? foreDataDaily.daypart[0].qualifierPhrase[2] : '') + ((foreDataDaily.daypart[0].windPhrase[2] != null && foreDataDaily.daypart[0].narrative[2].includes(foreDataDaily.daypart[0].windPhrase[2]) === false) ? foreDataDaily.daypart[0].windPhrase[2] : ''));
-				}
+					if (weatherInfo.dayDesc.lowerbar.noReport == true) {
+						$('#forecast-shadow').css('background','rgba(0,0,0,0)')
+						$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
+						$('#forecast-title').fadeOut(0)
+						$('#forecast-text').fadeOut(0)
+						$('#forecast-tiles').fadeOut(0)
+						$('#forecast-noreport').fadeIn(0)
+					} else {
+						$('#forecast-noreport').fadeOut(0)
+						$('#forecast-shadow').css('background','#8cadd1')
+						$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, .35)')
+						$('#forecast-text').fadeIn(0)
+						$('#forecast-title').fadeIn(0)
+						$('#forecast-title').text(weatherInfo.dayDesc.lowerbar.day[1].name + "'S" + " FORECAST");
+						resizeText(weatherInfo.dayDesc.lowerbar.day[1].desc);
+					}
 				},
 
 			    fiveday() {
-					var newtile, weekend, icons,
-						startidx = (foreDataDaily.daypart[0].daypartName[0] != null ? 0 : 2);
+						if (weatherInfo.fiveDay.lowerbar.noReport == true) {
+							$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
+							$('#forecast-shadow').css('background','rgba(0,0,0,0)')
+							$('#forecast-title').fadeOut(0)
+							$('#forecast-text').fadeOut(0)
+							$('#forecast-tiles').fadeOut(0)
+							$('#forecast-noreport').fadeIn(0)
+						} else {
+							$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, .35)')
+							$('#forecast-title').fadeIn(0)
+							$('#forecast-noreport').fadeOut(0)
+					var newtile, weekend, icons;
 
 					$('#forecast-title').text("5 DAY FORECAST");
 					$('#forecast-tiles').empty();
 
-					for (var i=startidx; i<=(startidx + 8); i+=2 ) {
+					for (var i=0; i<5; i++ ) {
+						newtile = $("<div class='forecast-tile daily" + weatherInfo.fiveDay.lowerbar.day[i].weekend + "'></div>");
 
-						weekend = ( dateFns.isWeekend(foreDataDaily.validTimeLocal[i/2]) ? ' weekend' : '');
-						newtile = $("<div class='forecast-tile daily" + weekend + "'></div>");
+						$("<div class='header'></div>") .appendTo(newtile) .text(weatherInfo.fiveDay.lowerbar.day[i].name);
 
-						$("<div class='header'></div>") .appendTo(newtile) .text((foreDataDaily.dayOfWeek[i/2]).substring(0,3));
-
-						icons = getCCicon(+foreDataDaily.daypart[0].iconCode[i], foreDataDaily.daypart[0].windSpeed[i]);
+						icons = getCCicon(+weatherInfo.fiveDay.lowerbar.day[i].icon, weatherInfo.fiveDay.lowerbar.day[i].windspeed);
 
 							$("<img class='icon' src=''/>") .appendTo(newtile) .attr('src', icons);
 
 
-						$("<div class='high'></div>") .appendTo(newtile) .text(foreDataDaily.temperatureMax[i/2]);
-						$("<div class='low'></div>")  .appendTo(newtile) .text(foreDataDaily.temperatureMin[i/2]);
+						$("<div class='high'></div>") .appendTo(newtile) .text(weatherInfo.fiveDay.lowerbar.day[i].high);
+						$("<div class='low'></div>")  .appendTo(newtile) .text(weatherInfo.fiveDay.lowerbar.day[i].low);
 
 						$('#forecast-tiles').append(newtile);
 					}
 
 					$('#forecast-tiles').css('display','flex');
+					}
 				},
 
 			    hourly() {
-					var newtile, icons, sizer, highbar,
-					    indexes = calcHourlyReport(foreDataHourly),
-						data, label, temps=[];
-
-					$('#forecast-title').text( buildHourlyHeaderTitle(foreDataHourly.validTimeLocal[indexes[0]]) );
+						if (weatherInfo.dayPart.lowerbar.noReport == true) {
+							$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
+							$('#forecast-shadow').css('background','rgba(0,0,0,0)')
+							$('#forecast-title').fadeOut(0)
+							$('#forecast-text').fadeOut(0)
+							$('#forecast-tiles').fadeOut(0)
+							$('#forecast-noreport').fadeIn(0)
+						} else {
+							$('#forecast-title').fadeIn(0)
+							$('#forecast-noreport').fadeOut(0)
+					var newtile, icons, sizer, highbar, data, label, temps=[];
+					$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, .35)')
+					$('#forecast-title').text( weatherInfo.dayPart.lowerbar.daytitle );
 					$('#forecast-tiles').empty();
 
-					for (var i of indexes) {
-						data = foreDataHourly;
+					for (var i = 0; i < 4; i++) {
 
 						newtile = $("<div class='forecast-tile hourly'></div>");
 						sizer   = $("<div class='width-sizer'></div>").appendTo(newtile);
 
-						icons = getCCicon(data.iconCode[i], data.windSpeed[i]);
-
+						icons = getCCicon(weatherInfo.dayPart.lowerbar.hour[i].icon, weatherInfo.dayPart.lowerbar.hour[i].windspeed);
 							$("<img class='icon' src=''/>") .appendTo(sizer) .attr('src', icons);
 
 
-						$("<div class='footer'></div>") .appendTo(newtile) .text(buildHourlyTimeTitle(data.validTimeLocal[i]));
+						$("<div class='footer'></div>") .appendTo(newtile) .text(weatherInfo.dayPart.lowerbar.hour[i].time);
 
 						highbar = $("<div class='hourly-high'></div>") .appendTo(sizer);
 
-						$("<div class='high'></div>") .appendTo(highbar) .text(data.temperature[i]);
-						temps.push(data.temperature[i]);
+						$("<div class='high'></div>") .appendTo(highbar) .text(weatherInfo.dayPart.lowerbar.hour[i].temp);
+						temps.push(weatherInfo.dayPart.lowerbar.hour[i].temp);
 
 						$("<div class='temp-bar'></div>") .appendTo(highbar);
 
@@ -170,7 +251,7 @@ function Loops(bindDataManager) {
 					// animate grow and show temp
 					var min = Math.min(...temps),  // 54
 						max = Math.max(...temps),  // 73
-						range = (max-min),
+						range = ((max-min) != 0) ? (max-min) : .001,
 						prange = (95-78), // percent range for bar height
 						temp, value;
 					$('.forecast-tile').each(function(){
@@ -180,10 +261,10 @@ function Loops(bindDataManager) {
 							$(this).find('.high').fadeTo('slow', 1);
 						});
 					})
+				}
 				},
 
 				dummy(){}
-
 			},
 			keys = Object.keys(displays);
 
@@ -214,10 +295,10 @@ function Loops(bindDataManager) {
 
 
 
-} // end Loops class
+ // end Loops class
 
 
-function buildHourlyHeaderTitle(time) {
+/*function buildHourlyHeaderTitle(time) {
 	var today = new Date(),
 		tomorrow = dateFns.addDays(today, 1),
 		sforecast = "'s Forecast";
@@ -305,75 +386,7 @@ function calcHourlyReport(data) {
 	}
 	return ret;
 }
-
-function mapNWSicons(url){
-	var map = {
-			skc:[26,25],
-			few:[28,27],
-			sct:[24,23],
-			bkn:[22,21],
-			ovc:[20,20],
-			wind_skc:[26,25,47],
-			wind_few:[28,27,47],
-			wind_sct:[24,23,47],
-			wind_bkn:[22,21,47],
-			wind_ovc:[20,20,47],
-			snow:[10,10],
-			rain_snow:[2,2],
-			rain_sleet:[38,38],
-			snow_sleet:[3,3],
-			fzra:[6,6],
-			rain_fzra:[6,6],
-			snow_fzra:[44,44],
-			sleet:[13,13],
-			rain:[8,8],
-			rain_showers:[7,7],
-			rain_showers_hi:[5,5],
-			tsra:[1,1],
-			tsra_sct:[29,37],
-			tsra_hi:[29,37],
-			tornado:[46,46],
-			hurr_warn:[45,45],
-			hurr_watch:[45,45],
-			ts_warn:[45,45],
-			ts_watch:[45,45],
-			ts_hurr_warn:[45,45],
-			dust:[14,14],
-			smoke:[16,16],
-			haze:[16,16],
-			hot:[16,16],
-			cold:[42,42],
-			blizzard:[11,11],
-			fog:[15,15]
-	},
-	matches = url.match(/icons\/land\/(day|night)\/([a-z_]*)\/?([a-z_]*)/),  // day or night followed by one or more condition codes
-	idx = {day:0, night:1}[matches[1]],
-	ret=[], match;
-
-	for (i=2; i<matches.length; i++){
-
-		if (matches[i]) {
-			match = map[ matches[i] ];
-
-			ret.push( match[idx] );
-
-			// some icons are 2 layered
-			if (match.length>2) {
-				ret.push( match[2] );
-			}
-		}
-	}
-
-	// place word icons last so they render on top
-	if (ret.length>1 && [15,47,41,42, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 20, 31, 33, 34, 38, 39, 40, 44].indexOf( ret[1] )>-1) {
-		ret.swap(0,1);
-	}
-
-	return ret.map(function(num){
-		return 'images/icons/' + ('0'+num).slice(-2) + '.png';
-	});
-
-}
+*/
 
 /*
 
@@ -386,158 +399,5 @@ pressure 30.02 S
 visibility 10 miles
 uv index High
 partly cloudy
-
-*/
-
-// sample data
-/*
-
-https://query.yahooapis.com/v1/public/yql?format=json&q=select * from weather.forecast where woeid=2402292
-
-"units":{
-   "distance":"mi",
-   "pressure":"in",
-   "speed":"mph",
-   "temperature":"F"
-},
-"title":"Yahoo! Weather - Fargo, ND, US",
-"link":"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/",
-"description":"Yahoo! Weather for Fargo, ND, US",
-"language":"en-us",
-"lastBuildDate":"Thu, 12 Oct 2017 10:10 PM CDT",
-"ttl":"60",
-"location":{
-   "city":"Fargo",
-   "country":"United States",
-   "region":" ND"
-},
-"wind":{
-   "chill":"52",
-   "direction":"295",
-   "speed":"18"
-},
-"atmosphere":{
-   "humidity":"54",
-   "pressure":"978.0",
-   "rising":"0",
-   "visibility":"16.1"
-},
-"astronomy":{
-   "sunrise":"7:41 am",
-   "sunset":"6:46 pm"
-},
-"image":{
-   "title":"Yahoo! Weather",
-   "width":"142",
-   "height":"18",
-   "link":"http://weather.yahoo.com",
-   "url":"http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"
-},
-"item":{
-   "title":"Conditions for Fargo, ND, US at 09:00 PM CDT",
-   "lat":"46.865089",
-   "long":"-96.829224",
-   "link":"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/",
-   "pubDate":"Thu, 12 Oct 2017 09:00 PM CDT",
-   "condition":{
-	  "code":"27",
-	  "date":"Thu, 12 Oct 2017 09:00 PM CDT",
-	  "temp":"55",
-	  "text":"Mostly Cloudy"
-   },
-   "forecast":[
-	  {
-		 "code":"30",
-		 "date":"12 Oct 2017",
-		 "day":"Thu",
-		 "high":"70",
-		 "low":"48",
-		 "text":"Partly Cloudy"
-	  },
-	  {
-		 "code":"32",
-		 "date":"13 Oct 2017",
-		 "day":"Fri",
-		 "high":"58",
-		 "low":"37",
-		 "text":"Sunny"
-	  },
-	  {
-		 "code":"39",
-		 "date":"14 Oct 2017",
-		 "day":"Sat",
-		 "high":"49",
-		 "low":"38",
-		 "text":"Scattered Showers"
-	  },
-	  {
-		 "code":"34",
-		 "date":"15 Oct 2017",
-		 "day":"Sun",
-		 "high":"56",
-		 "low":"31",
-		 "text":"Mostly Sunny"
-	  },
-	  {
-		 "code":"34",
-		 "date":"16 Oct 2017",
-		 "day":"Mon",
-		 "high":"65",
-		 "low":"35",
-		 "text":"Mostly Sunny"
-	  },
-	  {
-		 "code":"34",
-		 "date":"17 Oct 2017",
-		 "day":"Tue",
-		 "high":"65",
-		 "low":"39",
-		 "text":"Mostly Sunny"
-	  },
-	  {
-		 "code":"30",
-		 "date":"18 Oct 2017",
-		 "day":"Wed",
-		 "high":"64",
-		 "low":"48",
-		 "text":"Partly Cloudy"
-	  },
-	  {
-		 "code":"30",
-		 "date":"19 Oct 2017",
-		 "day":"Thu",
-		 "high":"65",
-		 "low":"44",
-		 "text":"Partly Cloudy"
-	  },
-	  {
-		 "code":"30",
-		 "date":"20 Oct 2017",
-		 "day":"Fri",
-		 "high":"66",
-		 "low":"49",
-		 "text":"Partly Cloudy"
-	  },
-	  {
-		 "code":"28",
-		 "date":"21 Oct 2017",
-		 "day":"Sat",
-		 "high":"61",
-		 "low":"49",
-		 "text":"Mostly Cloudy"
-	  }
-   ],
-   "description":"<![CDATA[<img src=\"http://l.yimg.com/a/i/us/we/52/27.gif\"/>\n<BR />\n<b>Current Conditions:</b>\n<BR />Mostly Cloudy\n<BR />\n<BR />\n<b>Forecast:</b>\n<BR /> Thu - Partly Cloudy. High: 70Low: 48\n<BR /> Fri - Sunny. High: 58Low: 37\n<BR /> Sat - Scattered Showers. High: 49Low: 38\n<BR /> Sun - Mostly Sunny. High: 56Low: 31\n<BR /> Mon - Mostly Sunny. High: 65Low: 35\n<BR />\n<BR />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/\">Full Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>",
-   "guid":{
-	  "isPermaLink":"false"
-   }
-
-}
-
-
-Current Conditions:</b>\n<BR />Mostly Cloudy\n<BR />\n<BR />\n<b>
-Forecast:</b>\n<BR /> Thu - Partly Cloudy. High: 70Low: 48\n<BR /> Fri - Sunny. High: 58Low: 37\n<BR /> Sat - Scattered Showers. High: 49Low: 38\n<BR /> Sun - Mostly Sunny. High: 56Low: 31\n<BR />
-Mon - Mostly Sunny. High: 65Low: 35\n<BR />\n<BR />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2402292/\">Full Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>",
-   "guid":{
 
 */

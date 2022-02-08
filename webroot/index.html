@@ -35,23 +35,460 @@
 <script type="text/javascript" src="js/radar.js"></script>
 <script type="text/javascript" src="js/audio.js"></script>
 <script type="text/javascript" src="js/groupull.js"></script>
-<script type="text/javascript" src="js/data-manager.js"></script>
-<script type="text/javascript" src="js/location.js"></script>
+
 <script type="text/javascript" src="js/loops.js"></script>
 <script type="text/javascript" src="js/slides-loop.js"></script>
-<script type="text/javascript" src="js/weather.js"></script>
+
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/newweathermanager.js"></script>
+<div id="startup" class="settings">
+  <div class="blackbar">
+    <div class="introtext" style="display: ">
+      <div id="headendid" class="introtext">headend id:</div>
+      <div id="serialnumber" class="introtext">serial number:</div>
+      <div id="locationname" class="introtext">location name:</div>
+      <div id="affilatename" class="introtext">affiliate name:</div>
+    </div>
+    <div id="settings" class="introtext" style="display: none">
+      <div id="apperancesettings" class="introtext">▶ appearance settings</div>
+      <div id="locationsettings" class="introtext">location settings</div>
+      <div id="weathersettings" class="introtext">weather settings</div>
+      <div id="other" class="introtext">other settings</div>
+      <div id="savebutton" class="introtext">Save</div>
+    </div>
+    <img class="twclogo" src="images/weatherlogos.png"/>
+  </div>
+  <div id="appearancesettingspane" class="settingspane" style="display: none">
+    <select name="background" id="background">
+      <option value="oldnologo">old background no nogo</option>
+      <option value="oldnormal">old background twc logo</option>
+      <option value="oldearthday">old background earthday twc logo</option>
+      <option value="nologo">no nogo</option>
+      <option value="normal">twc logo</option>
+      <option value="earthday">earthday twc logo</option>
+      <option value="custom">custom background</option>
+    </select>
+    <select name="sidebar" id="sidebar">
+      <option value="normalsidebar">normal sidebar</option>
+      <option value="2005sidebar">2005 sidebar</option>
+    </select>
+    <select name="citybackground" id="citybackground">
+      <option value="city">city</option>
+      <option value="beach">beach</option>
+      <option value="fence">fence</option>
+      <option value="custom">custom</option>
+    </select>
+    <select name="iconstheme" id="icons">
+      <option value="city">2006-2010</option>
+      <option value="beach">2010-2013</option>
+      <option value="fence">XL Icons</option>
+      <option value="custom">something different</option>
+    </select>
+    <button name= "slide" id="slide"></button>
+  </div>
+  <div id="locationsettingspane" class="settingspane" style="display: none">
+    <div id="weathertitle" class="settingspanetitle">Location Settings</div>
+    <div id="locsearch">
+      <div id="searchbar">
+        <label for="location">location search</label>
+        <input autocomplete="false"type="text" id="locsearch"><br><br>
+      </div>
+      <div id="searchoption">
+        <select name="iconstheme" id="locsearchoption">
+          <option value="city">City</option>
+          <option value="address">Address</option>
+          <option value="zipcode">Zipcode</option>
+          <option value="coords">Coordinates</option>
+        </select>
+      </div>
+      <div id="displayname">
+        <label for="location">display name</label>
+        <input type="text" id="locdisplayname"><br><br>
+      </div>
+      <div id="addlocationbuttons">
+        <button id="setmainloc">Set Main Location</button>
+        <button id="addlocbutton">Add Location</button>
+        <button id="addloc8slide">Add to 8 City Slide</button>
+        <button id="addlocticker">Add to CC Ticker</button>
+      </div>
+      <div id="extralocheader" class="locationheader">Locations
+        <button id="extralocsdata" class="clearalllocs">Clear Extra Locations</button>
+        <button id="resetmainloc">Reset Main Location</button>
+        <button id="extralocation" class="resetotherlocs">Reset Extra Locations</button>
+      </div>
+      <div id="mainlocation">Main Location
+        <div id="locationname">name: </div>
+        <div id="locationdisplayname">display name: </div>
+        <div id="coords">coordinates: </div>
+      </div>
+      <div id="extralocations">
+        <div id="extralocation1" class="extralocation">Extra Location 1
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton" name="fname">Remove Location</button>
+        </div>
+        <div id="extralocation2" class="extralocation">Extra Location 1
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="extralocation3" class="extralocation">Extra Location 1
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+      </div>
+      <div id="city8slide" class="locationheader">8 City Slide Locations
+        <button id="city8slidedata" class="clearalllocs">Clear Extra Locations</button>
+        <button id="8slide" class="resetotherlocs">Reset Extra Locations</button>
+      </div>
+      <div id="City8SlideLocations">
+        <div id="eightslideloc1" class="eightslideloc">Eight City Slide Location 1
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc2" class="eightslideloc">Eight City Slide Location 2
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc3" class="eightslideloc">Eight City Slide Location 3
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc4" class="eightslideloc">Eight City Slide Location 4
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc5" class="eightslideloc">Eight City Slide Location 5
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc6" class="eightslideloc">Eight City Slide Location 6
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc7" class="eightslideloc">Eight City Slide Location 7
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="eightslideloc8" class="eightslideloc">Eight City Slide Location 8
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+      </div>
+      <div id="cctickerheader" class="locationheader">CCTicker Locations
+        <button id="cctickerdata" class="clearalllocs">Clear CCticker Locations</button>
+        <button id="resetcctickerlocs">Reset CCTicker Locations</button>
+      </div>
+      <div id="cctickerlocations">
+        <div id="cctickerloc1" class="cctickerloc">CCTicker Location 1
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc2" class="cctickerloc">CCTicker Location 2
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc3" class="cctickerloc">CCTicker Location 3
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc4" class="cctickerloc">CCTicker Location 4
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc5" class="cctickerloc">CCTicker Location 5
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc6" class="cctickerloc">CCTicker Location 6
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc7" class="cctickerloc">CCTicker Location 7
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc8" class="cctickerloc">CCTicker Location 8
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc9" class="cctickerloc">CCTicker Location 9
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+        <div id="cctickerloc10" class="cctickerloc" style="display:;">CCTicker Location 10
+          <div id="locationname">name: </div>
+          <div id="locationdisplayname">display name: </div>
+          <div id="coords">coordinates: </div>
+          <button class="removelocbutton">Remove Location</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div id="weathersettingspane" class="settingspane" style="display: none">
+      <div id="pageleft" class="pagearrow">‹</div>
+      <div id="pageright" class="pagearrow">›</div>
+      <div id="weathertitle" class="settingspanetitle">Weather Data Settings</div>
+
+      <div id="currentconditionspage" class="weathersettingspage" style="display: ">
+      <div id="currenttile" class="weathersettingspagetitle">Current Conditions Slide</div>
+      <div class=setlocname>
+        <label for="8 cities">Current Location Name</label>
+        <input type="text" id="currentlocname" name="fname"><br><br>
+      </div>
+      <div class=selectloc>
+        <label for="8 cities">Selected Location</label>
+        <select name="citybackground" id="citybackground">
+          <option value="city">city</option>
+        </select>
+      </div>
+      <form action="/action_page.php">
+      <div class=textfield>
+        <label for="cc">Current Temperature</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Conditions</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Icons</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Humidity</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Dew Point</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Pressure</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Pressure Rising/Falling</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Wind</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </div>
+      </form>
+    </div>
+    <div id="daypartpage" class="settingspage" style="display: none">
+      <div id="currenttile" class="weathersettingspagetitle">Daypart Slide</div>
+      <div class=setlocname>
+        <label for="8 cities">Hour Location Name</label>
+        <input type="text" id="hourlocnamei" name="fname"><br><br>
+      </div>
+    <div id="hour1" class="hour"> <div class="sethourtitle">Hour 1</div>
+      <div class=textfield>
+        <label for="8 cities">Hour Time</label>
+        <input type="text" id="hourtimei" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Condition</label>
+        <input type="text" id="hourcondi" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Icon</label>
+        <input type="text" id="houriconi" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Temperatue</label>
+        <input type="text" id="hourtempi" name="fname"><br><br>
+      </div>
+    </div>
+    <div id="hour2" class="hour"> <div class="sethourtitle">Hour 2</div>
+      <div class=textfield>
+        <label for="8 cities">Hour Time</label>
+        <input type="text" id="hourtimeii" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Condition</label>
+        <input type="text" id="hourcondii" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Icon</label>
+        <input type="text" id="houriconii" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Temperatue</label>
+        <input type="text" id="hourtempii" name="fname"><br><br>
+      </div>
+    </div>
+    <div id="hour3" class="hour"> <div class="sethourtitle">Hour 3</div>
+      <div class=textfield>
+        <label for="8 cities">Hour Time</label>
+        <input type="text" id="hourtimeiii" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Condition</label>
+        <input type="text" id="hourcondiii" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Icon</label>
+        <input type="text" id="houriconiii" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Temperatue</label>
+        <input type="text" id="hourtempiii" name="fname"><br><br>
+      </div>
+    </div>
+    <div id="hour4" class="hour"> <div class="sethourtitle">Hour 4</div>
+      <div class=textfield>
+        <label for="8 cities">Hour Time</label>
+        <input type="text" id="hourtimeiv" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Condition</label>
+        <input type="text" id="hourcondiv" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Icon</label>
+        <input type="text" id="houriconiv" name="fname"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="8 cities">Hour Temperatue</label>
+        <input type="text" id="hourtempiv" name="fname"><br><br>
+      </div>
+    </div>
+    </div>
+    <div id="daypartpage" class="settingspage" style="display: none">
+      <form action="/action_page.php">
+        <label for="8 cities">36-Hour Day</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">36-Hour Forecast</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">36-Hour Location Name</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+    </div>
+    <div id="5day" class="settingspage" style="display: none">
+      <form action="/action_page.php">
+        <label for="8 cities">5-Day Location Name</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">5-Day Name</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">5-Day Condition</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">5-Day Icon</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">5-Day High</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">5-Day Low</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+    </div>
+    <div id="alamanac" class="settingspage" style="display: none">
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Date</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Average High</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Average Low</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Record High</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Record Low</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Sunrise</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac Sunset</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac MoonPhase</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac MoonPhase Icon</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+      <form action="/action_page.php">
+        <label for="8 cities">Almanac MoonPhase Date</label>
+        <input type="text" id="fname" name="fname"><br><br>
+      </form>
+    </div>
+    </div>
+    <img class="intellistarlogo" src="images/intellistarlogo.png"/>
+  </div>
 
 <div id="main" class="container">
 
-  <img id="template" src="images/template-4k.jpg"/>
+  <img id="template" src="images/template-4k.png"/>
   <div id="info-slides-bg"></div>
     <div id="info-slides-container">
 
     <div id="info-slides-header">
-      <div class="hscroller">
-        <span class="city radar current">LOCAL RADAR</span>
-      </div>
+      <div class="hscroller"></div><!--<span class="city radar current">LOCAL RADAR</span> -->
       <div class="gradientthing"></div>
     </div>
 
@@ -79,7 +516,7 @@
         </div>
 
       </div>
-      <div class="info-slide city-info-slide" style="display:none">
+      <div class="info-slide severe-city-info-slide" style="display:none">
         <div class="info-subheader">
           <span id="subhead-titlei"></span><span id="subhead-city"></span>
         </div>
@@ -93,6 +530,217 @@
         <div class='yellow curve right2'></div>
         <div class='white curve right'></div>
         <div class='white curve bottom'></div>
+        <div class='noreport' style="display: none">No Report</div>
+        <div class='tempunavailable' style="display: none">Temporarily Unavailable</div>
+
+        <div class='info-slide-content severe-forecast' style="display:none">
+          <div class='frost-pane'>
+            <div class='title'></div>
+            <div class='content'></div>
+          </div>
+        </div>
+
+        <div class='info-slide-content severe-city-info' style="display:none">
+          <div class='frost-pane left'>
+            <div class='labels'></div>
+            <div class='data'></div>
+          </div>
+          <div class='frost-pane right'>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temp'></div>
+          </div>
+        </div>
+
+        <div class='info-slide-content severe-daypart' style="display:none">
+          <div class='frost-pane'>
+            <div class='hour i'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'>rain</div>
+              <div class='tempbar'>
+                <div class='temp'>79</div>
+                <div class='wind'>NNE 12</div>
+              </div>
+            </div>
+            <div class='hour ii'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'></div>
+              <div class='tempbar'>
+                <div class='temp'></div>
+                <div class='wind'></div>
+              </div>
+            </div>
+            <div class='hour iii'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'></div>
+              <div class='tempbar'>
+                <div class='temp'></div>
+                <div class='wind'></div>
+              </div>
+            </div>
+            <div class='hour iv'>
+              <div class='thing'>
+                <div class='thingtext'>2pm</div>
+              </div>
+              <div class='icon'></div>
+              <div class='condition'></div>
+              <div class='tempbar'>
+                <div class='temp'></div>
+                <div class='wind'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='info-slide-content severe-extended-forecast' style="display:none">
+          <div class='thingg'>
+            <div class='thingday iw'>Mon</div>
+            <div class='thingday iiw'>Tue</div>
+            <div class='thingday iiiw'>Wed</div>
+            <div class='thingday ivw'>Thu</div>
+            <div class='thingday vw'>Fri</div>
+          </div>
+          <div class='frost-pane iw'>
+            <div class='icon'></div>
+            <div class='conditions'>Sct'd<br> T'storms</div>
+            <div class='temphigh'>87</div>
+            <div class='templow'>74</div>
+          </div>
+          <div class='linebreak i'>
+          </div>
+          <div class='frost-pane iiw'>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'></div>
+            <div class='templow'></div>
+          </div>
+          <div class='linebreak ii'>
+          </div>
+          <div class='frost-pane iiiw'>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'></div>
+            <div class='templow'></div>
+          </div>
+          <div class='linebreak iii'>
+            <div class='thing'></div>
+          </div>
+          <div class='frost-pane ivw'>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'></div>
+            <div class='templow'></div>
+          </div>
+          <div class='linebreak iv'>
+          </div>
+          <div class='lfrost-pane vw'>
+            <div class='icon'></div>
+            <div class='conditions'></div>
+            <div class='temphigh'>
+              <div class='temphightext'></div>
+            </div>
+            <div class='templow'></div>
+          </div>
+        </div>
+
+        <div class='info-slide-content severe-almanac' style="display:none">
+          <div class='frost-pane half'>
+            <div class='thing'>Jul 26</div>
+            <div class='averagetitle'>Average</div>
+            <div class='recordtitle'>Record</div>
+            <div class='ahigh'>High</div>
+            <div class='ahightext'>90</div>
+            <div class='alow'>Low</div>
+            <div class='alowtext'>70</div>
+            <div class='rhigh'>High</div>
+            <div class='rhightext'>98</div>
+            <div class='rlow'>Low</div>
+            <div class='rlowtext'>54</div>
+            <div class='rhighyear'>1987</div>
+            <div class='rlowyear'>1999</div>
+          </div>
+          <div class='frost-pane purple'>
+            <div class='icon'></div>
+            <div class='sunrisetitle'>Sunrise</div>
+            <div class='sunsettitle'>Sunset</div>
+            <div class='sunrisetext'>7:02 am</div>
+            <div class='sunsettext'>8:37</div>
+            <div class='phase i'>
+              <div class ='phasetext'>NEW</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 3</div>
+            </div>
+            <div class='phase ii'>
+              <div class ='phasetext'>FIRST</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 11</div>
+            </div>
+            <div class='phase iii'>
+              <div class ='phasetext'>FULL</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 18</div>
+            </div>
+            <div class='phase iv'>
+              <div class ='phasetext'>LAST</div>
+              <div class ='icon'></div>
+              <div class ='date'>Aug 25</div>
+            </div>
+          </div>
+        </div>
+
+        <div class='info-slide-content severe-aroundcityinfo' style="display:none">
+          <div class="frost-pane city i">
+            <div class="cityname">Jacksonville</div>
+            <div class="temp">82</div>
+            <div class="icon"></div>
+            <div class="wind">SE 12</div>
+          </div>
+          <div class="frost-pane city ii">
+            <div class="cityname">Gainesville</div>
+            <div class="temp">80</div>
+            <div class="icon"></div>
+            <div class="wind">SW 12</div>
+          </div>
+          <div class="frost-pane city iii">
+            <div class="cityname">Tampa</div>
+            <div class="temp">85</div>
+            <div class="icon"></div>
+            <div class="wind">W 6</div>
+          </div>
+          <div class="frost-pane city iv">
+            <div class="cityname">Fort</div>
+            <div class="temp">83</div>
+            <div class="icon"></div>
+            <div class="wind">W 6</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="info-slide city-info-slide" style="display: none">
+        <div class="info-subheader">
+          <span id="subhead-titlei"></span><span id="subhead-city"></span>
+        </div>
+        <div class="info-subheadershadowfix">
+          <span id="subhead-title"></span>
+        </div>
+        <div class='blue curve left'></div>
+        <div class='blue curve bottom'></div>
+        <div class='yellow curve left'></div>
+        <div class='yellow curve right'></div>
+        <div class='yellow curve right2'></div>
+        <div class='white curve right'></div>
+        <div class='white curve bottom'></div>
+        <div class='noreport' style="display: none">No Report</div>
+        <div class='tempunavailable' style="display: none">Temporarily Unavailable</div>
 
         <div class='info-slide-content forecast' style="display:none">
           <div class='frost-pane'>
@@ -163,28 +811,30 @@
         </div>
 
         <div class='info-slide-content extended-forecast' style="display:none">
+          <div class='thingg'>
+            <div class='thingday iw'>Mon</div>
+            <div class='thingday iiw'>Tue</div>
+            <div class='thingday iiiw'>Wed</div>
+            <div class='thingday ivw'>Thu</div>
+            <div class='thingday vw'>Fri</div>
+          </div>
           <div class='frost-pane iw'>
-            <div class='thing'><span class="textmove"></span></div>
             <div class='icon'></div>
             <div class='conditions'>Sct'd<br> T'storms</div>
             <div class='temphigh'>87</div>
             <div class='templow'>74</div>
           </div>
           <div class='linebreak i'>
-            <div class='thing'></div>
           </div>
           <div class='frost-pane iiw'>
-            <div class='thing'></div>
             <div class='icon'></div>
             <div class='conditions'></div>
             <div class='temphigh'></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak ii'>
-            <div class='thing'></div>
           </div>
           <div class='frost-pane iiiw'>
-            <div class='thing'></div>
             <div class='icon'></div>
             <div class='conditions'></div>
             <div class='temphigh'></div>
@@ -194,19 +844,14 @@
             <div class='thing'></div>
           </div>
           <div class='frost-pane ivw'>
-            <div class='thing'></div>
             <div class='icon'></div>
             <div class='conditions'></div>
             <div class='temphigh'></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak iv'>
-            <div class='thing'></div>
           </div>
           <div class='lfrost-pane vw'>
-            <div class='thing'>
-              <div class='thingtext'></div>
-            </div>
             <div class='icon'></div>
             <div class='conditions'></div>
             <div class='temphigh'>
@@ -291,12 +936,13 @@
       </div>
 
       <!-- DOPPLER RADAR -->
-      <div class="info-slide radar-slide" style="display: ">
+      <div class="info-slide radar-slide" style="display: none">
         <div class="info-subheader">
           <span>Local Doppler Radar</span>
           <span class="radar-color-legend" style="display: none">Past 3 Hours<br>Light&nbsp;<img src="images/precip-legend.png" alt="Past 3 Hours"/>&nbsp;Heavy</span>
         </div>
         <div id="radar-container" class="info-slide-content radar-content" style="">
+          <div class='tempunavailable' style="display: none">Temporarily Unavailable</div>
           <div id="radar-1" class="map"></div>
         </div>
       </div>
@@ -373,7 +1019,7 @@
         <div class='segment' style="display:none">Weather & Your Health</div>
       </div>
       <!-- AIRPORT -->
-      <div class="info-slide airport-slide" style="display:none">
+      <div class="info-slide airport-slide" style="display: none">
         <div class="info-subheader">
           <span id="subhead-titlei"></span><span id="subhead-city"></span>
         </div>
@@ -386,7 +1032,8 @@
         <div class='yellow curve right'></div>
         <div class='white curve right'></div>
         <div class='white curve bottom'></div>
-      <div class='info-slide-content airportpanel'>
+        <div class='nodata' style="display: none">Data Not Available</div>
+      <div class='info-slide-content airportpanel' style="display: none">
       <div class='leftpanel'>
         <div class='thing'>Gainesvile International Airport</div>
         <div class='frost-pane top'>
@@ -726,6 +1373,9 @@
     <div id="now">now</div>
     <div id="current-temp"></div>
     <div id="current-info"></div>
+    <div id="current-noreport" style="display: none">no report</div>
+    <div id="current-info-severe" style="display: none"></div>
+    <div id="current-info-details" style="display: none"></div>
   </div>
 
   <div id="minimap-cover" style="display:none">
@@ -746,6 +1396,7 @@
       <div>Retrieving forecast data...</div>
     </div>
     <div id="forecast-tiles"></div>
+    <div id="forecast-noreport" style="display:none">Temporarily Unavailable</div>
   </div>
 
 

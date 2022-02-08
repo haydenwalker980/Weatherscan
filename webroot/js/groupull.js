@@ -1,88 +1,121 @@
-var foreMarqueeDay = ""
-function GroupDataManager() {
-	var locationx = {};
-	var locations =
-		[
-			{name:'Chicago', n2:'IL'},
-			{name:'Minneapolis', n2:'MN'},
-			{name:'Tempe', n2:'AZ'},
-			{name:'Fargo', n2:'ND'},
-			{name:'North Hollywood', n2:'CA'},
-			{name:'Los Angeles', n2:'CA'},
-			{name:'Huntington Beach'},
-			{name:'Las Vegas', n2:'NV'},
-			{name:'Honolulu', n2:'HI'},
-			{name:'Orlando', n2:'FL'},
-			{name:'New York', n2:'NY'},
-			{name:'Napa', n2:'CA'},
-			{name:'Montego Bay', n2:''},
-			{name:'Kona', n2:'HI'},
-			{name:'Kalipaki Beach', n2:''},
-			{name:'Ixtapa', n2:'MX'}
-		]
-	;
+var noreportmode = false;
+var marqueeforecasttype = 'forecast'
+//do audio thing and second marquee
+$(function(){
+	weatherAudio.playCallback = function(tags) {
+		$('.track-info').text('playing "' + tags.title + '" by ' + tags.artist);
+	}
+	$('#marquee2').text(weatherInfo.ad)
+	$('#marquee2').marquee({
+		speed: 170, pauseOnHover: true
+	});
+});
+function MarqueeMan() {
+	function switchToWarningMarquee(sidx) {
+		if (weatherInfo.bulletin.severewarnings.length != 0) {
+			$('#marqueeSevere').css("background","linear-gradient(to right, #510d08 0, #b41a08 100%)")
+			$('.marqueeheadersevere').css("background","linear-gradient(to right, #d51e08 0, #b41a08 100%)")
+			$('.marqueeheadersevere').css("color","#fff")
+			$('.marqueeheadersevere').css("text-shadow","2px 2px 4px #000")
 
-	checkRefresh();
-	setInterval(checkRefresh, 300000);
-
-
-	// check to see if data needs to be refreshed
-  function checkRefresh() {
-
-
-
-			// check the expiration
-			var url = 'https://api.weather.com/v3/aggcommon/v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-location-point?geocodes='
-			woeid = location.hasOwnProperty('woeid') ? location.woeid : '';
-			$.getJSON("https://examples.opendatasoft.com/api/records/1.0/search/?dataset=largest-us-cities&q=&sort=population&facet=city&facet=state&refine.state=" + mainstate, function(data) {
-				if (data !== undefined && data.records.length != 0) {
-				data.records.forEach((city, i) => {
-					url += (city.fields.coordinates).replace(';',',');
-					url += ';'
+			$('.marqueeheadersevere').text((weatherInfo.bulletin.severewarnings[sidx].name).toUpperCase() + ' ' + weatherInfo.bulletin.severewarnings[sidx].status);
+			$('#arrow-img').fadeOut(0)
+			$('#marqueeSevere').fadeIn(0)
+			$('.marqueeheadersevere').fadeIn(0) //#868686
+			$('#marqueeSevere').text(weatherInfo.bulletin.severewarnings[sidx].desc)
+			$('#marqueeSevere')
+				.marquee('destroy')
+				.marquee({speed: 170, delayBeforeStart: 1000, pauseOnHover: true, pauseOnCycle: true})
+				.on('finished', function(){
+					switchSevereMarquee((sidx < weatherInfo.bulletin.severewarnings.length) ? sdix + 1 : 0)
 				});
+				weatherAudio.playwarningbeep()
+		} else if (weatherInfo.bulletin.marqueewarnings.length != 0){
+			if (weatherInfo.bulletin.marqueewarnings[0].significance == "Y" ||weatherInfo.bulletin.marqueewarnings[0].significance == "S") {
+				$('#marqueeSevere').css('background','linear-gradient(to right, #853302 0, #a84503 100%)')
+				$('.marqueeheadersevere').css("background","linear-gradient(to right, #e86d08 0, #a84403 100%)")
+				$('.marqueeheadersevere').css("color","#000")
+				$('.marqueeheadersevere').css("text-shadow", "0px 0px 0px #000")
+			} else if (weatherInfo.bulletin.marqueewarnings[0].significance == "A") {
+				$('#marqueeSevere').css("background", "linear-gradient(to right, #846811 0, #9b7d0e 100%)");
+				$('.marqueeheadersevere').css('background', 'linear-gradient(to right, #e5dd20 0, #9b7d0e 100%)');
+				$('.marqueeheadersevere').css("color", "#000");
+				$('.marqueeheadersevere').css("text-shadow", "0px 0px 0px #000");
+			}	else if (weatherInfo.bulletin.marqueewarnings[0].significance == "W") {
+				$('#marqueeSevere').css("background","linear-gradient(to right, #510d08 0, #b41a08 100%)")
+				$('.marqueeheadersevere').css("background","linear-gradient(to right, #d51e08 0, #b41a08 100%)")
+				$('.marqueeheadersevere').css("color","#fff")
+				$('.marqueeheadersevere').css("text-shadow","2px 2px 4px #000")
+			}
+			$('.marqueeheadersevere').text((weatherInfo.bulletin.marqueewarnings[0].name).toUpperCase() + ' ' + weatherInfo.bulletin.marqueewarnings[0].status)
+			$('#arrow-img').fadeOut(0)
+			$('#marqueeSevere').fadeIn(0)
+			$('.marqueeheadersevere').fadeIn(0)
+			$('#marqueeSevere').text(weatherInfo.bulletin.marqueewarnings[0].desc)
+			$('#marqueeSevere')
+				.marquee({speed: 170, delayBeforeStart: 1000, pauseOnHover: true, pauseOnCycle: true})
+		} else {
+			$('#marqueeSevere')
+				.marquee('destroy')
+			$('#marqueeSevere').fadeOut(0)
+			$('.marqueeheadersevere').fadeOut(0)
+			$('#arrow-img').fadeIn(0)
+		}
 
-				 url += '&language=en-US&units=e&format=json&apiKey='+ api_key
-			 } else {
-				 url = 'https://api.weather.com/v3/aggcommon/v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-location-point?geocodes=41.881832,-87.623177;44.986656,-93.258133;33.427204,-111.939896;46.877186,-96.789803;34.187042,-118.381256;33.660057,-117.998970;36.114647,-115.172813;21.315603,-157.858093;28.538336,-81.379234;43.0,-75.0;&language=en-US&units=e&format=json&apiKey='+ api_key
-			 }
-				pullData(url);
+	}
+		// for ccticker
+		function displayCCTickerData() {
+			var $span,$spanfor;
+			// ajax the latest observation
+			$(".marquee-current").remove()
+			$(".marquee-fore").remove()
+			if (weatherInfo.ccticker.noReport == true) {
+				noreportmode = true
+				$('#arrow-img').attr("src",'/images/arrow.png');
+			} else {noreportmode == false}
+			weatherInfo.ccticker.ccLocs.forEach((ccLoc, i) => {
+				$span = $("<span class=marquee-current id='" + "cclocation" + i + "'></span>").appendTo('#marquee-now');
+				$spanfor = $("<span class=marquee-fore id='" + "cclocation" + i + "'></span>").appendTo('#marquee-now');
+				$span.text(ccLoc.displayname + ((noreportmode == true) ? "" : ccLoc.currentCond.temp + ' ' + ccLoc.currentCond.cond));
+				$spanfor.css('display','none')
+				$spanfor.text(ccLoc.displayname + ((noreportmode == true) ? "" : ccLoc.forecast.temp  + ' ' + ccLoc.forecast.cond));
 			});
+		};
 
-    }
-
-	function pullData(url) {
-		var $span;
-
-		// ajax the latest observation
-		$.getJSON(url, function(data) {
-					data.forEach((locationdata, i) => {
-						locationx.data = locationdata;
-
-						if ( !location.hasOwnProperty('woeid') ) {
-							locationx.woeid = locationx.data.id;
-							$span = $("<span class=marquee-now id='" + locationx.woeid + "'></span>").appendTo('#marquee-now');
-							$spanfor = $("<span class=marquee-fore id='" + locationx.woeid + "'></span>").appendTo('#marquee-now');
-						} else {
-							$span = $('#marquee-now>span#' + locationx.woeid);
-						}
-						var marqueeidx = 1;
-						if (locationx.data['v3-wx-forecast-daily-5day'].daypart[0].daypartName[0] == undefined) {marqueeidx = 2;};
-						if (locationx.data['v3-wx-forecast-daily-5day'].daypart[0].daypartName[marqueeidx] == "Tonight") {foreMarqueeDay = 'tonight';} else {foreMarqueeDay = (locationx.data['v3-wx-forecast-daily-5day'].dayOfWeek[1].substring(0,3)).toLowerCase()};
-						// display the current info
-						$span.text(locationx.data['v3-location-point'].location.displayName + ': ' + Math.round(parseInt(locationx.data['v3-wx-observations-current'].temperature)) + ' ' + (locationx.data['v3-wx-observations-current'].wxPhraseLong).toLowerCase());
-						$spanfor.css('display','none')
-						$spanfor.text(locationx.data['v3-location-point'].location.displayName + ': ' + Math.round(parseInt(locationx.data['v3-wx-forecast-daily-5day'].daypart[0].temperature[marqueeidx])) + ' ' + (locationx.data['v3-wx-forecast-daily-5day'].daypart[0].wxPhraseLong[marqueeidx]).toLowerCase());
-
-
-						// set the expiration date/time
-						//location.xdate = dateFns.addMinutes(location.data.lastBuildDate, location.data.ttl);
-
+		function refreshMarquee () {
+				if (marqueeforecasttype == 'now') {
+					marqueeforecasttype = 'forecast'
+					if (noreportmode == false) {
+						$('#arrow-img').attr("src",'/images/' + weatherInfo.ccticker.arrow + 'arrow.png');
+					}
+					$('.marquee-fore').each(function(i, item) {
+						item.style.display = ''
+					});$('.marquee-current').each(function(i, item) {
+						item.style.display = 'none'
 					});
-
-				});
-			};
-
-
-
-
+				} else {
+					marqueeforecasttype = 'now'
+					if (noreportmode == false) {
+						$('#arrow-img').attr("src",'/images/now.png');
+					}
+					$('.marquee-fore').each(function(i, item) {
+						item.style.display = 'none'
+					});
+					$('.marquee-current').each(function(i, item) {
+						item.style.display = ''
+					});
+				}
+				$('#marquee-container')
+					.marquee('destroy')
+					.marquee({speed: 200, pauseOnHover:true, delayBeforeStart:3000})
+					.on('finished', refreshMarquee);
+		}
+		//init and loop the things
+		refreshMarquee();
+		switchToWarningMarquee();
+		displayCCTickerData();
+		setInterval(function(){
+			displayCCTickerData();
+			switchToWarningMarquee();
+		}, 300000)
 }

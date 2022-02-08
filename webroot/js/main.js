@@ -6,7 +6,7 @@ $(function(){
 	    mainAspect = 4/3,
 	    resizeTimer;
 
-
+//calls rescale when window resizes
 	$(window).resize( function(e) {
 		clearTimeout(resizeTimer);
 		resizeTimer = setTimeout(scaleWindow, 100);
@@ -24,6 +24,9 @@ $(function(){
 		}
 
 		$main.css({
+			transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
+		});
+		$("#startup").css({
 			transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
 		});
 	}
