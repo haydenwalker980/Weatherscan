@@ -452,7 +452,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(0px, 13.5px) scale(104.5%,100%);
+  transform: scale(104.5%,100%);
 }
 
 .info-slide-content.severe-extended-forecast .frost-pane .templow {
@@ -504,7 +504,8 @@
   text-shadow: #000 2px 2px 2px;
   height: 100px;
   width: 83.55%;
-  padding: 10px;
+  padding: 20px;
+  padding-top: 7px;
   text-align: center;
   transform: translate(0px, 12.5px);
   overflow-wrap: break-word;
@@ -1270,11 +1271,12 @@ background-image: url(/images/icons/moonphases/new.png);
   color: #fff;
   font-family: 'Frutiger 57 Condensed';
   font-size: 27px;
-  line-height: 125%;
+  line-height: 132.5%;
   text-shadow: #000 2px 2px 2px;
   height: 113px;
   width: 83.55%;
-  padding: 10px;
+  padding: 20px;
+  padding-top: 7px;
   text-align: center;
   transform: translate(-2px, 12.5px) scale(115.5%,100%);
   overflow-wrap: break-word;
