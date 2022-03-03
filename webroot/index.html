@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="js/leaflet/timedimension/leaflet.timedimension.control.min.css"/>
   <link rel="stylesheet" href="css/weatherscan.css"/>
 
+
 </head>
 
 
@@ -44,14 +45,14 @@
 <script type="text/javascript" src="js/newweathermanager.js"></script>
 <div id="startup" class="settings">
   <div class="blackbar">
-    <div class="introtext" style="display: ">
+    <div id="introdetails" class="introtext" style="display: ">
       <div id="headendid" class="introtext">headend id:</div>
       <div id="serialnumber" class="introtext">serial number:</div>
       <div id="locationname" class="introtext">location name:</div>
       <div id="affilatename" class="introtext">affiliate name:</div>
     </div>
     <div id="settings" class="introtext" style="display: none">
-      <div id="apperancesettings" class="introtext">▶ appearance settings</div>
+      <div id="apperancesettings" class="introtext">appearance settings</div>
       <div id="locationsettings" class="introtext">location settings</div>
       <div id="weathersettings" class="introtext">weather settings</div>
       <div id="other" class="introtext">other settings</div>
@@ -284,35 +285,39 @@
       <form action="/action_page.php">
       <div class=textfield>
         <label for="cc">Current Temperature</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Current Conditions</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Current Icons</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Current Humidity</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Current Dew Point</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Current Pressure</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Pressure Rising/Falling</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       <div class=textfield>
         <label for="cc">Current Wind</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="currentCond"><br><br>
+      </div>
+      <div class=textfield>
+        <label for="cc">Current Wind</label>
+        <input type="text" id="fname" name="currentCond"><br><br>
       </div>
       </form>
     </div>
@@ -521,7 +526,7 @@
           <span id="subhead-titlei"></span><span id="subhead-city"></span>
         </div>
         <div class="info-subheadershadowfix">
-          <span id="subhead-title"></span>
+          <span class="subhead-title"></span>
         </div>
         <div class='blue curve left'></div>
         <div class='blue curve bottom'></div>
@@ -612,7 +617,7 @@
           <div class='frost-pane iw'>
             <div class='icon'></div>
             <div class='conditions'>Sct'd<br> T'storms</div>
-            <div class='temphigh'>87</div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'>74</div>
           </div>
           <div class='linebreak i'>
@@ -620,7 +625,7 @@
           <div class='frost-pane iiw'>
             <div class='icon'></div>
             <div class='conditions'></div>
-            <div class='temphigh'></div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak ii'>
@@ -628,7 +633,7 @@
           <div class='frost-pane iiiw'>
             <div class='icon'></div>
             <div class='conditions'></div>
-            <div class='temphigh'></div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak iii'>
@@ -637,7 +642,7 @@
           <div class='frost-pane ivw'>
             <div class='icon'></div>
             <div class='conditions'></div>
-            <div class='temphigh'></div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak iv'>
@@ -699,28 +704,28 @@
 
         <div class='info-slide-content severe-aroundcityinfo' style="display:none">
           <div class="frost-pane city i">
-            <div class="cityname">Jacksonville</div>
-            <div class="temp">82</div>
+            <div class="cityname"></div>
+            <div class="temp"></div>
             <div class="icon"></div>
-            <div class="wind">SE 12</div>
+            <div class="wind"></div>
           </div>
           <div class="frost-pane city ii">
-            <div class="cityname">Gainesville</div>
-            <div class="temp">80</div>
+            <div class="cityname"></div>
+            <div class="temp"></div>
             <div class="icon"></div>
-            <div class="wind">SW 12</div>
+            <div class="wind"></div>
           </div>
           <div class="frost-pane city iii">
-            <div class="cityname">Tampa</div>
-            <div class="temp">85</div>
+            <div class="cityname"></div>
+            <div class="temp"></div>
             <div class="icon"></div>
-            <div class="wind">W 6</div>
+            <div class="wind"></div>
           </div>
           <div class="frost-pane city iv">
-            <div class="cityname">Fort</div>
-            <div class="temp">83</div>
+            <div class="cityname"></div>
+            <div class="temp"></div>
             <div class="icon"></div>
-            <div class="wind">W 6</div>
+            <div class="wind"></div>
           </div>
         </div>
 
@@ -730,7 +735,7 @@
           <span id="subhead-titlei"></span><span id="subhead-city"></span>
         </div>
         <div class="info-subheadershadowfix">
-          <span id="subhead-title"></span>
+          <span class="subhead-title"></span>
         </div>
         <div class='blue curve left'></div>
         <div class='blue curve bottom'></div>
@@ -821,7 +826,7 @@
           <div class='frost-pane iw'>
             <div class='icon'></div>
             <div class='conditions'>Sct'd<br> T'storms</div>
-            <div class='temphigh'>87</div>
+            <div class='temphigh'><span>87</span></div>
             <div class='templow'>74</div>
           </div>
           <div class='linebreak i'>
@@ -829,7 +834,7 @@
           <div class='frost-pane iiw'>
             <div class='icon'></div>
             <div class='conditions'></div>
-            <div class='temphigh'></div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak ii'>
@@ -837,7 +842,7 @@
           <div class='frost-pane iiiw'>
             <div class='icon'></div>
             <div class='conditions'></div>
-            <div class='temphigh'></div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak iii'>
@@ -846,7 +851,7 @@
           <div class='frost-pane ivw'>
             <div class='icon'></div>
             <div class='conditions'></div>
-            <div class='temphigh'></div>
+            <div class='temphigh'><span></span></div>
             <div class='templow'></div>
           </div>
           <div class='linebreak iv'>
@@ -908,10 +913,10 @@
 
         <div class='info-slide-content aroundcityinfo' style="display:none">
           <div class="frost-pane city i">
-            <div class="cityname">Jacksonville</div>
-            <div class="temp">82</div>
+            <div class="cityname"></div>
+            <div class="temp"></div>
             <div class="icon"></div>
-            <div class="wind">SE 12</div>
+            <div class="wind"></div>
           </div>
           <div class="frost-pane city ii">
             <div class="cityname">Gainesville</div>
@@ -938,8 +943,11 @@
       <!-- DOPPLER RADAR -->
       <div class="info-slide radar-slide" style="display: none">
         <div class="info-subheader">
-          <span>Local Doppler Radar</span>
-          <span class="radar-color-legend" style="display: none">Past 3 Hours<br>Light&nbsp;<img src="images/precip-legend.png" alt="Past 3 Hours"/>&nbsp;Heavy</span>
+          <span class='subhead-title'>Local Doppler Radar</span>
+          <div class="radar-legends">
+            <span class="radar-color-legend" style="display: none"><div class="pastlegend">Past 3 Hours</div>Light <img src="images/precip-legend.png" alt="Past 3 Hours"/> Heavy</span>
+            <span class="radar-color-legend-winter" style="display: none"><div class="pastlegend">Past 3 Hours</div>Rain <img class="rainlonger" src="images/precip-legend.png" alt="Past 3 Hours"/>&nbsp;Mix ;<img src="images/precip-legend-mix.png" alt="Past 3 Hours"/>&nbsp;Snow <img src="images/precip-legend-snow.png" alt="Past 3 Hours"/></span>
+          </div>
         </div>
         <div id="radar-container" class="info-slide-content radar-content" style="">
           <div class='tempunavailable' style="display: none">Temporarily Unavailable</div>
@@ -1004,6 +1012,34 @@
         <div class='weatherscanmarquee' style="display:none">weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan</div>
         <div class='segment' style="display:none">Golf</div>
       </div>
+      <div class="info-slide garden-slide-intro" style="display: none">
+        <div class='accent i curve' style="display:none"></div>
+        <div class='accent ii curve' style="display:none"></div>
+        <div class='accent iii curve' style="display:none"></div>
+        <div class='accent iv curve' style="display:none"></div>
+        <div class='accent v curve' style="display:none"></div>
+        <div class='accent vi curve' style="display:none"></div>
+        <div class='accentviishadow curve'></div>
+        <div class='accentvii curve'></div>
+        <div class='accent viii curve' style="display:none"></div>
+        <div class='accent ix curve' style="display:none"></div>
+        <div class='weatherscanmarquee' style="display:none">weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan</div>
+        <div class='segment' style="display:none">Ski & Snow</div>
+      </div>
+      <div class="info-slide ski-slide-intro" style="display: none">
+        <div class='accent i curve' style="display:none"></div>
+        <div class='accent ii curve' style="display:none"></div>
+        <div class='accent iii curve' style="display:none"></div>
+        <div class='accent iv curve' style="display:none"></div>
+        <div class='accent v curve' style="display:none"></div>
+        <div class='accent vi curve' style="display:none"></div>
+        <div class='accentviishadow curve'></div>
+        <div class='accentvii curve'></div>
+        <div class='accent viii curve' style="display:none"></div>
+        <div class='accent ix curve' style="display:none"></div>
+        <div class='weatherscanmarquee' style="display:none">weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan  weatherscan</div>
+        <div class='segment' style="display:none">Golf</div>
+      </div>
       <div class="info-slide health-slide-intro" style="display: none">
         <div class='accent i curve' style="display:none"></div>
         <div class='accent ii curve' style="display:none"></div>
@@ -1021,10 +1057,10 @@
       <!-- AIRPORT -->
       <div class="info-slide airport-slide" style="display: none">
         <div class="info-subheader">
-          <span id="subhead-titlei"></span><span id="subhead-city"></span>
+          <span class="subhead-titlei"></span><span id="subhead-city"></span>
         </div>
         <div class="info-subheadershadowfix">
-          <span id="subhead-title">Current Airport Conditions</span>
+          <span class="subhead-title">Current Airport Conditions</span>
         </div>
         <div class='blue curve left'></div>
         <div class='blue curve bottom'></div>
@@ -1035,7 +1071,7 @@
         <div class='nodata' style="display: none">Data Not Available</div>
       <div class='info-slide-content airportpanel' style="display: none">
       <div class='leftpanel'>
-        <div class='thing'>Gainesvile International Airport</div>
+        <div class='thing'></div>
         <div class='frost-pane top'>
           <div class='title'>Arrivals</div>
           <div class='delay'>DELAY</div>
@@ -1044,7 +1080,7 @@
           <div class='reasonfill'></div>
         </div>
         <div class='frost-pane bottom'>
-          <div class='title'>Departure</div>
+          <div class='title'>Departures</div>
           <div class='delay'>DELAY</div>
           <div class='delayfill'>No Delay</div>
           <div class='reason'>REASON</div>
@@ -1055,8 +1091,40 @@
       <div class='frost-pane right'>
         <div class='thing'></div>
         <div class='icon'></div>
-        <div class='conditions'>Mostly Cloudy</div>
-        <div class='temp'>87</div>
+        <div class='conditions'></div>
+        <div class='temp'></div>
+      </div>
+      </div>
+      <div class='info-slide-content otherairports' style="display: none">
+        <div class='thing'>
+          <span class='temp'>TEMP</span>
+          <span class='delay'>DELAY</span>
+        </div>
+        <div class='frost-pane'>
+        <div class="airport i">
+          <div class="airportname"></div>
+          <div class="temp"></div>
+          <div class="icon"></div>
+          <div class="delay"></div>
+        </div>
+        <div class="airport ii">
+          <div class="airportname"></div>
+          <div class="temp"></div>
+          <div class="icon"></div>
+          <div class="delay"></div>
+        </div>
+        <div class="airport iii">
+          <div class="airportname"></div>
+          <div class="temp"></div>
+          <div class="icon"></div>
+          <div class="delay"></div>
+        </div>
+        <div class="airport iv">
+          <div class="airportname"></div>
+          <div class="temp"></div>
+          <div class="icon"></div>
+          <div class="delay"></div>
+        </div>
       </div>
       </div>
     </div>
@@ -1067,7 +1135,7 @@
         <span id="subhead-titlei"></span><span id="subhead-city"></span>
       </div>
       <div class="info-subheadershadowfix">
-        <span id="subhead-title">Current Surf Report</span>
+        <span class="subhead-title">Current Surf Report</span>
       </div>
       <div class='blue curve left'></div>
       <div class='blue curve bottom'></div>
@@ -1156,7 +1224,7 @@
       <span id="subhead-titlei"></span><span id="subhead-city"></span>
     </div>
     <div class="info-subheadershadowfix">
-      <span id="subhead-title">Health Forecast</span>
+      <span class="subhead-title">Health Forecast</span>
     </div>
     <div class='blue curve left'></div>
     <div class='blue curve bottom'></div>
@@ -1164,6 +1232,7 @@
     <div class='yellow curve right'></div>
     <div class='white curve right'></div>
     <div class='white curve bottom'></div>
+    <div class='tempunavailable' style="display: none">Temporarily Unavailable</div>
 
     <div class='info-slide-content health-forecast' style="display: none">
       <div class='thing'>Forecast for Thursday</div>
@@ -1171,28 +1240,28 @@
         <div class='icon'></div>
         <div class='low'>Low</div>
         <div class='high'>High</div>
-        <div class='lowtext'>62</div>
-        <div class='hightext'>78</div>
+        <div class='lowtext'>53</div>
+        <div class='hightext'>76</div>
         <div class='title heatwind'>Heat Index‏‏‎ ‎‏‏‎ ‎ 78</div>
       </div>
       <div class='frost-pane forecastdetails'>
-        <div class='title chanceprecip'>Chance of Precipitation</div>
-        <div class='title humid'>Humidity</div>
-        <div class='title wind'>Wind</div>
-        <div class='chancepreciptext'>50%</div>
-        <div class='humidtext'>100%</div>
-        <div class='windtext'>SSE 5</div>
+        <div class='title chanceprecip'><span>Chance of Precipitation</span></div>
+        <div class='title humid'><span>Humidity</span></div>
+        <div class='title wind'><span>Wind</span></div>
+        <div class='chancepreciptext'>10%</div>
+        <div class='humidtext'>59%</div>
+        <div class='windtext'>SE 6</div>
       </div>
     </div>
     <div class='info-slide-content allergy' style="display: none">
       <div class='frost-pane pollen'>
-        <div class='thing'>As of Aug 7</div>
+        <div class='thing'><span>As of Aug 7</span></div>
         <div class='pollenbar tree'>
           <div class='bar'>
             <div class='bararrow'>
             </div>
           </div>
-          <div class='type'>Tree Pollen<br>Oak</div>
+          <div class='type'>Tree Pollen</div><div class='treetype'>Oak</div>
         </div>
         <div class='pollenbar grass'>
           <div class='bar'>
@@ -1221,13 +1290,14 @@
         <div class='thing'><span class='thingtext'>Total <br> Pollen Count</span></div>
         <div class='cat'>9</div>
         <div class='desc'>Low</div>
+        <div class='moreinfo' style='display: none'>More allergy<br> information at<br> weather.com/<br>health</div>
       </div>
     </div>
     <div class='info-slide-content Aches-Breath' style="display: none">
       <div class='thing'>Thursday</div>
       <div class='frost-pane aches'>
         <div class='whitetitle aches'>Aches and Pains Index</div>
-        <div class='desc aches'>Potentional for feeling aches and pains based on weather conditions.</div>
+        <div class='desc aches'>Potential for feeling aches and pains based on weather conditions.</div>
         <div class='bar'>
           <div class='bararrow'>
             <div class='bararrowtext' style='display:none'>Low</div>
@@ -1244,9 +1314,9 @@
         </div>
       </div>
     </div>
-    <div class='info-slide-content airquality' style="display: none">
+    <div class='info-slide-content airquality' style="display: None">
       <div class='frost-pane airforecast'>
-        <div class='thing'>Thursday</div>
+        <div class='thing'><span>Thursday</span></div>
         <div class='bar'>
           <div class='bar red' style="background-color:#bc1264"><span class='forecast' style="display:none">Very unhealthy</span></div>
           <div class='bar deeporange' style="background-color:#ff552a"><span class='forecast' style="display:none">Unhealthy</span></div>
@@ -1291,8 +1361,8 @@
       </div>
       <div class='frost-pane currentuv'>
         <div class='bar'>
-          <div class='num' style="display:none">10</div>
-          <div class='cat' style="display:none">Extreme</div>
+          <div class='num' style="display:none">1</div>
+          <div class='cat' style="display:none">Low</div>
         </div>
       </div>
         <div class='frost-pane forecastuv'>
@@ -1315,14 +1385,14 @@
           </div>
           </div>
       </div>
-      <div class='info-slide-content healthtip' style="display:none">
+      <div class='info-slide-content healthtip' style="display: none">
         <div class='weatherreadyheader'>
           <div class='icon'></div>
           <div class='weathertext'>W</div>
           <div class='weathertext2'>eather</div>
           <div class='readytext'>READY</div>
         </div>
-        <div class='frost-pane tipcontent'>
+        <div class='frost-pane tipcontent'><span>
           Incase of Lightning -
           <br>
           An automobile provides better insulation against<br>
@@ -1330,7 +1400,7 @@
           <br>
           Avoid contact with any metal conducting surfaces<br>
           either inside your car or outside.
-        </div>
+        </span></div>
       </div>
       <div class='info-slide-content moreinfoimage' style="display:none">
         <div class='frost-pane image'>
@@ -1346,16 +1416,236 @@
       <span id="subhead-titlei"></span><span id="subhead-city"></span>
     </div>
     <div class="info-subheadershadowfix">
-      <span id="subhead-title">Current Surf Report</span>
+      <span class="subhead-title">Tee Time Forecast</span>
     </div>
     <div class='blue curve left'></div>
     <div class='blue curve bottom'></div>
     <div class='yellow curve left'></div>
     <div class='yellow curve right'></div>
+    <div class='yellow curve right2'></div>
     <div class='white curve right'></div>
     <div class='white curve bottom'></div>
+    <div class='info-slide-content teetime' style="display: none">
+      <div class='thing'></div>
+      <div class='frost-pane'>
+      <div class='hour i'>
+        <div class='hourlabel'>
+          <div class='thingtext'></div>
+        </div>
+        <div class='daylabel'></div>
+        <div class='icon'></div>
+        <div class='tempbar'>
+          <div class='temp'></div>
+          <div class='wind'></div>
+        </div>
+      </div>
+      <div class='hour ii'>
+        <div class='hourlabel'>
+          <div class='thingtext'>2pm</div>
+        </div>
+        <div class='daylabel'></div>
+        <div class='icon'></div>
+        <div class='tempbar'>
+          <div class='temp'></div>
+          <div class='wind'></div>
+        </div>
+      </div>
+      <div class='hour iii'>
+        <div class='hourlabel'>
+          <div class='thingtext'>2pm</div>
+        </div>
+        <div class='daylabel'></div>
+        <div class='icon'></div>
+        <div class='tempbar'>
+          <div class='temp'></div>
+          <div class='wind'></div>
+        </div>
+      </div>
+      <div class='hour iv'>
+        <div class='hourlabel'>
+          <div class='thingtext'>2pm</div>
+        </div>
+        <div class='daylabel'></div>
+        <div class='icon'></div>
+        <div class='tempbar'>
+          <div class='temp'></div>
+          <div class='wind'></div>
+        </div>
+      </div>
+      <div class='hour v'>
+        <div class='hourlabel'>
+          <div class='thingtext'>2pm</div>
+        </div>
+        <div class='daylabel'></div>
+        <div class='icon'></div>
+        <div class='tempbar'>
+          <div class='temp'></div>
+          <div class='wind'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='info-slide-content golfforecast' style="display: none">
+    <div class='thing'></div>
+    <div class='frost-pane left'>
+      <div class='purplefooter'></div>
+      <div class=forecontainer>
+      <div class='day'>Monday</div>
+      <div class='icon'></div>
+      <div class='high'>83</div>
+      <div class='low'>77</div>
+      <div class='wind'>E 19</div>
+      <div class='golfindex'>Golf Index</div>
+      <div class='bar'>
+        <div class='bararrow'>
+          <div class='bararrowtext' style='display: none'></div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class='frost-pane mid'>
+      <div class='purplefooter'></div>
+      <div class=forecontainer>
+      <div class='day'>Tuesday</div>
+      <div class='icon'></div>
+      <div class='high'>81</div>
+      <div class='low'>75</div>
+      <div class='wind'>E 15</div>
+      <div class='bar'>
+        <div class='bararrow'>
+          <div class='bararrowtext' style='display:none'>Low</div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class='frost-pane right'>
+      <div class='purplefooter'></div>
+      <div class=forecontainer>
+      <div class='day'>Wednesday</div>
+      <div class='icon'></div>
+      <div class='high'>82</div>
+      <div class='low'>73</div>
+      <div class='wind'>ESE 13</div>
+      <div class='bar'>
+        <div class='bararrow'>
+          <div class='bararrowtext' style='display:none'>Low</div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class='info-slide-content golfmoreinfoimage' style="display: none">
+    <div class='frost-pane infoimage'>
+      <div class='moreinfotext'>Check the forecast for any<br>
+        golf course in the U.S.<br>
+        at weather.com/golf</div>
+    </div>
+  </div>
 </div>
+<div class="info-slide garden" style="display: none">
+  <div class="info-subheader">
+    <span id="subhead-titlei"></span><span id="subhead-city"></span>
+  </div>
+  <div class="info-subheadershadowfix">
+    <span class="subhead-title">Gardening Forecast</span>
+  </div>
+  <div class='blue curve left'></div>
+  <div class='blue curve bottom'></div>
+  <div class='yellow curve left'></div>
+  <div class='yellow curve right'></div>
+  <div class='yellow curve right2'></div>
+  <div class='white curve right'></div>
+  <div class='white curve bottom'></div>
+  <div class='info-slide-content gardenindex' style="display: none">
+    <div class='thing'>Monday</div>
+    <div class='frost-pane left'>
+      <div class='forecastcontainer'>
+      <div class='icon'></div>
+      <div class='lowtitle'>LOW</div>
+      <div class='hightitle'>HIGH</div>
+      <div class='low'>76</div>
+      <div class='high'>82</div>
+      <div class='precip title'>Chance of Precip</div>
+      <div class='precipvalue'>50%</div>
+      </div>
+    </div>
+    <div class='frost-pane right'>
+      <div class='wateringindex title'>Watering Needs Index</div>
+      <div class='bar'>
+        <div class='barcat' style='background-color: #58a337; left:0'><span>1</span></div>
+        <div class='barcat' style='background-color: #6fb63a; left:40px;'><span>2</span></div>
+        <div class='barcat' style='background-color: #84c544; left:80px;'><span>3</span></div>
+        <div class='barcat' style='background-color: #9dc342; left:120px;'><span>4</span></div>
+        <div class='barcat' style='background-color: #b6c945; left:160px;'><span>5</span></div>
+        <div class='barcat' style='background-color: #c8c847; left:200px;'><span>6</span></div>
+        <div class='barcat' style='background-color: #ada839; left:240px;'><span>7</span></div>
+        <div class='barcat' style='background-color: #958936; left:280px;'><span>8</span></div>
+        <div class='barcat' style='background-color: #7a692c; left:320px;'><span>9</span></div>
+        <div class='barcat' style='background-color: #5c4927; left:360px;'><span>10</span></div>
+        <div class='bararrow'>
+          <div class='bararrowtext'>Moderate</div>
+        </div>
+      </div>
+      <div class='cloudcover title'>Cloud Cover</div>
+      <div class='cloudcovervalue'>75%</div>
+    </div>
+  </div>
+  <div class='info-slide-content gardenmoreinfoimage' style="display: none">
+    <div class='frost-pane infoimage'>
+      <div class='moreinfotext'>For more information on weather<br>
+        and your lawn and garden,<br>
+        go to weather.com/garden.</div>
+    </div>
+  </div>
+</div>
+<div class="info-slide ski" style="display: none">
+  <div class="info-subheader">
+    <span id="subhead-titlei"></span><span id="subhead-city"></span>
+  </div>
+  <div class="info-subheadershadowfix">
+    <span class="subhead-title">Ski Report</span>
+  </div>
+  <div class='blue curve left'></div>
+  <div class='blue curve bottom'></div>
+  <div class='yellow curve left'></div>
+  <div class='yellow curve right'></div>
+  <div class='yellow curve right2'></div>
+  <div class='white curve right'></div>
+  <div class='white curve bottom'></div>
+  <div class='info-slide-content skireport' style="display: none">
+    <div class='skilocation i'>
+      <div class='thing'><span class='displaynname'></span><span class='trails'></span></div>
+      <div class='frost-pane'>
+        <div class='newsnowtitle'></div>
+        <div class='basesnowtitle'></div>
+        <div class='newsnowvalue'></div>
+        <div class='basesnowvalue'></div>
+        <div class='snowconditionn'></div>
+      </div>
+    </div>
+    <div class='skilocation iii'>
+      <div class='thing'><span class='displaynname'></span><span class='trails'></span></div>
+      <div class='frost-pane'>
+        <div class='newsnowtitle'></div>
+        <div class='basesnowtitle'></div>
+        <div class='newsnowvalue'></div>
+        <div class='basesnowvalue'></div>
+        <div class='snowconditionn'></div>
+      </div>
+    </div>
+    <div class='skilocation iii'>
+      <div class='thing'><span class='displaynname'></span><span class='trails'></span></div>
+      <div class='frost-pane'>
+        <div class='newsnowtitle'></div>
+        <div class='basesnowtitle'></div>
+        <div class='newsnowvalue'></div>
+        <div class='basesnowvalue'></div>
+        <div class='snowconditionn'></div>
+      </div>
+    </div>
+  </div>
 
+</div>
     </div>
   </div>
 
@@ -1371,10 +1661,11 @@
 
   <div id="current-conditions">
     <div id="now">now</div>
+    <div id="nowwide">now</div>
     <div id="current-temp"></div>
     <div id="current-info"></div>
     <div id="current-noreport" style="display: none">no report</div>
-    <div id="current-info-severe" style="display: none"></div>
+    <div id="current-info-severe" style="display:"></div>
     <div id="current-info-details" style="display: none"></div>
   </div>
 
@@ -1383,23 +1674,25 @@
     <div class="gradient2"></div>
     <div class="gradient3"></div>
   </div>
-  <div id="minimap-title">PAST 3 HOURS</div>
+  <div id="minimap-title"><span>PAST 3 HOURS</span></div>
   <div id="minimap"></div>
   <div id="logo-area"><img src="images/midco_logo_shadow.png"/></div>
 
   <div id="forecast-shadow">
-    <div id="forecast-header">
-      <div id="forecast-city"></div>
-      <div id="forecast-title"></div>
+    <div id="normalheader" class='forecast-header'>
+      <div id="forecast-city">Camden:</div>
+      <div id="forecast-title"> Tonight's Forecast</div>
     </div>
+    <div class="wrappertest2">
     <div id="forecast-text">
-      <div>Retrieving forecast data...</div>
+      <div>A few clouds. Low 53. Winds light and variable.</div>
     </div>
-    <div id="forecast-tiles"></div>
+  <div id="normaltiles" class='forecast-tiles' style="display: flex;"><div class="forecast-tile daily weekend"><div class="header">Sun</div><img class="icon" src="images/icons/24.png"><div class="high">83</div><div class="low">56</div></div><div class="forecast-tile daily"><div class="header">Mon</div><img class="icon" src="images/icons/30.png"><div class="high">65</div><div class="low">50</div></div><div class="forecast-tile daily"><div class="header">Tue</div><img class="icon" src="images/icons/24.png"><div class="high">73</div><div class="low">48</div></div><div class="forecast-tile daily"><div class="header">Wed</div><img class="icon" src="images/icons/28.png"><div class="high">77</div><div class="low">47</div></div><div class="forecast-tile daily"><div class="header">Thu</div><img class="icon" src="images/icons/28.png"><div class="high">81</div><div class="low">50</div></div></div>
     <div id="forecast-noreport" style="display:none">Temporarily Unavailable</div>
   </div>
+  </div>
 
-
+  <div id="marquee-background"></div>
   <div id="marquee1" class="marquee">
     <div id="marquee-container">
       <div id="marquee-now"><span class="track-info"></span></div>

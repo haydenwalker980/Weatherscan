@@ -89,6 +89,10 @@ function Loops() {
 		text = displays[ keys[idx] ]();
 
 		// increment the pointer
+		if (weatherInfo.reboot == true) {
+			$('#forecast-shadow').hide()
+			return;
+		}
 		if (loopssevereweathermode == false) {
 			idx = (++idx===keys.length ? 0 : idx);
 
@@ -119,6 +123,10 @@ function Loops() {
 		text = displays[ keys[idx] ]();
 
 		idx = (++idx===keys.length ? 0 : idx);
+		if (weatherInfo.reboot == true) {
+			$('#forecast-shadow').hide()
+			return;
+		}
 		if (loopssevereweathermode == true) {
 			if (text) {
 				$('#current-info-details').html(text);
@@ -136,12 +144,13 @@ function Loops() {
 		var displays = {
 
 				text1() {
+					$('.forecast-header').prop('id', 'normalheader');
 					if (weatherInfo.dayDesc.lowerbar.noReport == true) {
 						$('#forecast-title').fadeOut(0)
 						$('#forecast-text').fadeOut(0)
 						$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
 						$('#forecast-shadow').css('background','rgba(0,0,0,0)')
-						$('#forecast-tiles').fadeOut(0)
+						$('.forecast-tiles').fadeOut(0)
 						$('#forecast-noreport').fadeIn(0)
 					} else {
 						$('#forecast-noreport').fadeOut(0)
@@ -154,12 +163,13 @@ function Loops() {
 					}
 				},
 				text2() {
+					$('.forecast-header').prop('id', 'normalheader');
 					if (weatherInfo.dayDesc.lowerbar.noReport == true) {
 						$('#forecast-shadow').css('background','rgba(0,0,0,0)')
 						$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
 						$('#forecast-title').fadeOut(0)
 						$('#forecast-text').fadeOut(0)
-						$('#forecast-tiles').fadeOut(0)
+						$('.forecast-tiles').fadeOut(0)
 						$('#forecast-noreport').fadeIn(0)
 					} else {
 						$('#forecast-noreport').fadeOut(0)
@@ -173,12 +183,14 @@ function Loops() {
 				},
 
 			    fiveday() {
+						$('.forecast-header').prop('id', 'normaltiles');
+						$('.forecast-tiles').prop('id', 'normalheader');
 						if (weatherInfo.fiveDay.lowerbar.noReport == true) {
 							$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
 							$('#forecast-shadow').css('background','rgba(0,0,0,0)')
 							$('#forecast-title').fadeOut(0)
 							$('#forecast-text').fadeOut(0)
-							$('#forecast-tiles').fadeOut(0)
+							$('.forecast-tiles').fadeOut(0)
 							$('#forecast-noreport').fadeIn(0)
 						} else {
 							$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, .35)')
@@ -187,7 +199,7 @@ function Loops() {
 					var newtile, weekend, icons;
 
 					$('#forecast-title').text("5 DAY FORECAST");
-					$('#forecast-tiles').empty();
+					$('.forecast-tiles').empty();
 
 					for (var i=0; i<5; i++ ) {
 						newtile = $("<div class='forecast-tile daily" + weatherInfo.fiveDay.lowerbar.day[i].weekend + "'></div>");
@@ -202,28 +214,31 @@ function Loops() {
 						$("<div class='high'></div>") .appendTo(newtile) .text(weatherInfo.fiveDay.lowerbar.day[i].high);
 						$("<div class='low'></div>")  .appendTo(newtile) .text(weatherInfo.fiveDay.lowerbar.day[i].low);
 
-						$('#forecast-tiles').append(newtile);
+						$('.forecast-tiles').append(newtile);
 					}
 
-					$('#forecast-tiles').css('display','flex');
+					$('.forecast-tiles').css('display','flex');
 					}
 				},
 
 			    hourly() {
+						$('.forecast-header').prop('id', 'hourlyheader');
+						$('.forecast-tiles').prop('id', 'hourlytiles');
 						if (weatherInfo.dayPart.lowerbar.noReport == true) {
 							$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, 0)')
 							$('#forecast-shadow').css('background','rgba(0,0,0,0)')
 							$('#forecast-title').fadeOut(0)
 							$('#forecast-text').fadeOut(0)
-							$('#forecast-tiles').fadeOut(0)
+							$('.forecast-tiles').fadeOut(0)
 							$('#forecast-noreport').fadeIn(0)
 						} else {
+							$('.forecast-header').prop('id', 'hourlyheader');
 							$('#forecast-title').fadeIn(0)
 							$('#forecast-noreport').fadeOut(0)
 					var newtile, icons, sizer, highbar, data, label, temps=[];
 					$('#forecast-shadow').css('box-shadow','0 3px 10px 0 rgba(0, 0, 0, .35)')
 					$('#forecast-title').text( weatherInfo.dayPart.lowerbar.daytitle );
-					$('#forecast-tiles').empty();
+					$('.forecast-tiles').empty();
 
 					for (var i = 0; i < 4; i++) {
 
@@ -234,8 +249,7 @@ function Loops() {
 							$("<img class='icon' src=''/>") .appendTo(sizer) .attr('src', icons);
 
 
-						$("<div class='footer'></div>") .appendTo(newtile) .text(weatherInfo.dayPart.lowerbar.hour[i].time);
-
+						$("<div class='footer'></div>") .append("<span>" + weatherInfo.dayPart.lowerbar.hour[i].time + "</span>") .appendTo(newtile)
 						highbar = $("<div class='hourly-high'></div>") .appendTo(sizer);
 
 						$("<div class='high'></div>") .appendTo(highbar) .text(weatherInfo.dayPart.lowerbar.hour[i].temp);
@@ -243,16 +257,16 @@ function Loops() {
 
 						$("<div class='temp-bar'></div>") .appendTo(highbar);
 
-						$('#forecast-tiles').append(newtile);
+						$('.forecast-tiles').append(newtile);
 					}
 
-					$('#forecast-tiles').css('display','flex');
+					$('.forecast-tiles').css('display','flex');
 
 					// animate grow and show temp
 					var min = Math.min(...temps),  // 54
 						max = Math.max(...temps),  // 73
 						range = ((max-min) != 0) ? (max-min) : .001,
-						prange = (95-78), // percent range for bar height
+						prange = (94-75), // percent range for bar height
 						temp, value;
 					$('.forecast-tile').each(function(){
 						temp = $(this).find('.high').first().text();
@@ -278,7 +292,7 @@ function Loops() {
 	}
 
 	function resizeText(text){
-		var s = 38,
+		var s = 41,
 		$test = $('<div style="position:absolute;top:100%;"></div>') .appendTo('#forecast-text') .css('font-size', s + 'px') .html(text);
 		$test.width($('#forecast-text').width() );
 		//setTimeout(function() {
@@ -288,7 +302,7 @@ function Loops() {
 			}
 			$('#forecast-text div') .text(text) .css('font-size', s + 'px');
 			$test.remove();
-			$('#forecast-tiles').hide();
+			$('.forecast-tiles').hide();
 		//},100);  // delay is a workaround for Interstate font not updating display
 	}
 

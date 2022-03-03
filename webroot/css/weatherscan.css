@@ -15,9 +15,16 @@
   font-style: normal
 }
 @font-face {
-  font-family: Interstate;
-  src: url(/fonts/newfonts/Interstate-Condensed-Bold.woff) format("woff"));
+  font-family: 'Interstate BoldCn';
+  src: url(/fonts/newfonts/Interstate-BoldCondensed.woff) format("woff");
   font-weight: 700;
+  font-style: normal;
+  font-stretch: condensed;
+}
+@font-face {
+  font-family: 'Interstate Cn';
+  src: url(/fonts/newfonts/Interstate-RegularCondensed.woff) format("woff");
+  font-weight: 400;
   font-style: normal;
   font-stretch: condensed;
 }
@@ -107,7 +114,7 @@
   z-index: 2000
 }
 .severe-city-info .frost-pane:first-of-type {
-  min-width: 55%;
+  min-width: 55.5%;
   margin-right: .8%;
   background: linear-gradient(to right, rgba(183, 183, 183, 1) 0, rgba(183, 183, 183, 0.6975) 100%);
 }
@@ -116,18 +123,24 @@
 }
 .severe-city-info .frost-pane.left * {
   position: absolute;
-  min-width: 55%;
-  padding-top: 7.5px;
-  line-height: 175%
+  min-width: 55.5%;
+  padding-top: 5px;
+  line-height: 182.5%
 }
 
 .severe-frost-pane .labels {
+  font-family: 'Frutiger 57 Condensed';
   color: #d8c422;
-  left: 13%;
+  left: 13.5%;
+  transform: scale(115.5%,100%);
+  transform-origin: left;
   font-size: 37.5px;
 }
 
 .severe-city-info .frost-pane .data {
+  font-family: 'Frutiger 57 Condensed';
+  transform: scale(113.5%,100%);
+  transform-origin: right;
   right: 10%;
   font-size: 37.5px;
   text-align: right;
@@ -155,71 +168,27 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  font-size: 38.5px;
+  font-size: 36px;
   font-weight: 500;
+  line-height: 110%;
   top: 220px;
   text-align: center;
   text-transform: capitalize;
   overflow-wrap: break-word;
   width: 25%;
-  height: 50px
+  height: 50px;
+  transform: translate(-11px,0px) scale(104.5%,100%);
+  transform-origin: left;
 }
 .severe-city-info .frost-pane .temp {
-  font-size: 70.5px;
+  font-family: 'Frutiger Bold Cn';
+  font-size: 69px;
   font-weight: 700;
   position: absolute;
-  top: 340px;
+  top: 323px;
   letter-spacing: 2.5px;
-}
-.severe-city-info .frost-pane.left * {
-  position: absolute;
-  min-width: 55%;
-  padding-top: 7.5px;
-  line-height: 175%
-}
-.severe-city-info .frost-pane .data {
-  right: 10%;
-  font-size: 37.5px;
-  text-align: right;
-}
-
-.severe-city-info .frost-pane.right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 30px
-}
-
-.severe-city-info .frost-pane .icon {
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center center;
-  width: 70%;
-  height: 47.5%;
-  position: absolute;
-  transform: translate(0, -47.5px);
-}
-
-.severe-city-info .frost-pane .conditions {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  font-size: 38.5px;
-  font-weight: 500;
-  top: 220px;
-  text-align: center;
-  text-transform: capitalize;
-  overflow-wrap: break-word;
-  width: 25%;
-  height: 50px
-}
-.severe-city-info .frost-pane .temp {
-  font-size: 70.5px;
-  font-weight: 700;
-  position: absolute;
-  top: 340px;
-  letter-spacing: 2.5px;
+  transform: translate(-6px,0px) scale(102.5%,100%);;
+  transform-origin: left;
 }
 .info-slide-content.severe-daypart {
   flex-direction: row
@@ -265,11 +234,11 @@
 .info-slide-content.severe-daypart .hour .thing .thingtext {
   color: #fff;
   font-family: Frutiger;
-  font-size: 28px;
+  font-size: 31px;
   width: 140px;
   height: 100%;
   text-shadow: #000 0px 0px 0px;
-  transform: translate(0px, 2.5px);
+  transform: translate(0px, 1px) scale(106%, 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -280,63 +249,76 @@
   height: 0;
   background-color: #fefd5d;
   background: linear-gradient(to top, #fffe21 0, #db5a14 100%);
-  bottom: 17.5px
+  bottom: 20px
 }
 .info-slide-content.severe-daypart .icon {
   width: 140px;
-  height: 130px;
+  height: 115px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
   position: absolute;
-  top: 10px
+  top: 0px
 }
 .info-slide-content.severe-daypart .condition {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 28px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27px;
   text-shadow: #000 2px 2px 2px;
   height: 30px;
-  width: 100%;
+  width: 105%;
   text-align: center;
-  transform: translate(0px, 105px);
+  transform: translate(-4px, 90px) scale(117%, 100%);
   padding: 10px, 0px;
   overflow-wrap: break-word;
 }
 .info-slide-content.severe-daypart .tempbar .temp {
   color: #fff;
   font-family: Frutiger;
-  font-size: 52px;
+  font-size: 60px;
   text-shadow: #000 2px 2px 2px;
   height: 30px;
   width: 100%;
   text-align: center;
-  transform: translate(0px, 15px);
+  transform: translate(0px, 15px) scale(102.5%, 100%);
+  transform-origin: center;
   opacity: 0;
 }
 .info-slide-content.severe-daypart .tempbar .wind {
   color: #24346f;
   position: absolute;
   font-family: Frutiger;
-  font-size: 28px;
+  font-size: 32px;
   text-shadow: #000 0px 0px 0px;
   height: 30px;
   width: 100%;
   text-align: center;
   bottom: 2.5px;
   opacity: 0;
+  transform: scale(105%, 100%);
 }
 .severe-forecast .frost-pane {
-  padding: 1.5% 2% 1% 6.5%;
+  padding: 1% 18% 1% 7%;
   height: 446.25px;
+}
+.severe-forecast .frost-pane .title {
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 41.5px;
+  transform: scale(117%,100%);
+  transform-origin: left;
+  letter-spacing: .5px;
 }
 .info-slide-content.severe-forecast .frost-pane {
   max-height: 446.25px;
 }
 
 .info-slide-content.severe-forecast .content {
+  font-family: 'Frutiger 57 Condensed';
   height: 400px;
   max-height: 400px;
+  transform: translate(-2.5px,-2.5px) scale(115%,100%);
+  transform-origin: left;
+  letter-spacing: 1.5px;
 }
 .info-slide-content.severe-extended-forecast {
   width: 100%;
@@ -400,16 +382,17 @@
 }
 .info-slide-content.severe-extended-forecast .thingg .thingday {
   color: #fff;
-  font-family: Frutiger;
+  font-family: 'Frutiger 57 condensed';
   font-size: 30px;
   text-shadow: #000 2px 2px 4px;
   height: 35px;
   min-width: 165px;
   margin-left: 6.5px;
-  padding-top: 5px;
+  padding-top: 3.5px;
   z-index: 388690;
   text-align: center;
   justify-content: center;
+  transform: scale(115%,100%);
 }
 .info-slide-content.severe-extended-forecast .thingg .thingday.iw {
   margin-left: 0px;
@@ -434,6 +417,10 @@
   align-items: center;
   justify-content: center;
   transform: translate(0px, 13.5px);
+}
+.info-slide-content.extended-forecast .frost-pane .temphigh  span{
+  display: block;
+  transform: scale(104.5%,100%);
 }
 .info-slide-content.severe-extended-forecast .frost-pane.iw .temphigh {
   background: linear-gradient(to right, rgba(105, 105, 105, 1) 0, rgba(105, 105, 105, 0.89715) 100%);
@@ -465,6 +452,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translate(0px, 13.5px) scale(104.5%,100%);
 }
 
 .info-slide-content.severe-extended-forecast .frost-pane .templow {
@@ -479,32 +467,33 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  transform: translate(0px, 23.5px);
+  transform: translate(0px, 23.5px) scale(104.5%,100%);
 }
 .info-slide-content.severe-extended-forecast .lfrost-pane .templow {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 58.5px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27px;
   text-shadow: #000 2px 2px 2px;
-  height: 75px;
-  width: 83.55%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 113px;
+  line-height: 132.5%;
+  width: 100%;
+  padding: 20px;
+  padding-top: 7px;
   text-align: center;
-  transform: translate(0px, 23.5px);
+  transform: translate(-2px, 12.5px) scale(115.5%,100%);
+  overflow-wrap: break-word;
 }
 .info-slide-content.severe-extended-forecast .frost-pane .conditions {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 25px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27px;
   text-shadow: #000 2px 2px 2px;
-  height: 100px;
+  height: 113px;
   line-height: 125%;
   width: 100%;
   padding: 10px;
   text-align: center;
-  transform: translate(0px, 12.5px);
+  transform: translate(-2px, 12.5px) scale(115.5%,100%);
   overflow-wrap: break-word;
 }
 .info-slide-content.severe-extended-forecast .lfrost-pane .conditions {
@@ -540,103 +529,121 @@
   flex-direction: column;
 }
 .info-slide-content.severe-almanac .frost-pane.half {
-  max-height: 237.725px;
+  max-height: 239.725px;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .averagetitle {
   font-family: Frutiger;
   color: #d8c422;
-  font-size: 37.5px;
-  padding-left: 52.5px;
+  font-size: 35px;
+  padding-left: 50px;
   padding-top: 25px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .ahigh {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 132.5px;
   top: 122.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 .info-slide-content.severe-almanac .frost-pane.half .ahightext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 267.5px;
-  top: 111px;
+  font-size: 54px;
+  left: 266px;
+  top: 109px;
+  transform: scale(102.5%,100%);
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .alow {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 132.5px;
-  top: 182.5px;
+  top: 183.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .alowtext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 267.5px;
-  top: 171.5px;
+  font-size: 54px;
+  left: 266px;
+  top: 172.5px;
+  transform: scale(102.5%,100%);
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .recordtitle {
   font-family: Frutiger;
   position: absolute;
   color: #d8c422;
-  font-size: 37.5px;
-  left: 402.5px;
+  font-size: 35px;
+  left: 398px;
   top: 60px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .rhigh {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 457.5px;
   top: 122.5px;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 .info-slide-content.severe-almanac .frost-pane.half .rhightext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 572.5px;
-  top: 111px;
+  font-size: 54px;
+  left: 567.5px;
+  top: 109px;
+  transform: scale(102.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .rhighyear {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 37.5px;
-  left: 667.5px;
-  top: 122.5px;
+  font-size: 36px;
+  left: 663px;
+  top: 119px;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .rlow {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 457.5px;
-  top: 182.5px;
+  top: 183.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .rlowtext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 572.5px;
-  top: 171.5px;
+  font-size: 54px;
+  left: 567.5px;
+  top: 172.5px;
+  transform: scale(102.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.half .rlowyear {
@@ -652,12 +659,14 @@
 .info-slide-content.severe-almanac .frost-pane.half .thing {
   color: #fff;
   font-family: Frutiger;
-  font-size: 30px;
+  font-size: 33px;
   background: rgb(42, 58, 138);
   height: 35px;
   width: 100%;
+  transform: scale(104%,100%);
+  transform-origin: left;
   padding-top: 5px;
-  padding-left: 60px;
+  padding-left: 65px;
 }
 
 .info-slide-content.severe-almanac .frost-pane.purple {
@@ -673,15 +682,19 @@
   position: absolute;
   font-size: 36px;
   left: 20px;
-  top: 55px;
+  top: 55.5px;
+  transform: scale(106.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .sunrisetext {
   font-family: Frutiger;
   color: #fff;
   position: absolute;
-  font-size: 40px;
-  left: 160px;
-  top: 52.5px;
+  font-size: 38px;
+  left: 167px;
+  top: 54px;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.severe-almanac .frost-pane.purple .sunsettitle {
@@ -690,15 +703,19 @@
   position: absolute;
   font-size: 36px;
   left: 20px;
-  top: 125px;
+  top: 125.5px;
+  transform: scale(106.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .sunsettext {
   font-family: Frutiger;
   color: #fff;
   position: absolute;
-  font-size: 40px;
-  left: 160px;
-  top: 122.5px;
+  font-size: 38px;
+  left: 167px;
+  top: 124px;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .phase {
   display: flex;
@@ -710,13 +727,13 @@
   position: absolute;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .phase.iv{
-  right: 37.5px;
+  right: 43.5px;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .phase.iii{
-  right: 165px;
+  right: 169px;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .phase.ii{
-  right: 292.5px;
+  right: 294.5px;
 }
 .info-slide-content.severe-almanac .frost-pane.purple .phase.i{
   right: 421px;
@@ -724,19 +741,19 @@
 .info-slide-content.severe-almanac .frost-pane.purple .phase .phasetext {
   font-family: Frutiger;
   color: #d8c422;
-  font-size: 22px;
-  padding-top: 20px;
+  font-size: 23px;
+  padding-top: 20.5px;
   align-self: center;
-  transform: translate(-4.5px, 0px);
+  transform: translate(-4.5px, 0px) scale(108%,100%);
 }
 .info-slide-content.severe-almanac .frost-pane.purple .phase .icon {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  width: 125px;
-  min-height: 125px;
+  width: 126px;
+  min-height: 126px;
   position: absolute;
-  top: 31.5px;
+  top: 33px;
   align-self: center;
   -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, .95));
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, .95));
@@ -761,13 +778,74 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.severe-almanac .frost-pane.purple .phase .date {
   font-family: Frutiger;
   color: #fff;
-  font-size: 25px;
+  font-size: 26px;
   padding-top: 0px;
   align-self: center;
   position: absolute;
-  bottom: 15px;
+  bottom: 12.5px;
+  transform: scale(106%,100%) translate(-2.5px,0px);
 }
-
+.info-slide-content.severe-aroundcityinfo {
+  display: flex;
+  flex-direction: column;
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane {
+  width: 100%;
+  margin-top: 6px;
+  max-height: 105.7px;
+  display: flex;
+  flex-direction: row;
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city.i {
+  margin-top: 0px;
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city .cityname {
+  font-family: 'Frutiger 57 condensed';
+  color: #fff;
+  position: absolute;
+  font-size: 33.5px;
+  left: 10px;
+  top: 50%;
+  transform: translate(0,-23.5%) scale(115%,100%);
+  transform-origin: left;
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city.i .cityname {
+  left: 55px;
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city.iv .cityname {
+  left: 38px;
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city .temp {
+  font-family: 'Frutiger 57 Condensed';
+  color: #fff;
+  position: absolute;
+  font-size: 51px;
+  left: 415px;
+  top: 50%;
+  transform: translate(0,-41%) scale(112%,100%);
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city .icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  background-image: url(/images/icons/26.png);
+  position: absolute;
+  left: 475px;
+  top: 50%;
+  height: 150px;
+  width: 120px;
+  transform: translate(0,-51%);
+}
+.info-slide-content.severe-aroundcityinfo .frost-pane.city .wind {
+  font-family: 'Frutiger 57 Condensed';
+  color: #fff;
+  position: absolute;
+  font-size: 36.25px;
+  right: 92.5px;
+  top: 50%;
+  transform: translate(0,-23.5%) scale(115%,100%);
+  transform-origin: right;
+}
 
 .city-info, .info-slide-content {
   display: flex;
@@ -793,27 +871,33 @@ background-image: url(/images/icons/moonphases/new.png);
 }
 
 .city-info .frost-pane:first-of-type {
-  min-width: 55%;
+  min-width: 55.5%;
   margin-right: .8%;
-  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, 0.6975) 100%);
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, 0.6951) 100%);
 }
 .city-info .frost-pane.right {
-  background: linear-gradient(to right, rgba(42, 82, 188, 0.6931) 0, rgba(42, 82, 188, 0.45) 100%);
+  background: linear-gradient(to right, rgba(42, 82, 188, 0.6905) 0, rgba(42, 82, 188, 0.45) 100%);
 }
 .city-info .frost-pane.left * {
   position: absolute;
-  min-width: 55%;
-  padding-top: 7.5px;
-  line-height: 175%
+  min-width: 55.5%;
+  padding-top: 5px;
+  line-height: 182.5%
 }
 
 .frost-pane .labels {
+  font-family: 'Frutiger 57 Condensed';
   color: #d8c422;
-  left: 13%;
+  left: 13.5%;
+  transform: scale(115.5%,100%);
+  transform-origin: left;
   font-size: 37.5px;
 }
 
 .city-info .frost-pane .data {
+  font-family: 'Frutiger 57 Condensed';
+  transform: scale(113.5%,100%);
+  transform-origin: right;
   right: 10%;
   font-size: 37.5px;
   text-align: right;
@@ -841,21 +925,27 @@ background-image: url(/images/icons/moonphases/new.png);
   align-items: center;
   justify-content: center;
   position: absolute;
-  font-size: 38.5px;
+  font-size: 36px;
   font-weight: 500;
+  line-height: 110%;
   top: 220px;
   text-align: center;
   text-transform: capitalize;
   overflow-wrap: break-word;
   width: 25%;
-  height: 50px
+  height: 50px;
+  transform: translate(-11px,0px) scale(104.5%,100%);
+  transform-origin: left;
 }
 .city-info .frost-pane .temp {
-  font-size: 70.5px;
+  font-family: 'Frutiger Bold Cn';
+  font-size: 69px;
   font-weight: 700;
   position: absolute;
-  top: 340px;
+  top: 323px;
   letter-spacing: 2.5px;
+  transform: translate(-6px,0px) scale(102.5%,100%);;
+  transform-origin: left;
 }
 
 .frost-pane .title {
@@ -865,7 +955,7 @@ background-image: url(/images/icons/moonphases/new.png);
 }
 
 .frost-pane .content {
-  font-size: 52px;
+  font-size: 50px;
   line-height: 125%
 }
 .info-slide-content.daypart {
@@ -912,11 +1002,11 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.daypart .hour .thing .thingtext {
   color: #fff;
   font-family: Frutiger;
-  font-size: 28px;
+  font-size: 31px;
   width: 140px;
   height: 100%;
   text-shadow: #000 0px 0px 0px;
-  transform: translate(0px, 2.5px);
+  transform: translate(0px, 1px) scale(106%, 100%);;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -924,66 +1014,79 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.daypart .tempbar {
   position: absolute;
   width: 140px;
-  height: 0;
+  height: 0px;
   background-color: #fefd5d;
   background: linear-gradient(to top, #fffe21 0, #db5a14 100%);
-  bottom: 17.5px
+  bottom: 20px
 }
 .info-slide-content.daypart .icon {
   width: 140px;
-  height: 130px;
+  height: 115px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
   position: absolute;
-  top: 10px
+  top: 0px
 }
 .info-slide-content.daypart .condition {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 28px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27px;
   text-shadow: #000 2px 2px 2px;
   height: 30px;
-  width: 100%;
+  width: 105%;
   text-align: center;
-  transform: translate(0px, 105px);
+  transform: translate(-4px, 90px) scale(117%, 100%);
   padding: 10px, 0px;
   overflow-wrap: break-word;
 }
 .info-slide-content.daypart .tempbar .temp {
   color: #fff;
   font-family: Frutiger;
-  font-size: 52px;
+  font-size: 60px;
   text-shadow: #000 2px 2px 2px;
   height: 30px;
   width: 100%;
   text-align: center;
-  transform: translate(0px, 15px);
+  transform: translate(0px, 15px) scale(102.5%, 100%);
+  transform-origin: center;
   opacity: 0;
 }
 .info-slide-content.daypart .tempbar .wind {
   color: #24346f;
   position: absolute;
   font-family: Frutiger;
-  font-size: 28px;
+  font-size: 32px;
   text-shadow: #000 0px 0px 0px;
   height: 30px;
   width: 100%;
   text-align: center;
   bottom: 2.5px;
   opacity: 0;
+  transform: scale(105%, 100%);
 }
 .forecast .frost-pane {
-  padding: 1.5% 2% 1% 6.5%;
+  padding: 1% 18% 1% 7%;
   height: 446.25px;
+}
+.forecast .frost-pane .title {
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 41.5px;
+  transform: scale(117%,100%);
+  transform-origin: left;
+  letter-spacing: .5px;
 }
 .info-slide-content.forecast .frost-pane {
   max-height: 446.25px;
 }
 
 .info-slide-content.forecast .content {
+  font-family: 'Frutiger 57 Condensed';
   height: 400px;
   max-height: 400px;
+  transform: translate(-2.5px,-2.5px) scale(115%,100%);
+  transform-origin: left;
+  letter-spacing: 1.5px;
 }
 .info-slide-content.extended-forecast {
   width: 100%;
@@ -1021,7 +1124,7 @@ background-image: url(/images/icons/moonphases/new.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  height: 130px;
+  height: 115px;
   width: 100%;
   transform: translate(0px, 10px);
 }
@@ -1029,7 +1132,7 @@ background-image: url(/images/icons/moonphases/new.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  height: 130px;
+  height: 115px;
   width: 83.55%;
   transform: translate(0px, 10px);
 }
@@ -1049,16 +1152,17 @@ background-image: url(/images/icons/moonphases/new.png);
 }
 .info-slide-content.extended-forecast .thingg .thingday {
   color: #fff;
-  font-family: Frutiger;
+  font-family: 'Frutiger 57 condensed';
   font-size: 30px;
   text-shadow: #000 2px 2px 4px;
   height: 35px;
   min-width: 165px;
   margin-left: 6.5px;
-  padding-top: 5px;
+  padding-top: 3.5px;
   z-index: 388690;
   text-align: center;
   justify-content: center;
+  transform: scale(115%,100%);
 }
 .info-slide-content.extended-forecast .thingg .thingday.iw {
   margin-left: 0px;
@@ -1083,6 +1187,10 @@ background-image: url(/images/icons/moonphases/new.png);
   align-items: center;
   justify-content: center;
   transform: translate(0px, 13.5px);
+}
+.info-slide-content.extended-forecast .frost-pane .temphigh  span{
+  display: block;
+  transform: scale(104.5%,100%);
 }
 .info-slide-content.extended-forecast .frost-pane.iw .temphigh {
   background: linear-gradient(to right, rgba(90, 138, 236, 1) 0, rgba(90, 138, 236, 0.89715) 100%);
@@ -1114,6 +1222,7 @@ background-image: url(/images/icons/moonphases/new.png);
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: scale(104.5%,100%);
 }
 
 .info-slide-content.extended-forecast .frost-pane .templow {
@@ -1128,7 +1237,7 @@ background-image: url(/images/icons/moonphases/new.png);
   align-items: center;
   justify-content: center;
   text-align: center;
-  transform: translate(0px, 23.5px);
+  transform: translate(0px, 23.5px) scale(104.5%,100%);
 }
 .info-slide-content.extended-forecast .lfrost-pane .templow {
   color: #fff;
@@ -1145,28 +1254,29 @@ background-image: url(/images/icons/moonphases/new.png);
 }
 .info-slide-content.extended-forecast .frost-pane .conditions {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 25px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27px;
   text-shadow: #000 2px 2px 2px;
-  height: 100px;
-  line-height: 125%;
+  height: 113px;
+  line-height: 132.5%;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
+  padding-top: 7px;
   text-align: center;
-  transform: translate(0px, 12.5px);
+  transform: translate(-2px, 12.5px) scale(115.5%,100%);
   overflow-wrap: break-word;
 }
 .info-slide-content.extended-forecast .lfrost-pane .conditions {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 25px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27px;
   line-height: 125%;
   text-shadow: #000 2px 2px 2px;
-  height: 100px;
+  height: 113px;
   width: 83.55%;
   padding: 10px;
   text-align: center;
-  transform: translate(0px, 12.5px);
+  transform: translate(-2px, 12.5px) scale(115.5%,100%);
   overflow-wrap: break-word;
 }
 .info-slide-content.extended-forecast .linebreak {
@@ -1189,111 +1299,129 @@ background-image: url(/images/icons/moonphases/new.png);
   flex-direction: column;
 }
 .info-slide-content.almanac .frost-pane.half {
-  max-height: 237.725px;
+  max-height: 239.725px;
 }
 
 .info-slide-content.almanac .frost-pane.half .averagetitle {
   font-family: Frutiger;
   color: #d8c422;
-  font-size: 37.5px;
-  padding-left: 52.5px;
+  font-size: 35px;
+  padding-left: 50px;
   padding-top: 25px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.half .ahigh {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 132.5px;
   top: 122.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 .info-slide-content.almanac .frost-pane.half .ahightext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 267.5px;
-  top: 111px;
+  font-size: 54px;
+  left: 266px;
+  top: 109px;
+  transform: scale(102.5%,100%);
 }
 
 .info-slide-content.almanac .frost-pane.half .alow {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 132.5px;
-  top: 182.5px;
+  top: 183.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.half .alowtext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 267.5px;
-  top: 171.5px;
+  font-size: 54px;
+  left: 266px;
+  top: 172.5px;
+  transform: scale(102.5%,100%);
 }
 
 .info-slide-content.almanac .frost-pane.half .recordtitle {
   font-family: Frutiger;
   position: absolute;
   color: #d8c422;
-  font-size: 37.5px;
-  left: 402.5px;
+  font-size: 35px;
+  left: 398px;
   top: 60px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.half .rhigh {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 457.5px;
   top: 122.5px;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 .info-slide-content.almanac .frost-pane.half .rhightext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 572.5px;
-  top: 111px;
+  font-size: 54px;
+  left: 567.5px;
+  top: 109px;
+  transform: scale(102.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.half .rhighyear {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 37.5px;
-  left: 667.5px;
-  top: 122.5px;
+  font-size: 36px;
+  left: 663px;
+  top: 119px;
 }
 
 .info-slide-content.almanac .frost-pane.half .rlow {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 32.5px;
+  font-size: 31px;
   left: 457.5px;
-  top: 182.5px;
+  top: 183.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.half .rlowtext {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 52px;
-  left: 572.5px;
-  top: 171.5px;
+  font-size: 54px;
+  left: 567.5px;
+  top: 172.5px;
+  transform: scale(102.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.half .rlowyear {
   position: absolute;
   font-family: Frutiger;
   color: #fff;
-  font-size: 37.5px;
-  left: 667.5px;
+  font-size: 36px;
+  left: 663px;
   top: 182.5px;
 }
 
@@ -1301,12 +1429,14 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.almanac .frost-pane.half .thing {
   color: #fff;
   font-family: Frutiger;
-  font-size: 30px;
+  font-size: 33px;
   background: rgb(42, 58, 138);
   height: 35px;
   width: 100%;
+  transform: scale(104%,100%);
+  transform-origin: left;
   padding-top: 5px;
-  padding-left: 60px;
+  padding-left: 65px;
 }
 
 .info-slide-content.almanac .frost-pane.purple {
@@ -1322,15 +1452,19 @@ background-image: url(/images/icons/moonphases/new.png);
   position: absolute;
   font-size: 36px;
   left: 20px;
-  top: 55px;
+  top: 55.5px;
+  transform: scale(106.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.almanac .frost-pane.purple .sunrisetext {
   font-family: Frutiger;
   color: #fff;
   position: absolute;
-  font-size: 40px;
-  left: 160px;
-  top: 52.5px;
+  font-size: 38px;
+  left: 167px;
+  top: 54px;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.almanac .frost-pane.purple .sunsettitle {
@@ -1339,15 +1473,19 @@ background-image: url(/images/icons/moonphases/new.png);
   position: absolute;
   font-size: 36px;
   left: 20px;
-  top: 125px;
+  top: 125.5px;
+  transform: scale(106.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.almanac .frost-pane.purple .sunsettext {
   font-family: Frutiger;
   color: #fff;
   position: absolute;
-  font-size: 40px;
-  left: 160px;
-  top: 122.5px;
+  font-size: 38px;
+  left: 167px;
+  top: 124px;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.almanac .frost-pane.purple .phase {
   display: flex;
@@ -1359,13 +1497,13 @@ background-image: url(/images/icons/moonphases/new.png);
   position: absolute;
 }
 .info-slide-content.almanac .frost-pane.purple .phase.iv{
-  right: 37.5px;
+  right: 43.5px;
 }
 .info-slide-content.almanac .frost-pane.purple .phase.iii{
-  right: 165px;
+  right: 169px;
 }
 .info-slide-content.almanac .frost-pane.purple .phase.ii{
-  right: 292.5px;
+  right: 294.5px;
 }
 .info-slide-content.almanac .frost-pane.purple .phase.i{
   right: 421px;
@@ -1373,19 +1511,19 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.almanac .frost-pane.purple .phase .phasetext {
   font-family: Frutiger;
   color: #d8c422;
-  font-size: 22px;
-  padding-top: 20px;
+  font-size: 23px;
+  padding-top: 20.5px;
   align-self: center;
-  transform: translate(-4.5px, 0px);
+  transform: translate(-4.5px, 0px) scale(108%,100%);
 }
 .info-slide-content.almanac .frost-pane.purple .phase .icon {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  width: 125px;
-  min-height: 125px;
+  width: 126px;
+  min-height: 126px;
   position: absolute;
-  top: 31.5px;
+  top: 33px;
   align-self: center;
   -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, .95));
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, .95));
@@ -1410,11 +1548,12 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.almanac .frost-pane.purple .phase .date {
   font-family: Frutiger;
   color: #fff;
-  font-size: 25px;
+  font-size: 26px;
   padding-top: 0px;
   align-self: center;
   position: absolute;
-  bottom: 15px;
+  bottom: 12.5px;
+  transform: scale(106%,100%) translate(-2.5px,0px);
 }
 .info-slide-content.aroundcityinfo {
   display: flex;
@@ -1431,28 +1570,29 @@ background-image: url(/images/icons/moonphases/new.png);
   margin-top: 0px;
 }
 .info-slide-content.aroundcityinfo .frost-pane.city .cityname {
-  font-family: Frutiger;
+  font-family: 'Frutiger 57 condensed';
   color: #fff;
   position: absolute;
-  font-size: 33px;
-  left: 15px;
+  font-size: 33.5px;
+  left: 10px;
   top: 50%;
-  transform: translate(0,-26%);
+  transform: translate(0,-23.5%) scale(115%,100%);
+  transform-origin: left;
 }
 .info-slide-content.aroundcityinfo .frost-pane.city.i .cityname {
-  left: 60px;
+  left: 55px;
 }
 .info-slide-content.aroundcityinfo .frost-pane.city.iv .cityname {
-  left: 40px;
+  left: 38px;
 }
 .info-slide-content.aroundcityinfo .frost-pane.city .temp {
-  font-family: Frutiger;
+  font-family: 'Frutiger 57 Condensed';
   color: #fff;
   position: absolute;
-  font-size: 52px;
+  font-size: 51px;
   left: 415px;
   top: 50%;
-  transform: translate(0,-41%);
+  transform: translate(0,-41%) scale(112%,100%);
 }
 .info-slide-content.aroundcityinfo .frost-pane.city .icon {
   background-repeat: no-repeat;
@@ -1460,26 +1600,27 @@ background-image: url(/images/icons/moonphases/new.png);
   background-position: center center;
   background-image: url(/images/icons/26.png);
   position: absolute;
-  left: 480px;
+  left: 475px;
   top: 50%;
   height: 150px;
   width: 120px;
   transform: translate(0,-51%);
 }
 .info-slide-content.aroundcityinfo .frost-pane.city .wind {
-  font-family: Frutiger;
+  font-family: 'Frutiger 57 Condensed';
   color: #fff;
   position: absolute;
-  font-size: 33.5px;
-  right: 90px;
+  font-size: 36.25px;
+  right: 92.5px;
   top: 50%;
-  transform: translate(0,-26%);
+  transform: translate(0,-23.5%) scale(115%,100%);
+  transform-origin: right;
 }
 
 .info-slide-content.airportpanel .leftpanel {
   max-height: 446.25px;
-  max-width: 60%;
-  min-width: 60%;
+  max-width: 61%;
+  min-width: 61%;
   margin-right: .8%;
   align-items: center;
   transform: translate(0px, 10px);
@@ -1488,10 +1629,12 @@ background-image: url(/images/icons/moonphases/new.png);
   color: #fff;
   font-family: Frutiger;
   font-size: 30px;
+  transform: scale(105.5%, 100%);
+  transform-origin: left;
   text-shadow: #000 2px 2px 4px;
   padding-top: 5px;
-  padding-left: 60px;
-  background: #2a3a8a;
+  padding-left: 70px;
+  background: rgba(36, 30, 149, .85);
   height: 35px;
   width: 105%
 }
@@ -1502,97 +1645,121 @@ background-image: url(/images/icons/moonphases/new.png);
   width: 100%;
   align-items: center;
   transform: translate(0px, 0px);
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, 0.638) 100%)
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.top .title {
   position: absolute;
-  top: 30px;
+  top: 27.5px;
   left: 45px;
+  font-size: 37px;
+  transform: scale(106%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.top .delay {
   color: #fff;
   font-family: Frutiger;
-  font-size: 28px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 27px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
-  top: 100px;
-  left: 65px;
+  top: 97.5px;
+  left: 67.5px;
+  transform: scale(104.5%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.top .delayfill {
   color: #fff;
   font-family: Frutiger;
-  font-size: 32px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 33px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
-  top: 96px;
-  left: 250px;
+  top: 93.5px;
+  left: 252.5px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.top .reason {
   color: #fff;
   font-family: Frutiger;
-  font-size: 28px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 27px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
-  top: 160px;
-  left: 65px;
+  top: 159px;
+  left: 67.5px;
+  transform: scale(104.5%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.top .reasonfill {
   color: #fff;
   font-family: Frutiger;
-  font-size: 32px;
+  font-size: 33px;
   text-shadow: #000 2px 2px 2px;
   position: absolute;
-  top: 156px;
-  left: 250px;
+  top: 150px;
+  left: 252.5px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
 }
 
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .title {
   position: absolute;
-  top: 30px;
-  left: 30px;
+  top: 27.5px;
+  left: 27.5px;
+  font-size: 37px;
+  transform: scale(106%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .delay {
   color: #fff;
   font-family: Frutiger;
-  font-size: 28px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 27px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
-  top: 92.5px;
-  left: 65px;
+  top: 87.5px;
+  left: 67.5px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .delayfill {
   color: #fff;
   font-family: Frutiger;
-  font-size: 32px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 33px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
-  top: 92.5px;
-  left: 250px;
+  top: 85px;
+  left: 252.5px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .reason {
   color: #fff;
   font-family: Frutiger;
-  font-size: 28px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 27px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
-  top: 142.5px;
-  left: 65px;
+  top: 140px;
+  left: 67.5px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .reasonfill {
   color: #fff;
   font-family: Frutiger;
-  font-size: 32px;
-  text-shadow: #000 2px 2px 2px;
+  font-size: 33px;
+  text-shadow: #000 2px 2px 4px;
   position: absolute;
   top: 142.5px;
-  left: 250px;
+  left: 252.5px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .source {
   color: #d8c422;
   font-family: Frutiger;
-  font-size: 24px;
+  font-size: 22px;
+  transform: scale(104%, 100%);
   text-shadow: #000 2px 2px 2px;
   position: absolute;
-  bottom: 3px;
+  bottom: 5px;
   left: 37.5px;
 }
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom {
@@ -1600,13 +1767,16 @@ background-image: url(/images/icons/moonphases/new.png);
   width: 100%;
   align-items: center;
   transform: translate(0px, 0px);
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, 0.638) 100%)
 }
 
 .info-slide-content.airportpanel .frost-pane.right {
   max-height: 446.25px;
+  background: linear-gradient(to right, rgba(42, 82, 188, 0.637) 0, rgba(42, 82, 188, 0.45) 100%)
 }
 .info-slide-content.airportpanel .frost-pane.right .thing {
-  background: #2a3a8a;
+  background: #241e95;
+  opacity: 85%;
   height: 35px;
   width: 100%
 }
@@ -1617,7 +1787,8 @@ background-image: url(/images/icons/moonphases/new.png);
   position: absolute;
   width: 100%;
   height: 45%;
-  top: 12.5px
+  top: 12.5px;
+  transform: translate(-1.5%, 0);
 }
 .info-slide-content.airportpanel .frost-pane.right .conditions {
   display:flex;
@@ -1631,19 +1802,106 @@ background-image: url(/images/icons/moonphases/new.png);
   height: 50px;
   width: 100%;
   padding: 0% 37.5%;
+  text-align: center;
+  transform: translate(-2.25%, 0) scale(104.5%, 100%);
   position: absolute;
-  top: 235px;
+  top: 230px;
 }
 .info-slide-content.airportpanel .frost-pane.right .temp {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 76px;
-  font-weight: 700;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 80px;
+  font-weight: 600;
   width: 100%;
   position: absolute;
-  top: 355px;
+  top: 350px;
   text-align: center;
   letter-spacing: 2.5px;
+  transform: translate(-1.5%, 0) scale(112.5%, 100%);
+}
+.info-slide-content.otherairports .thing {
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  height: 35px;
+  font-family: Frutiger;
+  transform: scale(104%,100%);
+  font-weight: 600;
+  opacity: 85%;
+  font-size: 26px;
+  background-color: #241e95;
+  color: #d8c422;
+  text-shadow: #000 2px 2px 4px;
+  padding-left: 305px;
+  line-height: 150%;
+}
+.info-slide-content.otherairports .thing .temp {
+  position: absolute;
+  right: 370px;
+}
+.info-slide-content.otherairports .thing .delay {
+  position: absolute;
+  right: 80px;
+}
+.info-slide-content.otherairports .frost-pane {
+  max-height: 411.25px;
+  transform: translate(0, 45px);
+  flex-direction: column;
+}
+.info-slide-content.otherairports .airport {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.info-slide-content.otherairports .airport.i {
+  margin-top: 8px;
+}
+.info-slide-content.otherairports .airport .airportname {
+  font-family: 'Frutiger 57 Condensed';
+  transform: scale(112.5%,100%);
+  transform-origin: left;
+  color: #fff;
+  position: fixed;
+  font-size: 34.5px;
+  left: 10px;
+}
+.info-slide-content.otherairports .airport.i .airportname {
+  left: 38px;
+}
+.info-slide-content.otherairports .airport.iv .airportname {
+  left: 28px;
+}
+.info-slide-content.otherairports .airport .temp {
+  font-family: 'Frutiger 57 Condensed';
+  transform: scale(112.5%,100%);
+  transform-origin: left;
+  color: #fff;
+  width: 80px;
+  text-align: center;
+  position: relative;
+  font-size: 40.5px;
+  left: 437px;
+}
+.info-slide-content.otherairports .airport .icon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  background-image: url(/images/icons/26.png);
+  position: fixed;
+  left: 510px;
+  height: 120px;
+  width: 120px;
+}
+.info-slide-content.otherairports .airport .delay {
+  font-family: Frutiger;
+  transform: translate(0,3px) scale(104%,100%);
+  transform-origin: left;
+  color: #fff;
+  position: fixed;
+  font-size: 33px;
+  right: 72px;
 }
 
 .info-slide-content.surfreport .leftpanel {
@@ -1703,7 +1961,7 @@ background-image: url(/images/icons/moonphases/new.png);
   width: 430px;
   font-family: Frutiger;
   font-size: 35.5px;
-  color: #000;
+  color: #171717;
   text-shadow: #000 0px 0px 0px;
   word-spacing: 13.5px;
   text-align: center;
@@ -1770,7 +2028,7 @@ background-image: url(/images/icons/moonphases/new.png);
   text-align: center;
   bottom: 31px;
   left: 110px;
-  color: #000;
+  color: #171717;
   text-shadow: #000 0px 0px 0px;
   background: linear-gradient(to top, #5f6c55 0, #16c0dd 65%);
   padding-top: 10px;
@@ -1897,15 +2155,17 @@ flex-direction: row;
 .info-slide-content.health-forecast .thing {
   color: #fff;
   font-family: Frutiger;
-  font-size: 30px;
-  line-height: 130%;
+  font-size: 33px;
+  padding-top: 4px;
   text-shadow: 2px 2px 4px #000;
   height: 35px;
   background: #241e95;
   width: 100%;
   position: absolute;
   top: 70px;
-  padding-left: 60px;
+  padding-left: 62.5px;
+  transform: scale(105%,100%);
+  transform-origin: left;
 }
 .info-slide-content.health-forecast .frost-pane.mainforecast {
   margin-top: 35px;
@@ -1917,27 +2177,34 @@ flex-direction: row;
   background-size: contain;
   background-position: center center;
   width: 100%;
-  height: 48%;
+  height: 52%;
+  position: absolute;
+  top: -10px;
   background-image: url(/images/icons/24.png);
 }
 .info-slide-content.health-forecast .frost-pane.mainforecast .low {
   position: absolute;
   top: 215px;
   left: 65px;
-  font-size: 27.5px;
+  font-size: 26.5px;
+  transform: scale(108%,100%);
+  transform-origin: left;
 }
 .info-slide-content.health-forecast .frost-pane.mainforecast .high {
   position: absolute;
   top: 215px;
-  right: 65px;
-  font-size: 27.5px;
+  right: 70px;
+  font-size: 26.5px;
+  transform: scale(108%,100%);
+  transform-origin: right;
 }
 .info-slide-content.health-forecast .frost-pane.mainforecast .lowtext {
   width: 30%;
   position: absolute;
   top: 265px;
   left: 39px;
-  font-size: 65px;
+  font-size: 66px;
+  transform: scale(105%,100%);
   text-align: center;
 }
 .info-slide-content.health-forecast .frost-pane.mainforecast .hightext {
@@ -1945,15 +2212,19 @@ flex-direction: row;
   height: 47.5%;
   position: absolute;
   top: 265px;
-  right: 38px;
-  font-size: 65px;
+  right: 44px;
+  font-size: 66px;
+  transform: scale(105%,100%);
   text-align: center;
 }
 .info-slide-content.health-forecast .frost-pane.mainforecast .title.heatwind {
+  font-family: 'Frutiger 57 Condensed';
   width: 100%;
   position: absolute;
-  bottom: 20px;
-  font-size: 37px;
+  bottom: 12.5px;
+  font-size: 37.5px;
+  text-align: center;
+  transform: scale(110.5%,100%);
   text-align: center;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails {
@@ -1963,61 +2234,82 @@ flex-direction: row;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails .title {
   width: 100%;
-  font-size: 33.5px;
-  padding-left: 10px;
-  padding-bottom: 2px;
+  font-size: 33.25px;
+  padding-left: 12.5px;
+  padding-bottom: 0px;
+  height: 40.5px;
   text-transform: none;
   font-family: 'Frutiger Bold Cn';
   background: linear-gradient(to right, rgba(33, 27, 140, 1) 0, rgba(33, 27, 140, 0) 93%);
 }
+.info-slide-content.health-forecast .frost-pane.forecastdetails .title span {
+  display: block;
+  transform: scale(105.5%,100%) translate(0,-2.5px);
+  transform-origin: left;
+}
+.info-slide-content.health-forecast .frost-pane.forecastdetails .title.humid span {
+  display: block;
+  transform: scale(105.5%,100%) translate(0,0px);
+  transform-origin: left;
+}
 .info-slide-content.health-forecast .frost-pane.forecastdetails .title.chanceprecip {
   position: absolute;
-  top: 20px;
-  left: 55px;
+  top: 19px;
+  left: 50px;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails .title.humid {
   position: absolute;
-  top: 157.5px;
-  left: 55px;
+  top: 154px;
+  left: 50px;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails .title.wind {
   position: absolute;
-  top: 295px;
-  left: 55px;
+  top: 292.5px;
+  left: 50px;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails .chancepreciptext {
   position: absolute;
-  top: 80px;
-  left: 90px;
-  font-size: 52px;
+  top: 78px;
+  left: 95px;
+  font-size: 53px;
+  transform: scale(104.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails .humidtext {
   position: absolute;
-  top: 217.5px;
-  left: 90px;
-  font-size: 52px;
+  top: 215px;
+  left: 95px;
+  font-size: 53px;
+  transform: scale(104.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.health-forecast .frost-pane.forecastdetails .windtext {
   position: absolute;
-  top: 355px;
-  left: 90px;
-  font-size: 52px;
+  top: 352px;
+  left: 95px;
+  font-size: 53px;
+  transform: scale(104.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.allergy .frost-pane.pollen {
-  min-width: 60%;
-  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, 0.67) 100%);
+  min-width: 62.5%;
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, 0.656) 100%);
 }
 .info-slide-content.allergy .frost-pane.pollen .thing {
   color: #fff;
   font-family: Frutiger;
-  font-size: 30px;
-  line-height: 130%;
+  font-size: 33px;
+  padding-top:4px;
   text-shadow: 2px 2px 4px #000;
   height: 35px;
   background: #241e95;
   width: 100%;
   position: absolute;
-  padding-left: 60px;
+  padding-left: 68px;
+}
+.info-slide-content.allergy .frost-pane.pollen .thing span{
+  transform: scale(105%,100%);
+  transform-origin: left;
 }
 
 .info-slide-content.allergy .frost-pane.pollen .pollenbar {
@@ -2025,6 +2317,16 @@ flex-direction: row;
   font-size: 35px;
   height: 50px;
 }
+.info-slide-content.allergy .frost-pane.pollen .pollenbar .type {
+  font-family: 'Frutiger 57 Condensed';
+  transform: scale(115%,100%) translate(0,-3.5px);
+  transform-origin: left;
+  font-size: 34px;
+}
+.info-slide-content.allergy .frost-pane.pollen .pollenbar .treetype {
+  font-size: 29px;
+  transform: translate(0,-2px);
+}
 .info-slide-content.allergy .frost-pane.pollen .scale {
   position: absolute;
   font-size: 35px;
@@ -2037,39 +2339,43 @@ flex-direction: row;
 
 .info-slide-content.allergy .frost-pane.pollen .scale {
   position: absolute;
-  font-size: 25px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 27.5px;
   height: 50px;
-  bottom: -19px;
+  bottom: -16px;
   color: #d8c422;
+  transform: scale(117%,100%);
 }
 .info-slide-content.allergy .frost-pane.pollen .scale.low {
-  left: 232.5px;
+  left: 227.5px;
+  transform-origin: left;
 }
 .info-slide-content.allergy .frost-pane.pollen .scale.high {
-  right: 20px;
+  right: 22.5px;
+  transform-origin: right;
 }
 .info-slide-content.allergy .frost-pane.pollen .pollenbar .bar {
-  height: 27.5px;
-  width: 277.5px;
+  height: 25px;
+  width: 300px;
   position: absolute;
   left: 202.5px;
-  background: linear-gradient(to right, #c8bb52 0, #f06509 50%, #921413 100%);
+  background: linear-gradient(to right, #c8bb52 0, #f06509 70%, #921413 100%);
 }
 
 .info-slide-content.allergy .frost-pane.pollen .pollenbar .bar .bararrow {
   position: absolute;
-  bottom: -3px;
+  bottom: -5px;
   left: -10px;
   width: 0;
   height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 35px solid #fff;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 34px solid #fff;
   -webkit-filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
   filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75))
 }
 .info-slide-content.allergy .frost-pane.pollen .pollenbar.tree {
-  top: 90px;
+  top: 89px;
   left: 30px;
 }
 .info-slide-content.allergy .frost-pane.pollen .pollenbar.grass {
@@ -2080,48 +2386,66 @@ flex-direction: row;
   left: 232.5px;
 }
 .info-slide-content.allergy .frost-pane.pollen .pollenbar.weed {
-  top: 270px;
+  top: 268px;
   left: 0px;
 }
 .info-slide-content.allergy .frost-pane.pollen .pollenbar.weed .bar {
   left: 232.5px;
 }
 .info-slide-content.allergy .frost-pane.pollen .pollenbar.mold {
-  top: 360px;
-  left: 30px;
+  top: 358px;
+  left: 27.5px;
 }
 .info-slide-content.allergy .frost-pane.totalpollen {
   margin-left: 5px;
-  background: linear-gradient(to right, rgba(42, 82, 188, 0.6656) 0, rgba(42, 82, 188, 0.45) 100%);
+  background: linear-gradient(to right, rgba(42, 82, 188, 0.6518) 0, rgba(42, 82, 188, 0.45) 100%);
 }
 .info-slide-content.allergy .frost-pane.totalpollen .thing {
   display: flex;
   color: #fff;
-  font-family: Frutiger;
-  font-size: 30px;
-  line-height: 130%;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 32.5px;
+  line-height: 125%;
   text-shadow: 2px 2px 4px #000;
-  height: 100px;
+  height: 102.5px;
   background: #241e95;
   width: 100%;
   position: absolute;
-  align-items: center;
-  justify-content: center;
+  padding-left: 60px;
+  padding-top: 7.5px;
   text-align: center;
+}
+.info-slide-content.allergy .frost-pane.totalpollen .thing .thingtext {
+  transform: scale(113.5%,100%);
+  transform-origin: left;
 }
 
+
 .info-slide-content.allergy .frost-pane.totalpollen .cat {
-  font-size: 65px;
-  width: 100%;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 61.5px;
+  width: 92%;
   position: absolute;
-  top: 185px;
+  top: 175px;
   text-align: center;
+  transform: scale(114%,100%)
 }
 .info-slide-content.allergy .frost-pane.totalpollen .desc {
-  font-size: 40px;
-  width: 100%;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 42.5px;
+  width: 92%;
   position: absolute;
-  top: 285px;
+  top: 272.5px;
+  text-align: center;
+  transform: scale(115%,100%)
+}
+.info-slide-content.allergy .frost-pane.totalpollen .moreinfo {
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 34px;
+  width: 93%;
+  line-height: 144%;
+  position: absolute;
+  top: 122px;
   text-align: center;
 }
 .info-slide-content.Aches-Breath {
@@ -2130,30 +2454,36 @@ flex-direction: row;
 .info-slide-content.Aches-Breath .thing {
   color: #fff;
   font-family: Frutiger;
-  font-size: 30px;
-  line-height: 130%;
+  font-size: 33px;
+  padding-top: 4px;
   text-shadow: 2px 2px 4px #000;
   height: 35px;
   background: #241e95;
   width: 100%;
-  padding-left: 60px;
+  padding-left: 67.5px;
   transform: translate(0, 10px);
 }
 .info-slide-content.Aches-Breath .frost-pane {
   transform: translate(0, 10px);
 }
 .info-slide-content.Aches-Breath .frost-pane.aches {
-  max-height: 230.225px;
+  max-height: 212.725px;
   background: linear-gradient(to right, rgba(19, 116, 241, 1), rgb(21, 111, 228, .45) 100%);
 }
 .info-slide-content.Aches-Breath .frost-pane .whitetitle {
-  font-size: 34px;
+  font-size: 33px;
+  font-family: 'Frutiger 57 Condensed';
+  transform: scale(117%,100%);
+  transform-origin: left;
 }
 .info-slide-content.Aches-Breath .frost-pane .desc {
+  font-family: 'Frutiger 57 Condensed';
   font-size: 26.5px;
   color: #16bfdd;
   position: absolute;
   left: 20px;
+  transform: scale(117%,100%);
+  transform-origin: left;
 }
 .info-slide-content.Aches-Breath .frost-pane.aches .desc {
   top: 115px;
@@ -2165,15 +2495,15 @@ flex-direction: row;
 }
 
 .info-slide-content.Aches-Breath .frost-pane.breath .desc {
-  top: 105px;
-  left: 32.5px;
-  line-height: 120%
+  top: 110px;
+  left: 36px;
+  line-height: 115%
 }
 .info-slide-content.Aches-Breath .frost-pane.breath .whitetitle {
   position: absolute;
-  top: 50px;
-  left: 15px;
-  font-size: 35px;
+  top: 55px;
+  font-size: 34px;
+  left: 17.5px;
 }
 
 .info-slide-content.Aches-Breath .frost-pane.breath {
@@ -2182,7 +2512,7 @@ flex-direction: row;
 }
 
 .info-slide-content.Aches-Breath .frost-pane .bar {
-  height: 24px;
+  height: 23px;
   width: 300px;
   position: absolute;
   left: 455px;
@@ -2190,7 +2520,7 @@ flex-direction: row;
   background: linear-gradient(to right, #7a7a5e 0, #c8bb52 25%, #f06509 75%, #9f2116 100%);
 }
 .info-slide-content.Aches-Breath .frost-pane.breath .bar {
-  top: 55px;
+  top: 60px;
 }
 
 .info-slide-content.Aches-Breath .frost-pane .bar .bararrow {
@@ -2211,9 +2541,10 @@ flex-direction: row;
   color: #fff;
   text-shadow: 0px 0px 0px;
   position: absolute;
-  top: -64px;
+  top: -67.5px;
   left: -77px;
   width: 150px;
+  transform: scale(107%,100%);
   text-align: center;
 }
 .info-slide-content.airquality .frost-pane.airforecast {
@@ -2223,42 +2554,49 @@ flex-direction: row;
 .info-slide-content.airquality .frost-pane.airforecast .thing {
   color: #fff;
   font-family: Frutiger;
-  font-size: 30px;
-  line-height: 130%;
+  font-size: 33px;
+  padding-top: 4px;
   text-shadow: 2px 2px 4px #000;
   height: 35px;
   background: #2a3a8a;
   width: 100%;
-  padding-left: 60px;
+  padding-left: 67.5px;
+}
+.info-slide-content.allergy .frost-pane.airforecast .thing span{
+  transform: scale(105%,100%);
+  transform-origin: left;
 }
 .info-slide-content.airquality .frost-pane.airforecast .bar .bar {
   color: #fff;
   font-family: Frutiger;
-  font-size: 32.5px;
+  font-size: 31.5px;
   line-height: 130%;
   text-shadow: 2px 2px 4px #000;
   filter: drop-shadow(2px 2px 2.4px #000);
-  height: 62.5px;
+  height: 60px;
   background: #241e95;
   width: 110px;
-  margin-top: 14.75px;
+  margin-top: 16.75px;
   margin-left: 80px;
   transform: translate(0, 10px);
 }
 .info-slide-content.airquality .frost-pane.airforecast .bar .bar .forecast {
+  font-family: 'Frutiger 57 Condensed';
   position: absolute;
   left: 130px;
-  top: 15px;
+  top: 14px;
   text-shadow: 0px 0px 0px #000;
+  transform: scale(112.5%,100%);
+  transform-origin: left;
 }
 .info-slide-content.airquality .frost-pane.airforecast .bar .arrow {
   position: absolute;
   bottom: 35px;
-  left: 40px;
+  left: 37.5px;
   width: 0;
   height: 0;
-  border-left: 17px solid transparent;
-  border-right: 17px solid transparent;
+  border-left: 16.5px solid transparent;
+  border-right: 16.5px solid transparent;
   border-top: 32.5px solid #fff;
   transform: rotate(-90deg);
   -webkit-filter: drop-shadow(-4px 2px 4px rgba(0, 0, 0, .75));
@@ -2269,29 +2607,36 @@ flex-direction: row;
   background: linear-gradient(to right, rgba(42, 82, 188, 0.70685) 0, rgba(42, 82, 188, 0.45) 100%);
 }
 .info-slide-content.airquality .frost-pane.primarypolute .thing {
+  display: flex;
   color: #fff;
-  font-family: Frutiger;
-  font-size: 30px;
-  line-height: 130%;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 35px;
+  line-height: 115%;
   text-shadow: 2px 2px 4px #000;
   height: 90px;
   background: #2a3a8a;
   width: 100%;
+  position: absolute;
+  padding-left: 60px;
+  padding-top: 1px;
   text-align: center;
 }
 .info-slide-content.airquality .frost-pane.primarypolute .thing .pollutetext {
-  width: 90%;
+  width: 88%;
   position: absolute;
   left: 0;
+  transform: scale(112.5%,100%);
 }
 .info-slide-content.airquality .frost-pane.primarypolute .source {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 25px;
+  font-family: 'Frutiger 57 condensed';
+  font-size: 26px;
   text-shadow: 2px 2px 4px #000;
   position: absolute;
-  bottom: 10px;
-  left: 25px;
+  bottom: 11px;
+  left: 32.5px;
+  transform: scale(115%,100%);
+  transform-origin: left;
 }
 .info-slide-content.airquality .frost-pane.primarypolute .ozoneaction {
   color: #fff;
@@ -2304,13 +2649,14 @@ flex-direction: row;
 }
 .info-slide-content.airquality .frost-pane.primarypolute .pollutant {
   color: #fff;
-  font-family: Frutiger;
+  font-family: 'Frutiger 57 condensed';
   text-shadow: 2px 2px 4px #000;
   position: absolute;
-  top: 160px;
-  font-size: 40px;
+  top: 148px;
+  font-size: 42.5px;
   text-align: center;
-  width: 90%
+  width: 89%;
+  transform: scale(113.5%,100%);
 }
 .info-slide-content.airquality .frost-pane.primarypolute .ozoneaction .icon {
   color: #fff;
@@ -2350,14 +2696,14 @@ flex-direction: row;
   position: absolute;
   top: 70px;
   width: 100%;
-  height: 113.5px;
+  height: 111px;
   z-index: 2;
   background: linear-gradient(to right, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 0.45) 100%);
 }
 .info-slide-content.uvindex .weatherreadyheader .icon {
   position: absolute;
-  left: 132.5px;
-  top: 7.5px;
+  left: 130px;
+  top: 7px;
   width: 115px;
   height: 103px;
   background: url(/images/check.svg);
@@ -2370,11 +2716,11 @@ flex-direction: row;
   width: 115px;
   height: 115px;
   position: absolute;
-  left: 185px;
-  top: 53px;
+  left: 182.5px;
+  top: 51px;
   font-weight: 600;
   font-style: italic;
-  font-size: 61px;
+  font-size: 62px;
   color: rgb(55, 73, 98);
 }
 .info-slide-content.uvindex .weatherreadyheader .weathertext2 {
@@ -2383,9 +2729,11 @@ flex-direction: row;
   height: 115px;
   position: absolute;
   left: 241px;
-  top: 47px;
+  top: 54px;
   font-weight: bold;
   font-size: 51.5px;
+  transform: scale(99%,112%);
+  transform-origin: bottom;
   font-style: italic;
   color: rgb(55, 73, 98);
 }
@@ -2394,27 +2742,30 @@ flex-direction: row;
   width: 100px;
   height: 80px;
   position: absolute;
-  left: 402.5px;
-  top: 38px;
-  font-size: 61px;
+  left: 406px;
+  top: 36px;
+  font-size: 62px;
+  transform: scale(109%,100%);
   color: rgb(223, 69, 65);
 }
 .info-slide-content.uvindex .thing {
   color: #fff;
   font-family: Frutiger;
   font-size: 30px;
-  line-height: 130%;
+  padding-top: 8px;
   text-shadow: 2px 2px 4px #000;
-  height: 35px;
+  height: 42.5px;
   background: #241e95;
   width: 100%;
-  padding-left: 43px;
+  padding-left: 37.5px;
   position: absolute;
-  top: 185px;
+  top: 181px;
   z-index: 2;
 }
 .info-slide-content.uvindex .thing .currentlytext {
   font-size: 35px;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 .info-slide-content.uvindex .thing .uvtime {
   font-size: 35px;
@@ -2422,21 +2773,23 @@ flex-direction: row;
   top: 0;
   width: 137.5px;
   text-align: center;
+  padding-top: 8px;
 }
 .info-slide-content.uvindex .thing .uvtime .uvday {
-  font-size: 30px;
+  font-size: 28.5px;
   position: absolute;
   width: 100%;
-  top: 40px;
+  top: 52px;
+  transform: scale(107%,100%);
 }
 .info-slide-content.uvindex .thing .uvtime.i {
-  left: 246.5px;
+  left: 244px;
 }
 .info-slide-content.uvindex .thing .uvtime.ii {
-  left: 407px;
+  left: 404.5px;
 }
 .info-slide-content.uvindex .thing .uvtime.iii {
-  left: 570.5px;
+  left: 567.5px;
 }
 .info-slide-content.uvindex .frost-pane {
   z-index: 0;
@@ -2457,11 +2810,12 @@ flex-direction: row;
 
 }
 .info-slide-content.uvindex .frost-pane.currentuv .bar .cat {
-  font-size: 30px;
+  font-size: 27px;
   position: absolute;
   top: 0;
   text-align: center;
   width: 100%;
+  transform: scale(106%,100%);
 }
 .info-slide-content.uvindex .frost-pane.currentuv .bar .num {
   font-size: 50px;
@@ -2469,6 +2823,7 @@ flex-direction: row;
   top: -50px;
   text-align: center;
   width: 100%;
+  transform: scale(106%,100%);
 }
 
 .info-slide-content.uvindex .frost-pane.forecastuv {
@@ -2478,25 +2833,27 @@ flex-direction: row;
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .bar {
   position: absolute;
-  width: 137.5px;
-  height: 0px;
+  width: 135px;
+  height: 60px;
   background-color: #fefd5d;
   background: linear-gradient(to top, #555968 0, #686a79 21px, #898a99 42px, #876f50 63px, #baa936 84px, #e9d940 105px, #dd901e 126px, #d45d35 141.75px, #c23b36 161px, #c14c90 173.25px);
-  bottom: 17.5px;
+  bottom: 15px;
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .bar .cat {
-  font-size: 30px;
+  font-size: 27px;
   position: absolute;
-  top: 0;
+  top: 1px;
   text-align: center;
-  width: 100%
+  width: 100%;
+  transform: scale(106%,100%);
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .bar .num {
-  font-size: 55px;
+  font-size: 54px;
   position: absolute;
-  top: -50px;
+  top: -48px;
   text-align: center;
-  width: 100%
+  width: 100%;
+  transform: scale(107%,100%);
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .bar.i {
   left: 21px;
@@ -2505,7 +2862,7 @@ flex-direction: row;
   left: 182px;
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .bar.iii {
-  left: 345.5px;
+  left: 345px;
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .scalebar {
   position: absolute;
@@ -2514,40 +2871,46 @@ flex-direction: row;
   background-color: #fefd5d;
   color: #d8c422;
   background: linear-gradient(to top, #555968 0, #686a79 12%, #898a99 24%, #876f50 36%, #baa936 48%, #e9d940 60%, #cb813f 72%, #d45d35 81%, #c23b36 92%, #c14c90 99%);
-  bottom: 17.5px;
-  left: 512.5px;
+  bottom: 15px;
+  left: 510px;
 }
 
 .info-slide-content.uvindex .frost-pane.forecastuv .scalebar .low {
   position: absolute;
   bottom: -5px;
   left: 16px;
-  font-size: 25px;
+  font-size: 27px;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .scalebar .mid {
   position: absolute;
   bottom: 40%;
   left: 16px;
-  font-size: 25px;
+  font-size: 27px;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 .info-slide-content.uvindex .frost-pane.forecastuv .scalebar .high {
   position: absolute;
-  top: 5px;
+  top: 4px;
   left: 16px;
-  font-size: 25px;
+  font-size: 27px;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 .info-slide-content.healthtip .weatherreadyheader {
   position: absolute;
-  top: 70px;
+  top: 72.5px;
   width: 100%;
-  height: 113.5px;
+  height: 111px;
   z-index: 2;
   background: linear-gradient(to right, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 0.45) 100%);
 }
 .info-slide-content.healthtip .weatherreadyheader .icon {
   position: absolute;
-  left: 147.5px;
-  top: 5.5px;
+  left: 145px;
+  top: 6px;
   width: 115px;
   height: 103px;
   background: url(/images/check.svg);
@@ -2560,11 +2923,11 @@ flex-direction: row;
   width: 115px;
   height: 115px;
   position: absolute;
-  left: 200px;
-  top: 50.5px;
+  left: 197.5px;
+  top: 49.5px;
   font-weight: 600;
   font-style: italic;
-  font-size: 61px;
+  font-size: 62px;
   color: rgb(55, 73, 98);
 }
 .info-slide-content.healthtip .weatherreadyheader .weathertext2 {
@@ -2573,9 +2936,11 @@ flex-direction: row;
   height: 115px;
   position: absolute;
   left: 256px;
-  top: 44.5px;
+  top: 53px;
   font-weight: bold;
   font-size: 51.5px;
+  transform: scale(99%,112%);
+  transform-origin: bottom;
   font-style: italic;
   color: rgb(55, 73, 98);
 }
@@ -2584,17 +2949,25 @@ flex-direction: row;
   width: 100px;
   height: 80px;
   position: absolute;
-  left: 417.5px;
-  top: 35.5px;
-  font-size: 61px;
+  left: 421px;
+  top: 36px;
+  font-size: 62px;
+  transform: scale(109%,100%);
   color: rgb(223, 69, 65);
 }
 .info-slide-content.healthtip .frost-pane {
+  font-family: 'Frutiger 57 Condensed';
   z-index: 0;
-  padding-top: 125px;
-  padding-left: 57.5px;
-  font-size: 35px;
+  padding-top: 127.5px;
+  padding-left: 59px;
+  font-size: 34.5px;
   line-height: 115%;
+
+}
+.info-slide-content.healthtip .frost-pane span {
+  display: block;
+  transform: scale(115%,100%);
+  transform-origin: left;
 }
 .info-slide-content.moreinfoimage .frost-pane {
   background-color: rgba(0, 0, 0, 0);
@@ -2603,12 +2976,496 @@ flex-direction: row;
   background-size: contain;
 }
 .info-slide-content.moreinfoimage .frost-pane .moreinfotext {
-  font-size: 31px;
-  line-height: 200%;
+  font-size: 32px;
+  line-height: 202%;
+  transform: scale(107%,100%);
+  transform-origin: right;
   text-align: right;
   position: absolute;
   top: 30px;
-  right: 50px;
+  right: 55px;
+}
+.info-slide-content.teetime {
+  flex-direction: row
+}
+.info-slide-content.teetime .thing {
+  background: #2a3a8a;
+  height: 35px;
+  width: 100%;
+  position: absolute;
+  top: 70px;
+}
+.info-slide-content.teetime .frost-pane {
+  max-height: 411.25px;
+  padding-left: 55px;
+  display: flex;
+  flex-direction: row;
+  transform: translate(0px, 45px);
+}
+.info-slide-content.teetime .hour {
+  width: 110px;
+  align-items: center;
+  margin-right: 44px;
+}
+.info-slide-content.teetime .hour.v {
+  margin-right: 100px;
+}
+
+.info-slide-content.teetime .hour .hourlabel {
+  height: 35px;
+  width: 120px;
+  transform: translate(0px, -35px);
+}
+.info-slide-content.teetime .hour .hourlabel .thingtext {
+  color: #fff;
+  font-family: Frutiger;
+  font-size: 32px;
+  width: 120px;
+  height: 100%;
+  text-shadow: #000 1px 1px 3px;
+  transform: translate(0px, 0px) scale(105.5%,100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-slide-content.teetime .daylabel {
+  color: #fff;
+  font-family: Frutiger;
+  font-size: 27px;
+  width: 120px;
+  top: 5px;
+  position: absolute;
+  text-shadow: #000 1px 1px 3px;
+  transform: translate(0px, 2.5px) scale(107%,100%);
+  text-align: center;
+}
+.info-slide-content.teetime .tempbar {
+  position: absolute;
+  width: 120px;
+  height: 200px;
+  background-color: #fefd5d;
+  background: linear-gradient(to top, #fffe21 0, #db5a14 100%);
+  bottom: 17.5px
+}
+.info-slide-content.teetime .icon {
+  width: 120px;
+  height: 114px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  background-image: url(/images/icons/01.png);
+  position: absolute;
+  top: 37px
+}
+.info-slide-content.teetime .tempbar .temp {
+  color: #fff;
+  font-family: Frutiger;
+  font-size: 59px;
+  text-shadow: #000 2px 2px 2px;
+  height: 30px;
+  margin-top: 5px;
+  width: 100%;
+  text-align: center;
+  transform: translate(0px, 15px);
+  opacity: 1;
+  transform: scale(101%,100%);
+}
+.info-slide-content.teetime .tempbar .wind {
+  color: #24346f;
+  position: absolute;
+  font-family: Frutiger;
+  font-size: 25px;
+  text-shadow: #000 0px 0px 0px;
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  bottom: 2.5px;
+  opacity: 1;
+  transform: scale(104.5%,100%);
+}
+.info-slide-content.golfforecast .thing {
+  color: #fff;
+  font-family: Frutiger;
+  font-size: 33px;
+  background: #2a3a8a;
+  height: 35px;
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  padding-top: 5px;
+  padding-left: 57px;
+  transform: scale(105%,100%);
+  transform-origin: left;
+  z-index: 388687;
+}
+.info-slide-content.golfforecast .frost-pane {
+  max-height: 411.25px;
+  transform: translate(0px, 45px);
+  margin-left: 7px;
+}
+.info-slide-content.golfforecast .frost-pane.left {
+  margin-left: 0px;
+  max-width: 33%;
+  padding-left: 31px;
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, .8185) 100%);
+}
+.info-slide-content.golfforecast .frost-pane.mid {
+  max-width: 29.5%;
+  background: linear-gradient(to right, rgba(42, 82, 188, .8141) 0, rgba(42, 82, 188, .6546) 100%);
+}
+.info-slide-content.golfforecast .frost-pane.right {
+  width: 40%;
+  background: linear-gradient(to right, rgba(42, 82, 188, 0.6502) 0, rgba(42, 82, 188, .45) 100%);
+}
+.info-slide-content.golfforecast .frost-pane.left .purplefooter {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 122.5px;
+  background: linear-gradient(to right, rgba(42, 58, 138, 0) 0, rgba(42, 58, 138, .33) 100%)
+}
+.info-slide-content.golfforecast .frost-pane.mid .purplefooter {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 122.5px;
+  background: linear-gradient(to right, rgba(42, 58, 138, .338) 0, rgba(42, 58, 138, .628) 100%)
+}
+.info-slide-content.golfforecast .frost-pane.right .purplefooter {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 122.5px;
+  background: linear-gradient(to right, rgba(42, 58, 138, .636) 0, rgba(42, 58, 138, 1) 100%)
+}
+.info-slide-content.golfforecast .forecontainer {
+  position: absolute;
+  width: 261px;
+  height: 100%;
+}
+.info-slide-content.golfforecast .day {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  font-family: Frutiger;
+  color: #d8c422;
+  font-size: 30px;
+  transform: scale(105%,100%);
+  top: 14px;
+}
+.info-slide-content.golfforecast .icon {
+  width: 179px;
+  height: 180px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  background-image: url(/images/icons/01.png);
+  position: absolute;
+  top: 35px;
+  left: -8px;
+}
+.info-slide-content.golfforecast .forecontainer .high {
+  position: absolute;
+  font-family: Frutiger;
+  font-size: 61px;
+  top: 65px;
+  left: 165px;
+  transform: scale(101%,100%);
+}
+.info-slide-content.golfforecast .low {
+  position: absolute;
+  font-family: Frutiger;
+  font-size: 61px;
+  top: 134px;
+  left: 165px;
+  transform: scale(101%,100%);
+}
+.info-slide-content.golfforecast .wind {
+  position: absolute;
+  font-family: Frutiger;
+  font-size: 41.5px;
+  text-align: center;
+  width: 100%;
+  top: 245px;
+  transform: scale(105%,100%);
+}
+.info-slide-content.golfforecast .golfindex {
+  width: 100%;
+  position: absolute;
+  font-family: Frutiger;
+  color: #d8c422;
+  font-size: 29.5px;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
+  top: 305px;
+  left: -8px;
+}
+.info-slide-content.golfforecast .bar {
+  height: 25px;
+  width: 205px;
+  position: absolute;
+  bottom: 10px;
+  right: 25px;
+  background: linear-gradient(to right, #59523c 2%, #9b8c33 20%, #ccca36 40%, #9fbc44 60%, #4ba824 80%, #49844d 99%);
+}
+.info-slide-content.golfforecast .bar .bararrow {
+  position: absolute;
+  bottom: -5px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 35px solid #fff;
+  -webkit-filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
+  filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
+}
+.info-slide-content.golfforecast .bar .bararrowtext {
+  font-family: Frutiger;
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 0px 0px 0px;
+  position: absolute;
+  top: -66px;
+  left: -79px;
+  width: 150px;
+  text-align: center;
+  transform: scale(105%,100%);
+}
+.info-slide-content.golfmoreinfoimage .frost-pane {
+  background-color: rgba(0, 0, 0, 0);
+  background: url(/images/golffinalimage.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.info-slide-content.golfmoreinfoimage .frost-pane .moreinfotext {
+  font-size: 33px;
+  line-height: 202%;
+  text-align: right;
+  transform: scale(110%,100%);
+  transform-origin: right;
+  position: absolute;
+  top: 25px;
+  right: 55px;
+}
+.info-slide-content.gardenindex .thing {
+  color: #fff;
+  font-family: Frutiger;
+  font-size: 33px;
+  background: rgba(42, 58, 138, .85);
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  top: 65px;
+  padding-top: 5px;
+  padding-left: 57px;
+  transform: scale(105%,100%);
+  transform-origin: left;
+  z-index: 388687;
+}
+.info-slide-content.gardenindex .frost-pane {
+  max-height: 411.25px;
+  transform: translate(0px, 45px);
+}
+.info-slide-content.gardenindex .frost-pane .title {
+  width: 100%;
+  font-size: 34px;
+  padding-left: 10px;
+  padding-bottom: 2px;
+  padding-top: 4px;
+  text-transform: none;
+  height: 48px;
+  font-family: 'Frutiger Bold Cn';
+  background: linear-gradient(to right, rgba(42, 58, 138, 1) 0, rgba(42, 58, 138, 0) 93%);
+  transform: scale(104%,100%);
+  transform-origin: left;
+}
+.info-slide-content.gardenindex .frost-pane.left {
+  max-width: 41.5%;
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, .7718) 100%);
+}
+.info-slide-content.gardenindex .frost-pane.right {
+  margin-left: 7px;
+  background: linear-gradient(to right, rgba(42, 82, 188, .7674) 0, rgba(42, 82, 188, .45) 100%);
+}
+.info-slide-content.gardenindex .frost-pane.left .forecastcontainer {
+  width: 95%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+.info-slide-content.gardenindex .frost-pane.left  .icon {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 100%;
+  height: 180px;
+  top: -13px;
+  background-image: url(/images/icons/01.png);
+}
+.info-slide-content.gardenindex .frost-pane.left .lowtitle {
+  position: absolute;
+  top: 177px;
+  left: 72.5px;
+  font-size: 23px;
+  transform: scale(115%, 100%);
+  transform-origin: left;
+}
+.info-slide-content.gardenindex .frost-pane.left  .hightitle {
+  position: absolute;
+  top: 177px;
+  right: 82.5px;
+  font-size: 23px;
+  transform: scale(115%, 100%);
+  transform-origin: right;
+}
+.info-slide-content.gardenindex .frost-pane.left .low {
+  width: 30%;
+  position: absolute;
+  top: 215px;
+  left: 50px;
+  font-size: 61px;
+  transform: scale(101%, 100%);
+  text-align: center;
+}
+.info-slide-content.gardenindex .frost-pane.left  .high {
+  width: 30%;
+  height: 47.5%;
+  position: absolute;
+  top: 215px;
+  right: 60px;
+  font-size: 61px;
+  transform: scale(101%, 100%);
+  text-align: center;
+}
+.info-slide-content.gardenindex .frost-pane.left .precip {
+  position: absolute;
+  left: 20px;
+  top: 270px;
+}
+.info-slide-content.gardenindex .frost-pane.left .precipvalue {
+  position: absolute;
+  left: 65px;
+  bottom: 8px;
+  font-size: 52px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
+}
+.info-slide-content.gardenindex .frost-pane.right .wateringindex {
+  position: absolute;
+  left: 40px;
+  top: 5px;
+  padding-left: 12.5px;
+}
+.info-slide-content.gardenindex .frost-pane.right .bar {
+  position: absolute;
+  top: 124px;
+  left: 40px;
+  height: 50px;
+  width: 430px;
+}
+.info-slide-content.gardenindex .frost-pane.right .bar .barcat {
+  -webkit-transform: translateZ(0);
+  display: flex;
+  width: 41px;
+  height: 52.5px;
+  justify-content: center;
+  position: absolute;
+  padding-top: 15px;
+  font-size: 35px;
+  margin: 0;
+}
+.info-slide-content.gardenindex .frost-pane.right .bar .barcat span {
+  transform: scale(104.5%,100%);
+}
+.info-slide-content.gardenindex .frost-pane.right .bar .bararrow {
+  position: absolute;
+  bottom: 48px;
+  left: 203px;
+  width: 0;
+  height: 0;
+  border-left: 14.5px solid transparent;
+  border-right: 14.5px solid transparent;
+  border-top: 32px solid #fff;
+  -webkit-filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
+  filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75))
+}
+.info-slide-content.gardenindex .frost-pane.right .bar .bararrowtext {
+  font-family: Frutiger;
+  font-size: 42px;
+  color: #fff;
+  text-shadow: 0px 0px 0px;
+  position: absolute;
+  top: 85px;
+  left: -92px;
+  width: 150px;
+  text-align: center;
+  transform: scale(104%,100%);
+  transform-origin: center;
+}
+.info-slide-content.gardenindex .frost-pane.right .cloudcover {
+  position: absolute;
+  left: 45px;
+  top: 270px;
+  padding-left: 11px;
+}
+.info-slide-content.gardenindex .frost-pane.right .cloudcovervalue {
+  position: absolute;
+  left: 72.5px;
+  bottom: 8px;
+  font-size: 52px;
+  transform: scale(103%, 100%);
+  transform-origin: left;
+}
+.info-slide-content.gardenmoreinfoimage .frost-pane {
+  background-color: rgba(0, 0, 0, 0);
+  background: url(/images/gardenfinalimage.png);
+  background-repeat: no-repeat;
+  background-size: 123% 115%;
+  background-position: 55% 93%;
+  max-height: 446.25px;
+  min-height: 446.25px;
+  transform: translate(0, 5px);
+}
+.info-slide-content.gardenmoreinfoimage .frost-pane .moreinfotext {
+  font-size: 32px;
+  line-height: 202%;
+  text-align: right;
+  transform: scale(107%,100%);
+  transform-origin: right;
+  position: absolute;
+  top: 25px;
+  right: 55px;
+}
+.info-slide-content.skireport {
+  flex-direction: column;
+}
+.info-slide-content.skireport .skilocation {
+  width: 100%;
+  height: 130px;
+  margin-top: 10px;
+}
+.info-slide-content.skireport .skilocation .i {
+  margin-top: 10px;
+}
+.info-slide-content.skireport .thing {
+  color: #fff;
+  font-family: Frutiger;
+  font-size: 33px;
+  background: rgba(36, 30, 149, .85);
+  height: 35px;
+  width: 100%;
+  padding-top: 5px;
+  padding-left: 57px;
+  transform: scale(105%,100%);
+  transform-origin: left;
+  z-index: 388687;
+}
+.info-slide-content.skireport .frost-pane {
+  background: linear-gradient(to right, rgba(42, 82, 188, 1) 0, rgba(42, 82, 188, .45) 100%);
+  height: 95px;
+  transform: translate(0,0);
 }
 .bulletin .frost-pane {
   background: linear-gradient(to right, rgba(252, 85, 18, 1) 0, rgba(252, 85, 18, .45) 100%);
@@ -2986,6 +3843,7 @@ label{
   top: 92px;
   width: 887px;
   height: 569px;
+  max-height: 569px;
   z-index: 1;
   padding: 2.5px 0 2.5px 2.5px;
 }
@@ -3026,9 +3884,10 @@ label{
   display: inline-block;
   transform-origin: left center;
   top: 50%;
-  transform: scale(1.1, 1) translateY(-50%);
+  transform: scale(106%, 100%) translateY(-50%);
   line-height: 23.5px;
   font-family: Interstate;
+  font-size: 30px;
 }
 #info-slides-header .gradientthing {
   position: absolute;
@@ -3041,10 +3900,9 @@ label{
 }
 
 #info-slides-header .divider-arrow {
-  font-size: 22px;
+  font-size: 26px;
   display: inline-block;
-  transform: scale(.7, 1);
-  transform: translate(0, -2.5px);
+  transform: scale(1, 1.05) translate(0, -2.5px);;
   transform-origin: left center;
   font-weight: 700;
   padding: 0 7px
@@ -3064,7 +3922,8 @@ label{
 }
 
 #info-slide-container {
-  flex: 1
+  flex: 1;
+  max-height: 522px;
 }
 
 #radar-container {
@@ -3087,16 +3946,17 @@ label{
 }
 
 .info-slide .info-subheader {
+  font-family: 'Frutiger 57 Condensed';
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   background-color: #0018cc;
   background: linear-gradient(to right, #2f3eb8 0, #1b29aa 75%);
-  font-size: 38px;
+  font-size: 39px;
   height: 60px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .75);
   z-index: 4;
-  text-shadow: 2px 2px 4px #000;
+  text-shadow: 2px 2px 3px #000;
   line-height: 24.5px;
 }
 .bulletin .info-subheader {
@@ -3117,6 +3977,12 @@ label{
   position: absolute;
   top: 50%;
   transform: translateY(-42.5%)
+}
+.subhead-title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-42.5%) scale(118%,100%) !important;
+  transform-origin: left;
 }
 
 .info-slide-content br {
@@ -3141,109 +4007,6 @@ label{
   right: 98px;
   font-stretch: semi-expanded;
 }
-
-.city-info-slide .curve {
-  position: absolute;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-size: 200% 200%;
-}
-
-
-.city-info-slide .yellow {
-  background-image: url(/images/yellow-curve.svg);
-  -webkit-filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
-  filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
-}
-
-.city-info-slide .yellow.left {
-  top: 7.5%;
-  left: -11.25%;
-  z-index: 3;
-  width: 21%;
-  height: 80%;
-  z-index: 5
-}
-
-.city-info-slide .yellow.right {
-  background: url(/images/bluebuildings.jpg) no-repeat;
-  background-size: 200% 135%;
-  background-position: 128% -27%;
-  top: -15%;
-  right: -18%;
-  width: 51%;
-  height: 85%;
-  z-index: 7;
-  -webkit-mask-image: url(/images/yellow-curve.svg);
-  -webkit-mask-position: 100% 0;
-  -webkit-mask-size: 200% 200%;
-  filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .75));
-}
-
-
-.city-info-slide .yellow.right2 {
-  background-position: 100% 0%;
-  opacity: 80%;
-  top: -15%;
-  right: -18%;
-  width: 51%;
-  height: 85%;
-  z-index: 8;
-  filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .75)) brightness(1.225) saturate(1.17);
-}
-
-
-.city-info-slide .blue.left {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
-  width: 22%;
-  height: 150%;
-  top: 6%;
-  left: -8%;
-  opacity: .7;
-  z-index: 2;
-}
-
-
-.city-info-slide .blue.bottom {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
-  width: 22%;
-  height: 150%;
-  top: -37.5%;
-  left: -9.25%;
-  opacity: .7;
-  z-index: 2;
-}
-
-
-.city-info-slide .white.right {
-  background-image: url(/images/white-curve.svg);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  width: 22%;
-  height: 150%;
-  top: 7%;
-  right: -8.8%;
-  opacity: .2;
-  z-index: 2;
-}
-
-
-.city-info-slide .white.bottom {
-  background-image: url(/images/white-curve.svg);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  width: 22%;
-  height: 150%;
-  top: -39.25%;
-  right: -9.9%;
-  opacity: .2;
-  z-index: 2;
-}
-
-
-
 .city-info-slide {
   position: relative;
   background: transparent url(/images/bluebuildings.jpg) no-repeat;
@@ -3302,17 +4065,55 @@ label{
 
 
 .city-info-slide .blue.left {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/bluebuildings.jpg);
+  background-size: 465% 71%;
+  background-position: -10% -27.75%;
   width: 22%;
   height: 150%;
   top: 6%;
   left: -8%;
-  opacity: .7;
+  opacity: 1;
   z-index: 2;
 }
 
 
+.city-info-slide .blue.bottom {
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/bluebuildings.jpg);
+  background-size: 465% 70.5%;
+  background-position: -11.5% 71.6%;
+  width: 22%;
+  height: 150%;
+  top: -37.5%;
+  left: -9.25%;
+  opacity: 1;
+  z-index: 2;
+}
+.city-info-slide .white.right {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: 7%;
+  right: -8.8%;
+  opacity: .2;
+  z-index: 2;
+}
+.city-info-slide .white.bottom {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: -39.25%;
+  right: -9.9%;
+  opacity: .2;
+  z-index: 2;
+}
 .severe-city-info-slide .curve {
   position: absolute;
   background-position: 0 0;
@@ -3407,45 +4208,6 @@ label{
   background-size: 103% 106%;
 }
 
-
-.city-info-slide .blue.bottom {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
-  width: 22%;
-  height: 150%;
-  top: -37.5%;
-  left: -9.25%;
-  opacity: .7;
-  z-index: 2;
-}
-.city-info-slide .white.right {
-  background-image: url(/images/white-curve.svg);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  width: 22%;
-  height: 150%;
-  top: 7%;
-  right: -8.8%;
-  opacity: .2;
-  z-index: 2;
-}
-.city-info-slide .white.bottom {
-  background-image: url(/images/white-curve.svg);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  width: 22%;
-  height: 150%;
-  top: -39.25%;
-  right: -9.9%;
-  opacity: .2;
-  z-index: 2;
-}
-.city-info-slide {
-  position: relative;
-  background: transparent url(/images/bluebuildings.jpg) no-repeat;
-  background-position: 0% 100%;
-  background-size: 103% 106%;
-}
 
 .bulletin .curve {
   position: absolute;
@@ -3584,8 +4346,9 @@ label{
 }
 .airport-slide-intro {
   position: relative;
-  background: transparent url(/images/bluebuildings.jpg) no-repeat bottom;
-  background-size: cover
+  background: transparent url(/images/airportintroslide.png) no-repeat bottom;
+  background-position: 0% 92%;
+  background-size: 100% 122%;
 }
 .info-slide .curve {
   position: absolute;
@@ -3836,8 +4599,9 @@ label{
 }
 .golf-slide-intro {
   position: relative;
-  background: transparent url(/images/beachslideintro5.png) no-repeat 100%;
-  background-size: 105% 100%;
+  background: transparent url(/images/golfintro.png) no-repeat 100%;
+  background-size: 135% 160%;
+  background-position: 45% 40%;
 }
 .golf-slide-intro .accent.i {
   background-color: #218912;
@@ -3867,6 +4631,78 @@ label{
   opacity: 100%;
 }
 .golf-slide-intro .accent.ix {
+  background-color: #fff;
+}
+.garden-slide-intro {
+  position: relative;
+  background: transparent url(/images/gardenintro.png) no-repeat 100%;
+  background-size: 120.7% 101%;
+  background-position: 69.1% 0%;
+}
+.garden-slide-intro .accent.i {
+  background-color: #218912;
+}
+.garden-slide-intro .accent.ii {
+  background-color: #8dcd5a;
+  opacity: 100%;
+}
+.garden-slide-intro .accent.iii {
+  background-color: #145b23;
+}
+.garden-slide-intro .accent.iv {
+  background-color: #12780d;
+  opacity: .3;
+}
+.garden-slide-intro .accent.v {
+  background-color: #145b23;
+}
+.garden-slide-intro .accent.vi {
+  background-color: #2d7816;
+}
+.garden-slide-intro .accentvii {
+  background-color: #137f0d;
+}
+.garden-slide-intro .accent.viii {
+  background-color: #8dcd5a;
+  opacity: 100%;
+}
+.garden-slide-intro .accent.ix {
+  background-color: #fff;
+}
+.ski-slide-intro {
+  position: relative;
+  background: transparent url(/images/skiintro.png) no-repeat 100%;
+    background-size: 107% 107%;
+  background-position: 110.1% 50%;
+}
+.ski-slide-intro .accent.i {
+  background-color: #9e59a2;
+}
+.ski-slide-intro .accent.ii {
+  background-color: #8d5895;
+  opacity: 100%;
+}
+.ski-slide-intro .accent.iii {
+  background-color: #885b99;
+}
+.ski-slide-intro .accent.iv {
+  background-color: #7847a2;
+  opacity: .5;
+}
+.ski-slide-intro .accent.v {
+  background-color: #925d92;
+}
+.ski-slide-intro .accent.vi {
+  background-color: #9e59a2;
+}
+.ski-slide-intro .accentvii {
+  background-color: #a775a6;
+}
+.ski-slide-intro .accent.viii {
+  background-color: #885b99;
+  opacity: 100%;
+}
+.ski-slide-intro .accent.ix {
   background-color: #fff;
 }
 .city-slide-intro .segment {
@@ -4072,7 +4908,7 @@ label{
 .airport-slide {
   position: relative;
   background-image: url(/images/airplaneslide.png);
-  background-position: 0% -100%;
+  background-position: -3% -100%;
   background-size: 103% 109%;
 }
 
@@ -4107,31 +4943,38 @@ label{
   width: 51%;
   height: 85%;
   z-index: 7;
+  opacity: 80%;
   -webkit-filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .65));
-  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .75));
+  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .65)) brightness(113%);
 }
 
 
 .airport-slide .blue.left {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/airplaneslide.png);
+  background-size: 500% 73.2%;
+  background-position: -8.7% 7.2%;
   width: 22%;
   height: 150%;
   top: 6%;
   left: -8%;
-  opacity: .7;
+  opacity: 1;
   z-index: 2;
 }
 
 
 .airport-slide .blue.bottom {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/airplaneslide.png);
+  background-size: 500% 73.2%;
+  background-position: -10.5% 114%;
   width: 22%;
   height: 150%;
   top: -37.5%;
   left: -9.25%;
-  opacity: .7;
+  opacity: 1;
   z-index: 2;
 }
 
@@ -4298,25 +5141,31 @@ label{
 
 
 .health .blue.left {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/trees.png);
+  background-size: 570% 63.3%;
+  background-position: 6.8% -2%;
   width: 22%;
   height: 150%;
   top: 6%;
   left: -8%;
-  opacity: .7;
+  opacity: 1;
   z-index: 2;
 }
 
 
 .health .blue.bottom {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/trees.png);
+  background-size: 570% 63.3%;
+  background-position: 5.6% 77.6%;
   width: 22%;
   height: 150%;
   top: -37.5%;
   left: -9.25%;
-  opacity: .7;
+  opacity: 1;
   z-index: 2;
 }
 
@@ -4378,37 +5227,55 @@ label{
 }
 
 .golf .yellow.right {
-  background-position: 100% 0;
+  background: url(/images/golfslide.png) no-repeat;
+  background-size: 200% 135%;
+  background-position: 100% -30%;
   top: -15%;
   right: -18%;
   width: 51%;
   height: 85%;
   z-index: 7;
-  -webkit-filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .65));
-  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .75));
+  -webkit-mask-image: url(/images/golf-curve.svg);
+  -webkit-mask-position: 100% 0;
+  -webkit-mask-size: 200% 200%;
+  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .75)) saturate(.2);
+}
+.golf .yellow.right2 {
+  background-position: 100% 0;
+  opacity: 50%;
+  top: -15%;
+  right: -18%;
+  width: 51%;
+  height: 85%;
+  z-index: 89;
+  filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .75)) brightness(1.57) saturate(1.3);
 }
 
 
 .golf .blue.left {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/golfslide.png);
+  background-size: 500% 60.2%;
+  background-position: 1.1% 4%;
   width: 22%;
   height: 150%;
   top: 6%;
   left: -8%;
-  opacity: .7;
   z-index: 2;
 }
 
 
 .golf .blue.bottom {
-  background-image: url(/images/blue-curve.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/golfslide.png);
+  background-size: 500% 60.2%;
+  background-position: 0% 79.1%;
   width: 22%;
   height: 150%;
   top: -37.5%;
   left: -9.25%;
-  opacity: .7;
   z-index: 2;
 }
 
@@ -4438,45 +5305,296 @@ label{
   z-index: 2;
 }
 
-
-.radar-color-legend {
-  font-size: 18px;
-  position: absolute;
-  text-align: right;
-  right: 5%;
-  top: 1.2%
+.garden {
+  position: relative;
+  background: transparent url(/images/gardenbackground.png) no-repeat;
+  background-size: 120.7% 101%;
+  background-position: 69.1% 0%;
 }
 
 
+.garden .curve {
+  position: absolute;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+}
+
+
+.garden .yellow {
+  background-image: url(/images/beach-curve.svg);
+  -webkit-filter: drop-shadow(40x 0 4px rgba(0, 0, 0, .75));
+  filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
+}
+
+.garden .yellow.left {
+  top: 7.5%;
+  left: -11.25%;
+  z-index: 3;
+  width: 21%;
+  height: 80%;
+  z-index: 5
+}
+
+.garden .yellow.right {
+  background: url(/images/gardenbackground.png) no-repeat;
+  background-size: 240% 120%;
+  background-position: 115.5% -87%;
+  top: -15%;
+  right: -18%;
+  width: 51%;
+  height: 85%;
+  z-index: 7;
+  -webkit-mask-image: url(/images/beach-curve.svg);
+  -webkit-mask-position: 100% 0;
+  -webkit-mask-size: 200% 200%;
+  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .75)) saturate(.2) brightness(2);
+}
+.garden .yellow.right2 {
+  background-position: 100% 0;
+  opacity: 60%;
+  top: -15%;
+  right: -18%;
+  width: 51%;
+  height: 85%;
+  z-index: 89;
+  filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .75)) brightness(1.23) saturate(1.4);
+}
+
+
+.garden .blue.left {
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/gardenbackground.png);
+  background-size: 550% 65.7%;
+  background-position: 6.5% -10.2%;
+  width: 22%;
+  height: 150%;
+  top: 6%;
+  left: -8%;
+  z-index: 2;
+}
+
+
+.garden .blue.bottom {
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/gardenbackground.png);
+  background-size: 546% 67.3%;
+  background-position: 5.1% 76.3%;
+  width: 22%;
+  height: 150%;
+  top: -37.5%;
+  left: -9.25%;
+  z-index: 2;
+}
+
+
+.garden .white.right {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: 7%;
+  right: -8.8%;
+  opacity: .2;
+  z-index: 2;
+}
+
+
+.garden .white.bottom {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: -39.25%;
+  right: -9.9%;
+  opacity: .2;
+  z-index: 2;
+}
+.ski {
+  position: relative;
+  background: transparent url(/images/skibackground.png) no-repeat;
+  background-size: 120% 114%;
+  background-position: 71.1% -58.6%;
+  filter: brightness(.95);
+}
+
+
+.ski .curve {
+  position: absolute;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+}
+
+
+.ski .yellow {
+  background-image: url(/images/ski-curve.svg);
+  -webkit-filter: drop-shadow(40x 0 4px rgba(0, 0, 0, .75));
+  filter: drop-shadow(4px 0 4px rgba(0, 0, 0, .75));
+}
+
+.ski .yellow.left {
+  top: 7.5%;
+  left: -11.25%;
+  z-index: 3;
+  width: 21%;
+  height: 80%;
+  z-index: 5
+}
+
+.ski .yellow.right {
+  background: url(/images/skibackground.png) no-repeat;
+  background-size: 260% 120%;
+  background-position: 110% 87%;
+  top: -15%;
+  right: -18%;
+  width: 51%;
+  height: 85%;
+  z-index: 7;
+  -webkit-mask-image: url(/images/ski-curve.svg);
+  -webkit-mask-position: 100% 0;
+  -webkit-mask-size: 200% 200%;
+  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, .75)) saturate(.2);
+}
+.ski .yellow.right2 {
+  background-position: 100% 0;
+  opacity: 50%;
+  top: -15%;
+  right: -18%;
+  width: 51%;
+  height: 85%;
+  z-index: 89;
+  filter: drop-shadow(-2px 0 4px rgba(0, 0, 0, .75)) brightness(1.57) saturate(1.3);
+}
+
+
+.ski .blue.left {
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/skibackground.png);
+  background-size: 525% 74.9%;
+  background-position: 5.67% 8.5%;
+  width: 22%;
+  height: 150%;
+  top: 6%;
+  left: -8%;
+  z-index: 2;
+}
+
+
+.ski .blue.bottom {
+  -webkit-mask-image: url(/images/blue-curve.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/skibackground.png);
+  background-size: 525% 74.9%;
+  background-position: 4.4% 124%;
+  width: 22%;
+  height: 150%;
+  top: -37.5%;
+  left: -9.25%;
+  z-index: 2;
+}
+.ski .white.right {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: 7%;
+  right: -8.8%;
+  opacity: 0;
+  z-index: 2;
+}
+.ski .white.bottom {
+  background-image: url(/images/white-curve.svg);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  width: 22%;
+  height: 150%;
+  top: -39.25%;
+  right: -9.9%;
+  opacity: .2;
+  z-index: 2;
+}
+
+
+.radar-color-legend {
+  display: block;
+  font-size: 24px;
+  position: absolute;
+  text-align: right;
+  right: 4%;
+  top: 1.2%;
+  transform: translateY(-42.5%) scale(112%,100%) !important;
+  transform-origin: right;
+}
+.radar-color-legend-winter {
+  display: block;
+  right: 0%;
+  top: 1.2%;
+  transform: translateY(-42.5%) scale(112%,100%) !important;
+  transform-origin: right;
+}
+.pastlegend {
+  font-size: 26px;
+  transform: translate(0,-2.5px) scale(92.5%,100%);
+  transform-origin: right;
+}
+.radar-legends {
+  display: flex;
+  align-items: right;
+  font-size: 24px;
+  width: 360px;
+  position: absolute;
+  text-align: right;
+  right: 5%;
+  top: 55%;
+}
+
+.radar-color-legend-winter>img {
+  width: 35px;
+  height: 16px;
+}.radar-color-legend-winter .rainlonger {
+  width: 67.5px;
+  height: 16px;
+}
+
 .radar-color-legend>img {
-  width: 45%;
-  height: 13px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .75)
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 1);
+  width: 44%;
+  height: 16px;
+  transform: scale(100%,100%);
 }
 
 .leaflet-overlay-pane canvas {
   -webkit-filter: drop-shadow(0 2px 2px #000);
   filter: drop-shadow(0 2px 2px #000)
 }
-
+.radarTile {
+  filter: drop-shadow(3px 3px 0px #000);
+}
 #city, #current-conditions *, #date-time, #date-time * {
   font-family: Interstate;
   font-weight: 700;
   text-shadow: none;
   text-align: right;
-  color: #1b1b1b
+  color: #171717;
 }
 
 #date-time {
   position: absolute;
-  top: 98px;
-  width: 457px
+  top: 101px;
+  width: 458px
 }
 
 #date-time * {
   font-family: 'Interstate Mono';
-  font-size: 25px;
-  line-height: 33px
+  font-size: 28px;
+  line-height: 40px
 }
 
 #time {
@@ -4484,18 +5602,22 @@ label{
 }
 
 #city {
-  font-size: 37px;
-  padding-top: 5px;
+  font-family: Interstate;
+  font-weight: 600;
+  font-size: 36.5px;
+  padding-top: 10px;
   position: absolute;
   text-align: left;
-  margin-left: 140px;
+  margin-left: 142px;
   width: 311px;
-  height: 91px;
+  height: 92px;
   top: 284px;
   left: 0;
   line-height: 110%;
   display: flex;
   align-items: center;
+  transform: scale(103%,100%);
+  transform-origin: left;
 }
 
 #current-conditions {
@@ -4511,55 +5633,82 @@ label{
 
 #conditions-icon {
   position: absolute;
-  left: 290px;
+  left: 294px;
   background-size: 100% 100%;
   width: 155px;
   height: 155px;
   background-repeat: no-repeat;
-  top: 400px;
+  top: 390px;
   z-index: 0
 }
 
 #now {
-  font-size: 49px;
-  margin: 1.6% 0 0 31%;
-  text-align: left
+  font-size: 46px;
+  position: absolute;
+  top: 12.5px;
+  left: 145px;
+  letter-spacing: 2px;
+  text-align: left;
+  transform: scale(105%,100%);
+  transform-origin: left;
+}
+#nowwide {
+  font-size: 46px;
+  position: absolute;
+  top: 12.5px;
+  left: 146px;
+  letter-spacing: 2px;
+  text-align: left;
+  transform: scale(105%,100%);
+  transform-origin: left;
 }
 
 #current-temp {
-  font-size: 70px;
-  margin: 5.4% 0 0 0;
+  font-size: 69px;
+  position: absolute;
+  top: 88px;
+  left: -12.5px;
   text-align: center;
-  width: 100%
+  width: 100%;
+  transform: scale(102.5%,100%);
+  transform-origin: left;
 }
 
 #current-info {
-  font-size: 27px;
-  margin: 4% 0 0 31%;
+  font-size: 31px;
+  position: absolute;
+  left: 145px;
+  top: 177px;
   text-align: left;
   width: 66%;
   font-weight: 400;
-  line-height: 200%
+  line-height: 117.5%;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 #current-info-severe {
-  font-size: 27px;
+  font-size: 31px;
   position: absolute;
-  top: 75.8%;
-  left: 31%;
+  left: 145px;
+  top: 177px;
   text-align: left;
   width: 66%;
   font-weight: 400;
-  line-height: 200%
+  line-height: 117.5%;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 #current-info-details {
+  font-size: 31px;
   position: absolute;
-  font-size: 27px;
-  top: 122.4%;
-  left: 31%;
+  left: 145px;
+  top: 263px;
   text-align: left;
   width: 66%;
   font-weight: 400;
-  line-height: 200%
+  line-height: 182.5%;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 #current-noreport {
   font-family: Interstate;
@@ -4610,22 +5759,29 @@ label{
   font-family: Interstate;
   font-weight: 700;
   position: absolute;
-  width: 31.3%;
-  top: 638px;
+  width: 451.5px;
+  height: 41px;
+  left:0;
+  top: 637px;
   text-align: right;
-  color: #fff;
-  font-size: 25px;
-  padding: 7px 15px 0 0;
+  color: #D4D4D4;
+  font-size: 23.5px;
+  padding: 07px 14px 0 0;
   text-shadow: 2px 2px 4px #000;
   line-height: 125%;
   z-index: 5;
-  background: linear-gradient(to right, #43464d 0, #323232 100%);
+  background: linear-gradient(to right, #3f3f3f 0, #242424 100%);
+}
+#minimap-title span {
+  display: block;
+  transform: scale(105.25%,100%);
+  transform-origin: right;
 }
 
 #minimap {
   position: absolute;
-  width: 31.35%;
-  height: 20.5%;
+  width: 451.5px;
+  height: 222px;
   left: 0;
   top: 677px;
   background: #333;
@@ -4635,61 +5791,84 @@ label{
 
 #forecast-shadow {
   position: absolute;
-  height: 18.85%;
+  height: 18.6%;
   width: 66.87%;
   right: 0;
-  top: 63%;
-  overflow: hidden;
+  top: 63.05%;
   background: #8cadd1;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, .35)
 }
-
-#forecast-header {
+.forecast-header {
   width: 100%;
-  min-height: 20.5%;
-  max-height: 20.5%;
-  font-size: 28px;
-  padding-left: 1%;
+  min-height: 21.25%;
+  max-height: 21.25%;
+  font-size: 29px;
+  padding-left: 0.95%;
   background: #eed76b
 }
 
-#forecast-header * {
+.forecast-header * {
   font-family: Interstate;
   font-weight: 700;
   text-transform: uppercase;
   display: inline-block;
-  line-height: 169%;
+  line-height: 164%;
+}
+#hourlyheader {
+  line-height: 182%;
+  transform: translate(0, -2px);
 }
 
 #forecast-city {
-  padding-right: 2%
+  padding-right: 3%;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
 }
 
 #forecast-title {
-  color: #001668
+  color: #001668;
+  transform: scale(105.5%,100%);
+  transform-origin: left;
 }
 
 #forecast-text, #forecast-text * {
   font-family: Interstate;
-  font-size: 40px
+  font-size: 41px
 }
 
 #forecast-text {
+  color: #171717;
   position: absolute;
-  padding: .75% .75%;
-  min-height: 75%;
-  max-height: 75%;
-  height: 75%;
+  padding: 1.1% .75%;
+  padding-right: 10%;
+  height: 98.8%;
+  max-height: 98.8%;
+  bottom: 0;
+  line-height: 115%;
   width: 100%;
   margin-top: .4%;
-  overflow: hidden
+  overflow: hidden;
+  transform: scale(106%,100%);
+  transform-origin: left;
+}
+.wrappertest2 {
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 79.8%;
+  transform: translate(0,-2px);
 }
 
-#forecast-tiles {
+.forecast-tiles {
   font-weight: 700;
   position: absolute;
   width: 100%;
-  height: 79.6%
+  height: 98.8%;
+  bottom: 0px;
+}
+#hourlytiles {
+  height: 100%;
 }
 #forecast-noreport {
   position: absolute;
@@ -4728,37 +5907,50 @@ label{
 .forecast-tile .footer, .forecast-tile .header {
   font-size: 28px;
   color: #fff;
-  height: 25%;
+  height: 27%;
   padding: 10px 11px;
   text-transform: uppercase
 }
 
 .forecast-tile.daily {
-  width: 18%
+  width: 17.7%
 }
 
 .forecast-tile.daily .header {
+  font-family: Interstate;
+  font-size: 27.5px;
   background: linear-gradient(to right, #001668 0, #4564c4 100%);
-  background-color: #001668
+  background-color: #001668;
+  padding: 10px 8px;
+  height: 26.5%;
+  transform: scale(105%, 100%);
+  transform-origin: left;
 }
 
 .forecast-tile.daily.weekend .header {
+  font-family: Interstate;
+  font-weight: 600;
+  font-size: 27.5px;
   color: #001668;
+  padding: 10px 8px;
   background: linear-gradient(to right, #8caaea 0, #c4d9ff 100%);
-  background-color: #8caaea
+  background-color: #8caaea;
+  height: 26.5%;
+  transform: scale(104%, 100%);
+  transform-origin: left;
 }
 
 .forecast-tile.daily .icon {
   display: block;
   position: absolute;
-  height: 65%;
-  bottom: 0;
-  left: 0;
-  margin-left: .5%
+  height: 60%;
+  bottom: .1%;
+  left: -.1%;
+  margin-left: .45%
 }
 
 .forecast-tile.daily:last-child .icon {
-  margin-left: 1%
+  margin-left: .5%
 }
 
 .forecast-tile .high, .forecast-tile .low {
@@ -4771,7 +5963,7 @@ label{
 }
 
 .forecast-tile:last-child .high, .forecast-tile:last-child .low {
-  padding-right: 30%
+  padding-right: 37%
 }
 
 .forecast-tile .high {
@@ -4780,21 +5972,25 @@ label{
   font-size: 48px
 }
 .forecast-tile.daily .high {
-  top: 30%;
+  color: #171717;
+  top: 32%;
   font-weight: 800;
-  font-size: 48px;
-  transform: translate(0px, -2.5px);
+  font-size: 47px;
+  transform: translate(2px, -2.5px) scale(102.5%, 100%);
+  transform-origin: right;
 }
 
 .forecast-tile.daily .low {
   color: rgba(0, 0, 0, .5);
-  top: 63%;
+  top: 64%;
   font-weight: 800;
-  font-size: 32px
+  font-size: 35px;
+  transform: translate(2px, -2.5px) scale(102.5%, 100%);
+  transform-origin: right;
 }
 
 .forecast-tile.hourly {
-  width: 22.3%;
+  width: 22.5%;
   border-right: solid 4px #fff
 }
 
@@ -4818,6 +6014,7 @@ label{
   z-index: 1
 }
 .forecast-tile.hourly .high {
+  color: #171717;
   font-family: Interstate;
   top: 0px;
   position: relative;
@@ -4827,6 +6024,8 @@ label{
   width: 200px;
   text-align: center;
   font-weight: 800;
+  transform: scale(102.5%,100%);
+
 }
 .forecast-tile.hourly:last-child .high {
   font-family: Interstate;
@@ -4844,15 +6043,17 @@ label{
   width: 100%;
   flex: 1;
   position: relative;
-  bottom: 7%;
+  bottom: 7.2%;
   background: linear-gradient(to right, #656565 0, #fcfcfc 50%, #656565 100%);
   background-color: #656565
 }
 
 .forecast-tile.hourly .footer {
-  font-size: 26px;
+  font-family: Interstate;
+  font-size: 27px;
   text-transform: lowercase;
-  padding-top: 10px;
+  padding-top: 11px;
+  padding-left: 8px;
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -4860,6 +6061,11 @@ label{
   color: #fff;
   background: linear-gradient(to right, #4b411e 0, #ae9b57 100%);
   background-color: #4b411e
+}
+.forecast-tile.hourly .footer span{
+  display: block;
+  transform: scale(106%,100%);
+  transform-origin: left;
 }
 
 .forecast-tile.hourly:last-child .footer {
@@ -4897,15 +6103,16 @@ label{
 
 #marquee1 {
   position: absolute;
-  color: #fff;
+  color: #DDDDDD;
   left: 32%;
-  top: 898px;
+  top: 900px;
   width: 68.507%;
   height: 43px;
-  margin-top: 2px;
-  font-size: 30px;
-  text-shadow: 2px 2px 4px #000;
-  padding-top: .25%
+  font-size: 33px;
+  letter-spacing: .5px;
+  text-shadow: 2px 2px 2px #000;
+  transform: scale(112%, 100%);
+  transform-origin: left;
 }
 
 #marquee>div {
@@ -4913,39 +6120,56 @@ label{
   white-space: nowrap;
   width: auto
 }
-
+#marquee-background {
+  position: absolute;
+  color: #fff;
+  left: 31.35%;
+  top: 896px;
+  width: 68.507%;
+  height: 41px;
+  background: linear-gradient(to right, #3d3f41 0, #34363a 100%);
+}
 #marquee1 span {
-  padding-right: 3vw
+  font-family: 'Interstate Mono';
+  padding-right: 3vw;
 }
 
 #marquee2 {
+  color: #171717;
   position: absolute;
   left: 31.35%;
   top: 87.2%;
   width: 68.507%;
   height: 5%;
-  font-size: 43px;
+  font-size: 41.5px;
   font-weight: 400;
-  padding-top: .55%;
+  padding-top: .52%;
   font-stretch: expanded;
+  transform: scale(110%, 100%);
+  transform-origin: left;
+  filter: drop-shadow(.5px 0 0 #171717);
 }
 .marqueeheadersevere {
+  font-synthesis: weight;
   position: absolute;
-  font-family: Interstate;
-  font-weight: 700;
-  font-stretch: condensed;
-  color: #fff;
-  left: 31.29%;
+  font-family: 'Interstate Cn';
+  font-weight: 800;
+  color: #DDDDDD;
+  left: 451px;
+  letter-spacing: 1.5px;
   top: 894px;
   width: 68.75%;
   height: 43px;
   margin-top: 2px;
-  font-size: 30.5px;
+  font-size: 34.5px;
   text-shadow: 2px 2px 4px #000;
-  padding-top: .45%;
+  padding-top: .15%;
   background-color: #d51e08;
   background: linear-gradient(to right, #d51e08 0, #b41a08 100%);
   padding-left: 40px;
+  transform: scale(112%, 100%);
+  transform-origin: left;
+  z-index: 13;
 }
 
 
@@ -5015,18 +6239,19 @@ label{
 
 
 .info-slide .info-subheadershadowfix {
-  font-family: Frutiger;
+  font-weight: 400;
+  font-family: 'Frutiger 57 Condensed';
   color: #fff;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   background-color: #0018cc;
   background: linear-gradient(to right, #2f3eb8 0, #2a39b5 100%);
-  font-size: 40.5px;
+  font-size: 39px;
   height: 60px;
   z-index: 6;
   white-space:nowrap;
-  text-shadow: 2px 2px 4px #000;
+  text-shadow: 2px 2px 3px #000;
   position: absolute;
   min-width: 20%;
 }
@@ -5041,7 +6266,8 @@ label{
 .info-slide .info-subheadershadowfix span {
   position: absolute;
   top: 50.8%;
-  transform: translateY(-42.5%);
+  transform: translateY(-42.5%) scale(116%,100%);
+  transform-origin: left;
   left: 7px;
   width: 250%;
 }
@@ -5053,8 +6279,11 @@ label{
 
 
 .info-slide #subhead-city {
+  font-family: Frutiger;
   font-size: 28px;
   padding-top: 3px;
+  transform: translateY(-42.5%) scale(104.5%,100%);
+  transform-origin: right;
   right: 98px;
   font-stretch: semi-expanded;
 }
@@ -5073,20 +6302,22 @@ label{
 }
 
 #marqueeSevere {
-  font-family: Interstate;
+  font-family: 'Interstate';
   text-shadow: 2px 2px 4px #000;
   font-weight: 400;
   position: absolute;
-  left: 31.35%;
-  top: 86.8%;
+  left: 451px;
+  top: 86.9%;
   width: 68.7%;
-  height: 5.2%;
-  font-size: 45px;
-  padding-top: .2%;
-  font-stretch: expanded;
+  height: 56px;
+  font-size: 46px;
+  padding-top: .3%;
   background-color: #510d08;
-  color: #fff;
+  color: #DDDDDD;
   background: linear-gradient(to right, #510d08 0, #b41a08 100%);
   text-transform: uppercase;
+  transform: scale(110%, 100%);
+  transform-origin: left;
   white-space:nowrap;
+  z-index: 13;
 }

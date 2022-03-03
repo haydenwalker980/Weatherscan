@@ -6,9 +6,11 @@ $(function(){
 		$('.track-info').text('playing "' + tags.title + '" by ' + tags.artist);
 	}
 	$('#marquee2').text(weatherInfo.ad)
-	$('#marquee2').marquee({
-		speed: 170, pauseOnHover: true
-	});
+	setTimeout(function() {
+		$('#marquee2').marquee({
+			speed: 170, pauseOnHover: true
+		});
+	}, 100)
 });
 function MarqueeMan() {
 	function switchToWarningMarquee(sidx) {
@@ -32,8 +34,8 @@ function MarqueeMan() {
 				weatherAudio.playwarningbeep()
 		} else if (weatherInfo.bulletin.marqueewarnings.length != 0){
 			if (weatherInfo.bulletin.marqueewarnings[0].significance == "Y" ||weatherInfo.bulletin.marqueewarnings[0].significance == "S") {
-				$('#marqueeSevere').css('background','linear-gradient(to right, #853302 0, #a84503 100%)')
-				$('.marqueeheadersevere').css("background","linear-gradient(to right, #e86d08 0, #a84403 100%)")
+				$('#marqueeSevere').css('background','linear-gradient(to right, #874901 0, #bb631a 100%)')
+				$('.marqueeheadersevere').css("background","linear-gradient(to right, #f2992e 0, #bb631a 100%)")
 				$('.marqueeheadersevere').css("color","#000")
 				$('.marqueeheadersevere').css("text-shadow", "0px 0px 0px #000")
 			} else if (weatherInfo.bulletin.marqueewarnings[0].significance == "A") {

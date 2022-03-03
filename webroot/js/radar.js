@@ -29,7 +29,8 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 		map = L.map(divID, {
 			zoom: zoom,
 			fullscreenControl: false,
-			center: [latitude, longitude]
+			center: [latitude, longitude],
+			dragging: false,
 			 // 31.205482,-82.4331197 test coordinates
 		});
 		if (divID == "radar-1") {
@@ -47,7 +48,7 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 			zoomOffset: -1
 		}).addTo(map);
 		if (weatherInfo.radarTempUnavialable == true) {
-			
+
 		} else {
 		if (withSat == true) {
 			$.getJSON("https://api.weather.com/v3/TileServer/series/productSet/PPAcore?filter=satrad&apiKey=" + api_key, function(data) {
@@ -71,8 +72,8 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 				}))
 			}
 			timeLayers.forEach(timeLayers => {
-
           timeLayers.addTo(map);
+					timeLayers.getContainer().className += ' radarTile';
         });
 		});
 	}

@@ -3,6 +3,7 @@
 headings:
 RADAR < MAIN CITY < CITY 1 < CITY 2
 */
+var buildHeaderGlobal;
 var showsevercityslides = false;
 var mainMap
 	// load slide data
@@ -15,12 +16,12 @@ var mainMap
 
 		buildHeader();
 		setTimeout(function() {
-			$('.radar-content').fadeOut(500);
-			$('.radar-color-legend').fadeOut(500, function() {
+			if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeOut(500)} else {$('.radar-color-legend').fadeOut(500)}
+			$('.radar-content').fadeOut(500, function() {
 				$('.radar-slide').fadeOut(0);
 				nextCity()
 			});
-		}, 5500);
+		}, 800);
 		// loop cities
 		function nextCity(){
 			//severe weather mode
@@ -108,7 +109,7 @@ var mainMap
 
 								// Currently (10 sec)
 								,currentConditions() {
-									$('.severe-city-info-slide #subhead-title').text('Currently');
+									$('.severe-city-info-slide .subhead-title').text('Currently');
 									$('.severe-city-info-slide #subhead-city').text(weatherInfo.currentCond.weatherLocs[0].displayname);
 									if (weatherInfo.currentCond.weatherLocs[0].noReport == true) {
 										$('.severe-city-info-slide .noreport').fadeIn(500)
@@ -145,10 +146,70 @@ var mainMap
 									//fadeout and switch
 									setTimeout(function() {
 										$('.severe-city-info').fadeOut(500, function(){
-											$('.severe-city-info-slide').fadeOut(0);
 											wait(0);
 									});
 									}, slideDelay);
+								}
+								}
+								,city8slides(pidx){
+									var pages = Math.ceil(citySlideList.length/4);
+									if (weatherInfo.currentCond.city8slides == true) {
+										$('.severe-city-info-slide #subhead-city').fadeOut(500);
+										$('.severe-city-info-slide .subhead-title').text('Currently');
+										$('.severe-city-info-slide .tempunavailable').fadeIn(500)
+										setTimeout(function() {
+											$('.info-slide-content.severe-aroundcityinfo').fadeOut(500);
+											$('.severe-city-info-slide .tempunavailable').fadeOut(500, function(){
+												$('.severe-city-info-slide').fadeOut(0)
+												$('.severe-city-info-slide #subhead-city').fadeIn(0);
+												wait(0);
+										});
+										}, slideDelay);
+									} else {
+										$('.severe-city-info-slide #subhead-city').fadeOut(0);
+									function fillinfo() {
+
+										pidx = (pidx===undefined ? 1 : pidx);
+
+										//replace tomorrow
+										var di = 0;
+										for (var i = (pidx == 1) ? 0 : 4; i < 4*pidx || i < citySlideList.length; i++) {
+											if (weatherInfo.currentCond.city8slides.cities[i]) {
+												var divnumbers = ['i','ii','iii','iv']
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .cityname').text(weatherInfo.currentCond.city8slides.cities[i].displayname);
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .temp').text(weatherInfo.currentCond.city8slides.cities[i].temp);
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + getCCicon(+weatherInfo.currentCond.city8slides.cities[i].icon, weatherInfo.currentCond.city8slides.cities[i].windspeed) + '")');
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .wind').text(weatherInfo.currentCond.city8slides.cities[i].wind);
+											} else {
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .cityname').text("");
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .temp').text("");
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + "" + '")');
+												$('.info-slide-content.severe-aroundcityinfo .city.' + divnumbers[di] + ' .wind').text("")
+											}
+											di = di + 1
+										}
+
+
+									}
+								fillinfo();
+								$('.info-slide-content.severe-aroundcityinfo').fadeIn(500);
+
+									setTimeout( function() {
+
+										if (pidx<pages) {
+											$('.info-slide-content.severe-aroundcityinfo').fadeOut(500, function() {
+												currentDisplay(pidx+1);
+												//fillinfo();
+											});
+										} else {
+											$('.info-slide-content.severe-aroundcityinfo').fadeOut(500, function() {
+												$('.severe-city-info-slide #subhead-city').fadeIn(0);
+												$('.severe-city-info-slide').fadeOut(0);
+												wait(0);
+											});
+										}
+
+									}, slideDelay)
 								}
 								}
 								// Local Doppler Radar or Radar/Satellite (15 sec, zoomed out with cloud cover)
@@ -168,7 +229,7 @@ var mainMap
 									if (selectval === 2 || selectval === 3) {
 										// reset tempbar animation
 										if (weatherInfo.dayPart.weatherLocs[0].noReport == true) {
-											$('.severe-city-info-slide #subhead-title').text(weatherInfo.dayPart.weatherLocs[0].daytitle);
+											$('.severe-city-info-slide .subhead-title').text(weatherInfo.dayPart.weatherLocs[0].daytitle);
 											$('.severe-city-info-slide').fadeIn(0);
 											$('.severe-city-info-slide .tempunavailable').fadeIn(500)
 											setTimeout(function() {
@@ -213,7 +274,7 @@ var mainMap
 										$('.info-slide-content.severe-daypart .hour.iv .icon').css('background-image', 'url("' + getCCicon(+weatherInfo.dayPart.weatherLocs[0].hour[3].icon, weatherInfo.dayPart.weatherLocs[0].hour[3].windspeed) + '")');
 
 										// calculate height of tempbars
-										$('.severe-city-info-slide #subhead-title').text(weatherInfo.dayPart.weatherLocs[0].daytitle);
+										$('.severe-city-info-slide .subhead-title').text(weatherInfo.dayPart.weatherLocs[0].daytitle);
 										var temps = [];
 										for (var i = 0; i < 4; i++) {
 											temps.push(weatherInfo.dayPart.weatherLocs[0].hour[i].temp);
@@ -252,7 +313,7 @@ var mainMap
 										// Local Forecast -Today (10 sec)
 											var div = '.info-slide-content.severe-forecast '
 											if (weatherInfo.dayDesc.weatherLocs[0].noReport == true) {
-												$('.severe-city-info-slide #subhead-title').text('Local Forecast');
+												$('.severe-city-info-slide .subhead-title').text('Local Forecast');
 												$('.severe-city-info-slide').fadeIn(0);
 												$('.severe-city-info-slide .tempunavailable').fadeIn(500)
 												$('.info-slide-content.severe-forecast').fadeIn(500);
@@ -269,7 +330,7 @@ var mainMap
 
 												fidx = (fidx===undefined ? 0 : fidx);
 
-												$('.severe-city-info-slide #subhead-title').text('Local Forecast');
+												$('.severe-city-info-slide .subhead-title').text('Local Forecast');
 												//replace tomorrow
 
 												$(div + '.title').text(weatherInfo.dayDesc.weatherLocs[0].day[fidx].name);
@@ -279,7 +340,7 @@ var mainMap
 												$(div + '.content').text(weatherInfo.dayDesc.weatherLocs[0].day[fidx].desc);
 
 											}
-										if (fidx === 0) {
+										if (fidx === undefined) {
 											weatherAudio.playLocalforecasti();
 										}
 
@@ -311,7 +372,7 @@ var mainMap
 
 								// Extended Forecast(5 day columns)
 								,extendedForecast() {
-									$('.severe-city-info-slide #subhead-title').text('Extended Forecast');
+									$('.severe-city-info-slide .subhead-title').text('Extended Forecast');
 									if (weatherInfo.fiveDay.weatherLocs[0].noReport == true) {
 										$('.severe-city-info-slide .tempunavailable').fadeIn(500)
 										setTimeout(function() {
@@ -369,6 +430,10 @@ var mainMap
 								}
 						}
 						keys = Object.keys(displays);
+						if (weatherInfo.reboot == true) {
+							$('#info-slide-container').hide()
+							return;
+						}
 						if (idx<keys.length) {
 							currentDisplay = displays[keys[idx]];
 							currentDisplay();
@@ -376,8 +441,8 @@ var mainMap
 							idx = 0
 							if (weatherInfo.bulletin.severeweathermode == true) {
 								//fade out radar if going back to bulletin. Don't fade if exiting.
-								$('.radar-content').fadeOut(500);
-								$('.radar-color-legend').fadeOut(500, function() {
+								if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeOut(500)} else {$('.radar-color-legend').fadeOut(500)}
+								$('.radar-content').fadeOut(500, function() {
 									$('.radar-slide').fadeOut(0);
 									currentDisplay = displays[keys[0]];
 									currentDisplay();
@@ -397,10 +462,10 @@ var mainMap
 								$('.radar-slide').fadeIn(0);
 								$('.radar-content').fadeIn(500);
 								mainMap = new Radar("radar-1", 3, 8, maincitycoords.lat, maincitycoords.lon, false);
-								$('.radar-color-legend').fadeIn(500);
+								if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeIn(500)} else {$('.radar-color-legend').fadeIn(500)}
 								setTimeout(function() {
-									$('.radar-content').fadeOut(500);
-									$('.radar-color-legend').fadeOut(500, function() {
+									if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeOut(500)} else {$('.radar-color-legend').fadeOut(500)}
+									$('.radar-content').fadeOut(500, function() {
 										$('.radar-slide').fadeOut(0);
 										nextCity()
 									});
@@ -418,7 +483,7 @@ var mainMap
 
 
 						function resizeText(text){
-							var s = 52,
+							var s = 50,
 								$container = $('.info-slide-content.severe-forecast .content'),
 								$test = $('<div style="position:absolute;top:100%;"></div>') .appendTo($container) .css('font-size', s + 'px') .css('line-height', '125%') .html(text);
 
@@ -481,12 +546,16 @@ var mainMap
 						}
 						$('.radar-content').fadeIn(500);
 						mainMap = new Radar("radar-1", 3, 8, maincitycoords.lat, maincitycoords.lon, false);
-						$('.radar-color-legend').fadeIn(500);
+						if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeIn(500)} else {$('.radar-color-legend').fadeIn(500)}
 						wait(60500)
 					}
 					}
 				};
 			keys = Object.keys(displays);
+			if (weatherInfo.reboot == true) {
+				$('#info-slide-container').hide()
+				return;
+			}
 				if (idx<keys.length) {
 					currentDisplay = displays[keys[idx]];
 					currentDisplay();
@@ -494,8 +563,8 @@ var mainMap
 					idx = 0
 					if (weatherInfo.bulletin.severeweathermode == true) {
 						//fade out radar if going back to bulletin. Don't fade if exiting.
-						$('.radar-content').fadeOut(500);
-						$('.radar-color-legend').fadeOut(500, function() {
+						if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeOut(500)} else {$('.radar-color-legend').fadeOut(500)}
+						$('.radar-content').fadeOut(500, function() {
 							$('.radar-slide').fadeOut(0);
 							currentDisplay = displays[keys[0]];
 							currentDisplay();
@@ -512,11 +581,11 @@ var mainMap
 						displayAtmospheric(0);
 						buildHeader();
 						setTimeout(function() {
-							$('.radar-content').fadeOut(500);
+							if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeOut(500)} else {$('.radar-color-legend').fadeOut(500)}
 							if (weatherInfo.radarTempUnavialable == true) {
 								$('.radar-slide .tempunavailable').fadeOut(500);
 							}
-							$('.radar-color-legend').fadeOut(500, function() {
+							$('.radar-content').fadeOut(500, function() {
 								$('.radar-slide').fadeOut(0);
 								nextCity()
 							});
@@ -541,13 +610,13 @@ var mainMap
 				}
 				$('.radar-content').fadeIn(500);
 				mainMap = new Radar("radar-1", 3, zoom, lat, long, withsat);
-				$('.radar-color-legend').fadeIn(500);
+				if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeIn(500)} else {$('.radar-color-legend').fadeIn(500)}
 				setTimeout(function() {
-					$('.radar-content').fadeOut(500);
+					if (weatherInfo.radarWinterLegend == true) {$('.radar-color-legend-winter').fadeOut(500)} else {$('.radar-color-legend').fadeOut(500)}
 					if (weatherInfo.radarTempUnavialable == true) {
 						$('.radar-slide .tempunavailable').fadeOut(500);
 					}
-					$('.radar-color-legend').fadeOut(500, function() {
+					$('.radar-content').fadeOut(500, function() {
 						$('.radar-slide').fadeOut(0);
 					});
 				}, time);
@@ -573,19 +642,112 @@ var mainMap
 								});
 							}, 5000);
 						}
-				,airportconditions() {
+				,airportconditions(aidx) {
 					$('.airport-slide').fadeIn(0);
-					$('.airportpanel').fadeIn(500);
-					setTimeout(function() {
-						$('.airportpanel').fadeOut(500, function(){
-							$('.airport-slide').fadeOut(0);
-							wait(0);
-						});
-					}, slideDelay);
+					var pages = weatherInfo.airport.mainairports.length
+					if (weatherInfo.airport.noReport == true) {
+						$('.info-slide-content.airportpanel').fadeIn(500);
+						$('.airport-slide .nodata').fadeIn(500)
+						setTimeout(function() {
+							$('.airport-slide .nodata').fadeOut(500);
+							$('.info-slide-content.airportpanel').fadeOut(500, function(){
+								wait(0);
+							});
+						}, slideDelay);
+					} else {
+					function fillinfo() {
+						aidx = (aidx===undefined ? 0 : aidx);
+						$('.info-slide-content.airportpanel .leftpanel .thing').text(weatherInfo.airport.mainairports[aidx].displayname)
+						$('.info-slide-content.airportpanel .top .delayfill').text(weatherInfo.airport.mainairports[aidx].arrivals.delay)
+						$('.info-slide-content.airportpanel .top .reasonfill').text(weatherInfo.airport.mainairports[aidx].arrivals.reason)
+						$('.info-slide-content.airportpanel .bottom .delayfill').text(weatherInfo.airport.mainairports[aidx].departures.delay)
+						$('.info-slide-content.airportpanel .bottom .reasonfill').text(weatherInfo.airport.mainairports[aidx].departures.reason)
+						$('.info-slide-content.airportpanel .temp').text(weatherInfo.airport.mainairports[aidx].temp)
+						$('.info-slide-content.airportpanel .conditions').text(weatherInfo.airport.mainairports[aidx].cond)
+						$('.info-slide-content.airportpanel .icon').css('background-image', 'url("' +  getCCicon(weatherInfo.airport.mainairports[aidx].icon, weatherInfo.airport.mainairports[aidx].windspeed) + '")');
+					}
+				fillinfo();
+				$('.info-slide-content.airportpanel').fadeIn(500);
+
+					setTimeout( function() {
+
+						if ((aidx+1)<pages) {
+							$('.info-slide-content.airportpanel').fadeOut(500, function() {
+								currentDisplay(aidx+1);
+							});
+						} else {
+							$('.info-slide-content.airportpanel').fadeOut(500, function() {
+								wait(0);
+							});
+						}
+
+					}, slideDelay)
+				}
+				}
+				,otherairportconds(aidx) {
+					var pages = Math.ceil(weatherInfo.airport.otherairports.length/4);
+					if (weatherInfo.airport.noReport == true) {
+						$('.info-slide-content.otherairports').fadeIn(500);
+						$('.airport-slide .nodata').fadeIn(500)
+						setTimeout(function() {
+							$('.airport-slide .nodata').fadeOut(500);
+							$('.info-slide-content.otherairports').fadeOut(500, function(){
+								$('.airport-slide').fadeOut(0);
+								wait(0);
+							});
+						}, slideDelay);
+					} else {
+						$('.city-info-slide #subhead-city').fadeOut(0);
+					function fillinfo() {
+
+						aidx = (aidx===undefined ? 1 : aidx);
+
+						//replace tomorrow
+						var di = 0;
+						for (var i = 4*aidx - 4; i < 4*aidx || i < weatherInfo.airport.otherairports.length; i++) {
+							var divnumbers = ['i','ii','iii','iv']
+							if (weatherInfo.airport.otherairports[i]) {
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .airportname').text(weatherInfo.airport.otherairports[i].displayname);
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .temp').text(weatherInfo.airport.otherairports[i].temp);
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + getCCicon(+weatherInfo.airport.otherairports[i].icon, weatherInfo.airport.otherairports[i].windspeed) + '")');
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .delay').text(weatherInfo.airport.otherairports[i].delay);
+							} else {
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .airportname').text("");
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .temp').text("");
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + "" + '")');
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .delay').text("")
+							}
+							di = di + 1
+						}
+
+
+					}
+				fillinfo();
+				$('.info-slide-content.otherairports').fadeIn(500);
+
+					setTimeout( function() {
+
+						if (aidx<pages) {
+							$('.info-slide-content.otherairports').fadeOut(500, function() {
+								currentDisplay(aidx+1);
+								//fillinfo();
+							});
+						} else {
+							$('.info-slide-content.otherairports').fadeOut(500, function() {
+								$('.airport-slide').fadeOut(0)
+								wait(0);
+							});
+						}
+
+					}, slideDelay)
+				}
 				}
 			},
 				keys = Object.keys(displays);
-
+				if (weatherInfo.reboot == true) {
+					$('#info-slide-container').hide()
+					return;
+				}
 				var daypart;
 				if (idx<keys.length) {
 					currentDisplay = displays[keys[idx]];
@@ -743,7 +905,10 @@ var mainMap
 				}
 			},
 				keys = Object.keys(displays);
-
+				if (weatherInfo.reboot == true) {
+					$('#info-slide-container').hide()
+					return;
+				}
 				var daypart;
 				if (idx<keys.length) {
 					currentDisplay = displays[keys[idx]];
@@ -780,11 +945,22 @@ var mainMap
 							}, 5000);
 						}
 				,healthforecast() {
+					$('.info-slide.health .subhead-title').text('Outdoor Activity');
+					$('.info-slide.health #subhead-city').text(weatherInfo.healthforecast.displayname);
+					if (weatherInfo.healthforecast.noReport == true) {
+						$('.info-slide.health').fadeIn(0);
+						$('.info-slide.health .tempunavailable').fadeIn(500);
+						setTimeout(function() {
+							$('.info-slide.health .tempunavailable').fadeOut(500, function(){
+								wait(0);
+							});
+						}, slideDelay);
+					} else {
 					if (weatherInfo.healthforecast.dayidx == 0 && dateFns.getHours(new Date()) >= 4) {
 						$('.info-slide-content.health-forecast .mainforecast .hightext').css("right","85px");
-						$('.info-slide-content.health-forecast .mainforecast .hightext').css("top","220px");
-						$('.info-slide-content.health-forecast .mainforecast .high').css("left","91px");
-						$('.info-slide-content.health-forecast .mainforecast .high').css("top","265px");
+						$('.info-slide-content.health-forecast .mainforecast .hightext').css("top","226.5");
+						$('.info-slide-content.health-forecast .mainforecast .high').css("left","95px");
+						$('.info-slide-content.health-forecast .mainforecast .high').css("top","239px");
 						$('.info-slide-content.health-forecast .mainforecast .lowtext').fadeOut(0)
 						$('.info-slide-content.health-forecast .mainforecast .low').fadeOut(0)
 					}
@@ -795,8 +971,7 @@ var mainMap
 					$('.info-slide-content.health-forecast .forecastdetails .humidtext').text(weatherInfo.healthforecast.humid)
 					$('.info-slide-content.health-forecast .forecastdetails .windtext').text(weatherInfo.healthforecast.wind)
 					$('.info-slide-content.health-forecast .mainforecast .icon').css('background-image', 'url("' +  getCCicon(weatherInfo.healthforecast.icon, weatherInfo.healthforecast.windspeed) + '")');
-					$('.info-slide.health #subhead-title').text('Outdoor Activity');
-					$('.info-slide.health #subhead-city').text(weatherInfo.healthforecast.displayname);
+
 					$('.info-slide.health').fadeIn(0);
 					$('.info-slide-content.health-forecast').fadeIn(500);
 					setTimeout(function() {
@@ -804,14 +979,15 @@ var mainMap
 							wait(0);
 						});
 					}, slideDelay);
+					}
 				}
 				,pollen() {
-					if (weatherInfo.healthPollen.totalcat) {
+					if (weatherInfo.healthPollen.totalcat && weatherInfo.healthforecast.noReport == false) {
 					$('.info-slide-content.allergy .totalpollen .desc').text(weatherInfo.healthPollen.totalcat)
 					$('.info-slide-content.allergy .pollen .pollenbar.tree .type').html(weatherInfo.healthPollen.types[0].treetype)
 					$('.info-slide-content.allergy .pollen .thing').text("As of " + weatherInfo.healthPollen.date)
 					$('.info-slide-content.allergy .totalpollen .cat').text(weatherInfo.healthPollen.total)
-					$('.info-slide.health #subhead-title').text('Allergy Report');
+					$('.info-slide.health .subhead-title').text('Allergy Report');
 					$('.info-slide-content.allergy').fadeIn(500);
 					setTimeout(function () {
 						i = 0
@@ -830,12 +1006,25 @@ var mainMap
 				} else {wait(0)}
 				}
 				,achesbreath() {
+					$('.info-slide.health .subhead-title').text('Health Forecast');
+					if (weatherInfo.healthAcheBreath.noReport == true) {
+						$('.info-slide.health .tempunavailable').fadeIn(500);
+						setTimeout(function() {
+							$('.info-slide.health .tempunavailable').fadeOut(500, function(){
+								wait(0);
+							});
+						}, slideDelay);
+					} else {
 					var alength = {"0":"-10", "1":"22", "2":"55", "3":"88", "4":"121", "5":"154", "6":"187", "7":"220", "8":"253", "9":"286", "10":"300"}[weatherInfo.healthAcheBreath.achesindex]
 					var atime = {"0":0, "1":250, "2":500, "3":750, "4":1000, "5":1250, "6":1500, "7":1750, "8":2000, "9":2250, "10":2500}[weatherInfo.healthAcheBreath.achesindex]
 					var blength = {"10":"-10", "9":"22", "8":"55", "7":"88", "6":"121", "5":"154", "5":"187", "4":"220", "3":"253", "2":"286", "1":"300"}[weatherInfo.healthAcheBreath.breathindex]
 					var btime = {"10":0, "9":250, "8":500, "7":750, "6":1000, "5":1250, "4":1500, "3":1750, "2":2000, "1":2250, "0":2500}[weatherInfo.healthAcheBreath.breathindex]
 					$('.info-slide-content.Aches-Breath .thing').text(weatherInfo.healthAcheBreath.breathindex.date)
-					$('.info-slide.health #subhead-title').text('Health Forecast');
+
+					$('.info-slide-content.Aches-Breath .aches .bar .bararrow').css('left','-10px')
+					$('.info-slide-content.Aches-Breath .breath .bar .bararrow').css('left','-10px')
+					$('.info-slide-content.Aches-Breath .aches .bar .bararrow .bararrowtext').fadeOut(0);
+					$('.info-slide-content.Aches-Breath .breath .bar .bararrow .bararrowtext').fadeOut(0);
 					$('.info-slide-content.Aches-Breath').fadeIn(500);
 					setTimeout(function () {
 						$('.info-slide-content.Aches-Breath .aches .bar .bararrow').animate({left: alength + "px"}, atime, 'linear', function() {
@@ -854,8 +1043,18 @@ var mainMap
 							wait(0);
 						});
 					}, slideDelay);
+					}
 				}
 				,airquality() {
+					$('.info-slide.health .subhead-title').text('Air Quality Forecast');
+					if (weatherInfo.airquality.noReport == true) {
+						$('.info-slide.health .tempunavailable').fadeIn(500);
+						setTimeout(function() {
+							$('.info-slide.health .tempunavailable').fadeOut(500, function(){
+								wait(0);
+							});
+						}, slideDelay);
+					} else {
 					var ozone = false;
 
 					/*if (foreDataAlert !== undefined){
@@ -872,9 +1071,11 @@ var mainMap
 					var aqlength = {1:"35", 2:"107.5", 3:"185", 4:"260", 5:"340"}[weatherInfo.airquality.airqualityindex]
 					var aqcat = {1:"green", 2:"yellow", 3:"orange", 4:"deep orange", 5:"red"}[weatherInfo.airquality.airqualityindex]
 					var aqtime = {1:0, 2:500, 3:1000, 4:1500, 5:2000}[weatherInfo.airquality.airqualityindex]
+					$('.info-slide-content.airquality .airforecast .bar .arrow').css('bottom','35px');
+					$('.info-slide-content.airquality .airforecast .bar .forecast').fadeOut(0);
 					$('.info-slide-content.airquality .primarypolute .pollutant').text(weatherInfo.airquality.primarypolute)
 
-					$('.info-slide.health #subhead-title').text('Air Quality Forecast');
+
 					$('.info-slide-content.airquality .airforecast .thing').text(weatherInfo.airquality.date)
 
 					$('.info-slide-content.airquality').fadeIn(500);
@@ -889,14 +1090,36 @@ var mainMap
 						});
 					}, slideDelay);
 				}
+				}
 				,uvindex() {
+					$('.info-slide.health .subhead-title').text('Ultraviolet Index');
+					if (weatherInfo.uvindex.noReport == true) {
+						$('.info-slide.health .tempunavailable').fadeIn(500);
+						setTimeout(function() {
+							$('.info-slide.health .tempunavailable').fadeOut(500, function(){
+								wait(0);
+							});
+						}, slideDelay);
+					} else {
 					$('.info-slide-content.uvindex .uvtime.i .uvtime').text(weatherInfo.uvindex.forecast[0].time);
 					$('.info-slide-content.uvindex .uvtime.ii .uvtime').text(weatherInfo.uvindex.forecast[1].time);
 					$('.info-slide-content.uvindex .uvtime.iii .uvtime').text(weatherInfo.uvindex.forecast[2].time);
 					$('.info-slide-content.uvindex .uvtime.i .uvday').text(weatherInfo.uvindex.forecast[0].day);
 					$('.info-slide-content.uvindex .uvtime.ii .uvday').text(weatherInfo.uvindex.forecast[1].day);
 					$('.info-slide-content.uvindex .uvtime.iii .uvday').text(weatherInfo.uvindex.forecast[2].day);
-					$('.info-slide.health #subhead-title').text('Ultraviolet Index');
+					//reset animation
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'i' + ' .cat').fadeOut(0)
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'ii' + ' .cat').fadeOut(0)
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'iii' + ' .cat').fadeOut(0)
+					$('.info-slide-content.uvindex .currentuv .bar .cat').fadeOut(0)
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'i' + ' .num').fadeOut(0)
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'ii' + ' .num').fadeOut(0)
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'iii' + ' .num').fadeOut(0)
+					$('.info-slide-content.uvindex .currentuv .bar .num').fadeOut(0)
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'i').css('height','0px')
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'ii').css('height','0px')
+					$('.info-slide-content.uvindex .forecastuv .bar.' + 'iii').css('height','0px')
+					$('.info-slide-content.uvindex .currentuv .bar').css('height','0px')
 					$('.info-slide-content.uvindex').fadeIn(500);
 					var hourlable = ['i', 'ii', 'iii'],
 					uvi, value, i = 0;
@@ -912,7 +1135,7 @@ var mainMap
 							$('.info-slide-content.uvindex .currentuv .bar .num').fadeTo('slow', 1);
 					});
 					$('.info-slide-content.uvindex .forecastuv .bar').each(function(){
-						var ulength = {"-2":0, "-1":0, 0:"25", 1:"25", 2:"40", 3:"55", 4:"70", 5:"85", 6:"100", 7:"115", 8:"130", 9:"145", 10:"160", 11:"175"}[weatherInfo.uvindex.forecast[i].index]
+						var ulength = {"-2":"25", "-1":"25", 0:"25", 1:"25", 2:"40", 3:"55", 4:"70", 5:"85", 6:"100", 7:"115", 8:"130", 9:"145", 10:"160", 11:"175"}[weatherInfo.uvindex.forecast[i].index]
 						var utime = {"-2":0, "-1":0, 0:0, 1:125, 2:250, 3:375, 4:500, 5:625, 6:750, 7:1000, 8:1250, 9:1325, 10:1500, 11:1625}[weatherInfo.uvindex.forecast[i].index]
 						$('.info-slide-content.uvindex .forecastuv .bar.' + hourlable[i] + ' .cat').text(weatherInfo.uvindex.forecast[i].desc)
 						$('.info-slide-content.uvindex .forecastuv .bar.' + hourlable[i] + ' .num').text(weatherInfo.uvindex.forecast[i].index)
@@ -920,8 +1143,10 @@ var mainMap
 							$('.info-slide-content.uvindex .forecastuv .bar.' + hourlable[i]).css("background", "rgba(0,0,0,0)")
 						}
 						$('.info-slide-content.uvindex .forecastuv .bar.' + hourlable[i]).animate({height:ulength+"px"}, utime,function(){
-							$('.info-slide-content.uvindex .forecastuv .bar .cat').fadeTo('slow', 1);
-							$('.info-slide-content.uvindex .forecastuv .bar .num').fadeTo('slow', 1);
+							//this = the
+
+							$(this).find(".cat").fadeTo('slow', 1);
+							$(this).find(".num").fadeTo('slow', 1);
 						});
 						i = i + 1
 					})
@@ -931,8 +1156,9 @@ var mainMap
 						});
 					}, slideDelay);
 				}
+				}
 				,healthtip() {
-					$('.info-slide.health #subhead-title').text('Weather Safety Tips');
+					$('.info-slide.health .subhead-title').text('Weather Safety Tips');
 					$('.info-slide-content.healthtip').fadeIn(500);
 					setTimeout(function() {
 						$('.info-slide-content.healthtip').fadeOut(500, function(){
@@ -941,7 +1167,7 @@ var mainMap
 					}, slideDelay);
 				}
 				,moreinfoimage() {
-					$('.info-slide.health #subhead-title').text('');
+					$('.info-slide.health .subhead-title').text('');
 					$('.info-slide-content.moreinfoimage').fadeIn(500);
 					setTimeout(function() {
 						$('.info-slide-content.moreinfoimage').fadeOut(500, function(){
@@ -952,7 +1178,10 @@ var mainMap
 				}
 			},
 				keys = Object.keys(displays);
-
+				if (weatherInfo.reboot == true) {
+					$('#info-slide-container').hide()
+					return;
+				}
 				var daypart;
 				if (idx<keys.length) {
 					currentDisplay = displays[keys[idx]];
@@ -1043,7 +1272,7 @@ var mainMap
 
 				// Currently (10 sec)
 				,currentConditions() {
-					$('.city-info-slide #subhead-title').text('Currently');
+					$('.city-info-slide .subhead-title').text('Currently');
 					$('.city-info-slide #subhead-city').text(weatherInfo.currentCond.weatherLocs[location].displayname);
 					if (weatherInfo.currentCond.weatherLocs[location].noReport == true) {
 						$('.city-info-slide .noreport').fadeIn(500)
@@ -1081,12 +1310,77 @@ var mainMap
 
 					setTimeout(function() {
 						$('.city-info').fadeOut(500, function(){
-							$('.city-info-slide').fadeOut(0);
 							wait(0);
-					});
+						});
 					}, slideDelay);
 					}
 
+				}
+				,city8Slides(pidx){
+					if (location == 0) {
+					var pages = Math.ceil(citySlideList.length/4);
+					if (weatherInfo.currentCond.city8slides.noReport == true) {
+						$('.city-info-slide #subhead-city').fadeOut(0);
+						$('.city-info-slide .subhead-title').text('Currently');
+						$('.city-info-slide .tempunavailable').fadeIn(500)
+						setTimeout(function() {
+							$('.info-slide-content.aroundcityinfo').fadeOut(500);
+							$('.city-info-slide .tempunavailable').fadeOut(500, function(){
+								$('.city-info-slide').fadeOut(0)
+								$('.city-info-slide #subhead-city').fadeIn(0);
+								wait(0);
+						});
+						}, slideDelay);
+					} else {
+						$('.city-info-slide #subhead-city').fadeOut(0);
+					function fillinfo() {
+
+						pidx = (pidx===undefined ? 1 : pidx);
+
+						//replace tomorrow
+						var di = 0;
+						for (var i = (pidx == 1) ? 0 : 4; i < 4*pidx || i < citySlideList.length; i++) {
+							if (weatherInfo.currentCond.city8slides.cities[i]) {
+								var divnumbers = ['i','ii','iii','iv']
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .cityname').text(weatherInfo.currentCond.city8slides.cities[i].displayname);
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .temp').text(weatherInfo.currentCond.city8slides.cities[i].temp);
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + getCCicon(+weatherInfo.currentCond.city8slides.cities[i].icon, weatherInfo.currentCond.city8slides.cities[i].windspeed) + '")');
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .wind').text(weatherInfo.currentCond.city8slides.cities[i].wind);
+							} else {
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .cityname').text("");
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .temp').text("");
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + "" + '")');
+								$('.info-slide-content.aroundcityinfo .city.' + divnumbers[di] + ' .wind').text("")
+							}
+							di = di + 1
+						}
+
+
+					}
+				fillinfo();
+				$('.info-slide-content.aroundcityinfo').fadeIn(500);
+
+					setTimeout( function() {
+
+						if (pidx<pages) {
+							$('.info-slide-content.aroundcityinfo').fadeOut(500, function() {
+								currentDisplay(pidx+1);
+								//fillinfo();
+							});
+						} else {
+							$('.info-slide-content.aroundcityinfo').fadeOut(500, function() {
+								$('.city-info-slide #subhead-city').fadeIn(0);
+								$('.city-info-slide').fadeOut(0);
+								wait(0);
+							});
+						}
+
+					}, slideDelay)
+				}
+				} else {
+					$('.city-info-slide').fadeOut(0);
+					wait(0)
+				}
 				}
 				// Local Doppler Radar or Radar/Satellite (15 sec, zoomed out with cloud cover)
 				,localDoppler(){
@@ -1106,7 +1400,7 @@ var mainMap
 					if (selectval === 2 || selectval === 3) {
 						// reset tempbar animation
 						if (weatherInfo.dayPart.weatherLocs[location].noReport == true) {
-							$('.city-info-slide #subhead-title').text(weatherInfo.dayPart.weatherLocs[location].daytitle);
+							$('.city-info-slide .subhead-title').text(weatherInfo.dayPart.weatherLocs[location].daytitle);
 							$('.city-info-slide').fadeIn(0);
 							$('.city-info-slide .tempunavailable').fadeIn(500)
 							setTimeout(function() {
@@ -1151,7 +1445,7 @@ var mainMap
 						$('.info-slide-content.daypart .hour.iv .icon').css('background-image', 'url("' + getCCicon(+weatherInfo.dayPart.weatherLocs[location].hour[3].icon, weatherInfo.dayPart.weatherLocs[location].hour[3].windspeed) + '")');
 
 						// calculate height of tempbars
-						$('.city-info-slide #subhead-title').text(weatherInfo.dayPart.weatherLocs[location].daytitle);
+						$('.city-info-slide .subhead-title').text(weatherInfo.dayPart.weatherLocs[location].daytitle);
 						var temps = [];
 						for (var i = 0; i < 4; i++) {
 							temps.push(weatherInfo.dayPart.weatherLocs[location].hour[i].temp);
@@ -1190,7 +1484,7 @@ var mainMap
 						// Local Forecast -Today (10 sec)
 							var div = '.info-slide-content.forecast '
 							if (weatherInfo.dayDesc.weatherLocs[location].noReport == true) {
-								$('.city-info-slide #subhead-title').text('Local Forecast');
+								$('.city-info-slide .subhead-title').text('Local Forecast');
 								$('.city-info-slide').fadeIn(0);
 								$('.city-info-slide .tempunavailable').fadeIn(500)
 								$('.info-slide-content.forecast').fadeIn(500);
@@ -1207,7 +1501,7 @@ var mainMap
 
 								fidx = (fidx===undefined ? 0 : fidx);
 
-								$('.city-info-slide #subhead-title').text('Local Forecast');
+								$('.city-info-slide .subhead-title').text('Local Forecast');
 								//replace tomorrow
 
 								$(div + '.title').text(weatherInfo.dayDesc.weatherLocs[location].day[fidx].name);
@@ -1249,7 +1543,7 @@ var mainMap
 
 				// Extended Forecast(5 day columns)
 				,extendedForecast() {
-					$('.city-info-slide #subhead-title').text('Extended Forecast');
+					$('.city-info-slide .subhead-title').text('Extended Forecast');
 					if (weatherInfo.fiveDay.weatherLocs[location].noReport == true) {
 						$('.city-info-slide .tempunavailable').fadeIn(500)
 						setTimeout(function() {
@@ -1318,7 +1612,7 @@ var mainMap
 						$('.info-slide-content.almanac .frost-pane.half .rlowyear').text(weatherInfo.alamanac.reclowyear);
 						$('.info-slide-content.almanac .frost-pane.purple .sunrisetext').text(weatherInfo.alamanac.sunrise);
 						$('.info-slide-content.almanac .frost-pane.purple .sunsettext').text(weatherInfo.alamanac.sunset);
-						$('.city-info-slide #subhead-title').text('Almanac');
+						$('.city-info-slide .subhead-title').text('Almanac');
 						$('.city-info-slide #subhead-city').text(weatherInfo.alamanac.displayname);
 						$('.city-info-slide').fadeIn(0);
 						$('.info-slide-content.almanac').fadeIn(500);
@@ -1336,6 +1630,10 @@ var mainMap
 		keys = Object.keys(displays);
 
 		var daypart;
+		if (weatherInfo.reboot == true) {
+			$('#info-slide-container').hide()
+			return;
+		}
 		if (idx<keys.length) {
 			currentDisplay = displays[keys[idx]];
 			currentDisplay();
@@ -1452,15 +1750,16 @@ var mainMap
 		}
 
 	function buildHeader(){
+		$('#info-slides-header .hscroller').empty();
 		var city, first, dname,
 			cities='',
-			arrow='<span class="divider-arrow" style="font-family: ZemestroStd ">&lt;</span>',
+			arrow='<span class="divider-arrow" style="font-family: Zemestro Std ">&lt;</span>',
 			radar='<span class="city radar">LOCAL RADAR</span>',
 			firstradar='<span class="city radar current">LOCAL RADAR</span>',
 			golf='<span class="city golf">GOLF</span>',
 			beach='<span class="city beach">BOAT & BEACH</span>',
 			health='<span class="city healthh loopcomplete">HEALTH</span>',
-			airport='<span class="city airport">AIRPORTS</span>';
+			airport='<span class="city airport ">AIRPORTS</span>';
 
 			cities += arrow + '<span class="city" data-dname="' + '0' + '">' + maincitycoords.displayname + '</span>';
 			var li = 1
@@ -1472,10 +1771,9 @@ var mainMap
 			li = li + 1
 		}
 
-		$('#info-slides-header .hscroller').append(firstradar  + cities + arrow + (radar + arrow + airport + arrow + health + cities + arrow).repeat(4));
+		$('#info-slides-header .hscroller').append(firstradar  + arrow + airport + cities + arrow + (radar + arrow + airport + arrow + health + cities + arrow).repeat(4));
 	}
 
-
-
+	buildHeaderGlobal = buildHeader
 
 }  // end function

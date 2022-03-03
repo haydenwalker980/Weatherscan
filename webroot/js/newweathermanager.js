@@ -100,7 +100,8 @@ function getExtraLocs(lat,lon, onInit, whichReset) {
   				longeo = feature.longitude[i];
   				dist = feature.distanceMi[i];
         displayname = dataii.location.displayName
-        if (displayname == maincitycoords.displayname || displayname == state) {
+        if (onInit == true) {
+         if (displayname == maincitycoords.displayname || displayname == state) {
           if ((dataii.location.locale.locale3 != maincitycoords.displayname && dataii.location.locale.locale3) || (dataii.location.locale.locale4 != maincitycoords.displayname && dataii.location.locale.locale4)) {
             displayname = (dataii.location.locale.locale3 != maincitycoords.displayname && dataii.location.locale.locale3) ? dataii.location.locale.locale3 : dataii.location.locale.locale4
           } else {
@@ -118,6 +119,26 @@ function getExtraLocs(lat,lon, onInit, whichReset) {
             }
           }
         }
+      } else {
+        if (displayname == maincitycoords.displayname || displayname == state) {
+         if ((dataii.location.locale.locale3 != maincitycoords.displayname && dataii.location.locale.locale3) || (dataii.location.locale.locale4 != maincitycoords.displayname && dataii.location.locale.locale4)) {
+           displayname = (dataii.location.locale.locale3 != maincitycoords.displayname && dataii.location.locale.locale3) ? dataii.location.locale.locale3 : dataii.location.locale.locale4
+         } else {
+           if (feature.latitude.length == (i + 1)) {onExtraAjaxFinish()} else {getLocLoop(i + 1)}
+           return
+         }
+       }
+       for (var li = 0; li < city8slidedata.length; li++) {
+         if (displayname == city8slidedata[li].displayname) {
+           if ((dataii.location.locale.locale3 != citySlideList[li].displayname && dataii.location.locale.locale3) || (dataii.location.locale.locale4 != citySlideList[li].displayname && dataii.location.locale.locale4)) {
+             displayname = (dataii.location.locale.locale3 != citySlideList[li].displayname && dataii.location.locale.locale3) ? dataii.location.locale.locale3 : dataii.location.locale.locale4
+           } else {
+             if (feature.latitude.length == (i + 1)) {onExtraAjaxFinish()} else {getLocLoop(i + 1)}
+             return
+           }
+         }
+       }
+      }
         if (i!=0) {
           if (onInit==true) {
             citySlideList.push({lat: latgeo, lon:longeo, distance:dist, stationUrl:feature.stationId[i], name:displayname, displayname:displayname});
@@ -128,6 +149,7 @@ function getExtraLocs(lat,lon, onInit, whichReset) {
             }
           }
         };
+        if (onInit == true) {
         displayname = dataii.location.displayName
         if (displayname == maincitycoords.displayname || displayname == state) {
             if (feature.latitude.length == (i + 1)) {onExtraAjaxFinish()} else {getLocLoop(i + 1)}
@@ -139,7 +161,19 @@ function getExtraLocs(lat,lon, onInit, whichReset) {
             return
           }
         }
-
+      } else {
+        displayname = dataii.location.displayName
+        if (displayname == maincitycoords.displayname || displayname == state) {
+            if (feature.latitude.length == (i + 1)) {onExtraAjaxFinish()} else {getLocLoop(i + 1)}
+            return
+        }
+        for (var li = 0; li < extralocsdata.length; li++) {
+          if (displayname == extralocsdata[li].displayname) {
+            if (feature.latitude.length == (i + 1)) {onExtraAjaxFinish()} else {getLocLoop(i + 1)}
+            return
+          }
+        }
+      }
 				if (dist >= minRadiusMiles && dist <= maxRadiusMiles) {
           if (ti < 3) {
             if (onInit==true) {
@@ -155,11 +189,19 @@ function getExtraLocs(lat,lon, onInit, whichReset) {
             ti = ti - 1
           }
         //for the 8 city slide
-         if (i < data.location.stationName.length && (citySlideList.length < 8 || locList.length < 3)) {
+        if (onInit == true) {
+        if (i < data.location.stationName.length && (citySlideList.length < 8 || locList.length < 3)) {
           ti = ti + 1
           i = i + 1
           getLocLoop(i)
         } else {onExtraAjaxFinish()};
+        } else {
+          if (i < data.location.stationName.length && (city8slidedata.length < 8 || extralocsdata.length < 3)) {
+            ti = ti + 1
+            i = i + 1
+            getLocLoop(i)
+          } else {onExtraAjaxFinish()};
+        }
 
       }).fail(function(){
         if (feature.latitude.length >= (i + 1) || i >= 9) {onExtraAjaxFinish()} else {getLocLoop(i + 1)}
@@ -172,6 +214,7 @@ function getExtraLocs(lat,lon, onInit, whichReset) {
   			locList.sort(function(a, b) {
   				return parseInt(a.distance) - parseInt(b.distance);
   			});
+        grabCity8SlidesData()
         grabCitySlidesData()
       } else {
         //for settings
@@ -213,6 +256,8 @@ var weatherInfo = { currentCond: {
   sidebar: {noReport:false,displayname:"",temp:"",cond:"",icon:"",humid:"",dewpt:"",pressure:"",wind:"",windspeed:"",gust:"",feelslike:{type:"",val:""},visibility:"",uvidx:"",ceiling:""},
   //loc:{noReport:"",displayname:"",temp:"",cond:"",icon:"",humid:"",dewpt:"",pressure:"",pressureTrend:"",wind:"",windspeed:"",gust:"",feelslike:{type:"",val:""},},
   weatherLocs:[],
+  //cityLoc:{noReport:false,displayname:"",temp:"",icon:"",wind:"",windspeed:""}
+  city8slides:{noReport:false, cities:[]},
 }, dayPart: {
   lowerbar:{noReport:false,displayname:"",daytitle:"",hour:[{time:"",cond:"",icon:"",temp:"",wind:"",windspeed:""},{time:"",cond:"",icon:"",temp:"",wind:"",windspeed:""},{time:"",cond:"",icon:"",temp:"",wind:"",windspeed:""},{time:"",cond:"",icon:"",temp:"",wind:"",windspeed:""},]},
   /*loc:{noReport:"",displayname:"",daytitle:"",hour:[
@@ -248,33 +293,81 @@ var weatherInfo = { currentCond: {
     {name:"LAST",date:"Feb 27"},
   ]}, bulletin: {
     //loc:{displayname:"",pages:[]},
+    includesevereonbulletin: false,
     weatherLocs:[],
     severewarnings:[],
     //{name:"", desc:"", status:""}
     marqueewarnings:[],
     severeweathermode: false
     //{name:"", desc:"", status:"", significance:""}
-  }, healthforecast: { displayname:"",dayidx:0, day:"", high:"", low:"", precipChance:"", humid:"", wind:"",windspeed:"", icon:""
-  }, healthPollen: {displayname:"", total:"", totalcat:"", date:"", types:[
+  }, healthforecast: {noReport:false, displayname:"",dayidx:0, day:"", high:"", low:"", precipChance:"", humid:"", wind:"",windspeed:"", icon:""
+  }, healthPollen: {noReport:false, displayname:"", total:"", totalcat:"", date:"", types:[
     {type:"tree", treetype:"", pollenidx:""},
     {type:"grass", pollenidx:""},
     {type:"weed", pollenidx:""},
     {type:"mold", pollenidx:""},
-  ]}, healthAcheBreath: {date:"",achesindex:"",achescat:"",breathindex:"",breathcat:""
-  },  airquality: {date:"",ozoneactin: false, primarypolute:"", airqualityindex:""
-  },  uvindex: {currentuv:{index:"",desc:""},forecast:[
+  ]}, healthAcheBreath: {noReport:false, date:"",achesindex:"",achescat:"",breathindex:"",breathcat:""
+  },  airquality: {noReport:false, date:"",ozoneactin: false, primarypolute:"", airqualityindex:""
+  },  uvindex: {noReport:false, currentuv:{index:"",desc:""},forecast:[
     {day:"",time:"",index:"",desc:""},
     {day:"",time:"",index:"",desc:""},
     {day:"",time:"",index:"",desc:""}
+  ]}, airport: {noReport: false, mainairports:[
+    {displayname:"Gainesville Regional Airport",arrivals:{delay:"No Report",reason:""},departures:{delay:"No Report",reason:""},temp:"75",cond:"Mostly Cloudy",icon:"16",windspeed:"0"},
+    {displayname:"Jacksonville International Airport",arrivals:{delay:"1hr 15min",reason:"Rain"},departures:{delay:"",reason:""},temp:"78",cond:"Rain",icon:"16",windspeed:"0"}
+  ], otherairports:[
+    {displayname:"New York / LaGaurdia",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Chicago O'hare Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Los Angeles Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Atlanta International",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Dallas / Ft. Worth Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Denver International",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Boston / Logan Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Salt Lake City Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Miami International",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Phoenix / Sky Harbor",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Minneapolis - St. Paul",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Washington Dulles Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"San Francisco Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Philadelphia Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Seattle - Tacoma Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"Lambert - St. Louis Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
   ]},
   ccticker: {noReport:false,arrow:"",ccLocs:[]},
   radarTempUnavialable: false,
+  radarWinterLegend: false,
+  reboot: false,
   ad: "You are watching an emulation of the Weatherscan IntelliStar system. Weatherscan is a digital cable and satellite television network that is owned by a consortium owned in turn by NBCUniversal and investment firms The Blackstone Group and Bain Capital. A spinoff of The Weather Channel, Weatherscan features uninterrupted local weather information in graphical format on a continuous loop that is generated by an IntelliStar unit installed at the cable provider's headend; unlike The Weather Channel, Weatherscan does not feature on-air talent of any kind."
 }
 
 //start data functions. these are run after their respective location functions finish
+function grabCity8SlidesData() {
+  weatherInfo.currentCond.city8slide = [];
+  var url = "https://api.weather.com/v3/aggcommon/v3-wx-observations-current?geocodes="
+  citySlideList.forEach((loc, i) => {
+    url += `${loc.lat},${loc.lon};`
+  });
+  url += "&language=en-US&units=e&format=json&apiKey=" + api_key
+
+  $.getJSON(url, function(data) {
+    data.forEach((ajaxedLoc, i) => {
+      var city8sldieslocs = {displayname:"",temp:"",icon:"",wind:"",windspeed:""}
+      city8sldieslocs.temp = ajaxedLoc["v3-wx-observations-current"].temperature
+      city8sldieslocs.icon = ajaxedLoc["v3-wx-observations-current"].iconCode
+      city8sldieslocs.wind = ((ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal == "CALM" || ajaxedLoc["v3-wx-observations-current"].windSpeed == 0) ? 'calm' :  ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal) + ' ' + ((ajaxedLoc["v3-wx-observations-current"].windSpeed === 0) ? '' : ajaxedLoc["v3-wx-observations-current"].windSpeed)
+      city8sldieslocs.windspeed = ajaxedLoc["v3-wx-observations-current"].windSpeed
+      city8sldieslocs.displayname = (citySlideList[i].displayname)
+      weatherInfo.currentCond.city8slides.cities.push(city8sldieslocs)
+    });
+  });
+}
 function grabCitySlidesData() {
   console.log("grabbed city data")
+  weatherInfo.currentCond.weatherLocs = [];
+  weatherInfo.dayPart.weatherLocs = [];
+  weatherInfo.dayDesc.weatherLocs = [];
+  weatherInfo.fiveDay.weatherLocs = [];
+  weatherInfo.bulletin.weatherLocs = [];
   var url = "https://api.weather.com/v3/aggcommon/v3alertsHeadlines;v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-wx-forecast-hourly-2day?geocodes="
   url += `${maincitycoords.lat},${maincitycoords.lon};`
   locList.forEach((loc, i) => {
@@ -428,7 +521,7 @@ function grabCitySlidesData() {
     			//get only weather alers
     			for (ai=0; ai<=ajaxedLoc["v3alertsHeadlines"].alerts.length - 1; ai++) {
     				warning = ajaxedLoc["v3alertsHeadlines"].alerts[ai].categories[0].category;
-    				if (warning == "Met")  {
+    				if ((warning == "Met" && weatherInfo.bulletin.includesevereonbulletin == true) || (warning == "Met" && ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription != "Severe Thunderstorm Warning" && ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription == "Flash Flood Warning" != ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription != "Tornado Warning"))  {
     					ret.push({idx:ai, priority: getWarningPosition(ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription)})
     				}
     			};
@@ -485,6 +578,8 @@ function grabCitySlidesData() {
 }
 
 function grabSideandLowerBarData() {
+  weatherInfo.bulletin.marqueewarnings = [];
+  weatherInfo.bulletin.severewarnings = [];
   var url = "https://api.weather.com/v3/aggcommon/v3alertsHeadlines;v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-wx-forecast-hourly-2day?geocodes="
   url += `${maincitycoords.lat},${maincitycoords.lon};`
   url += "&language=en-US&units=e&format=json&apiKey=" + api_key
@@ -518,7 +613,7 @@ function grabSideandLowerBarData() {
           } else if (hour===12){
             return 'Noon';
           }
-          return (dateFns.format(time,'h a')).replace(" ", "");
+          return (dateFns.format(time,'h a'))//.replace(" ", "");
         }
         //get reporting hours: 12am, 6am, 12pm, 3pm, 5pm, 8pm...
         function calcHourlyReport(data) {
@@ -827,6 +922,7 @@ function pullCCTickerData() {
   } else {
     ccurl = 'https://api.weather.com/v3/aggcommon/v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-location-point?geocodes=41.881832,-87.623177;44.986656,-93.258133;33.427204,-111.939896;46.877186,-96.789803;34.187042,-118.381256;33.660057,-117.998970;36.114647,-115.172813;21.315603,-157.858093;28.538336,-81.379234;43.0,-75.0;&language=en-US&units=e&format=json&apiKey='+ api_key
   }
+  weatherInfo.ccticker.ccLocs = [];
   $.getJSON(ccurl, function(data) {
         data.forEach((locationdata, i) => {
           var ccLoc = {displayname:"",currentCond:{cond:"",temp:""},forecast:{cond:"",temp:""}}
@@ -850,24 +946,31 @@ setInterval(function(){
 }, 300000)
 
 //init 1 second before intro stops
+var loops, slides;
 setTimeout(function() {
-  Loops();
-  Slides();
+  loops = new Loops();
+  slides = new Slides();
   MarqueeMan();
 }, 4000)
-/*var weatherlinks;
-function grabData() {
-  var citySlidesUrl = "&language=en-US&units=e&format=json&apiKey='+ api_key"
-  locList.forEach((item, i) => {
-    "https://api.weather.com/v3/aggcommon/v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-location-point?geocodes=41.881832,-87.623177;44.986656,-93.258133;33.427204,-111.939896;46.877186,-96.789803;34.187042,-118.381256;33.660057,-117.998970;36.114647,-115.172813;21.315603,-157.858093;28.538336,-81.379234;43.0,-75.0;&language=en-US&units=e&format=json&apiKey='+ api_key
-  });
 
-
-};
-function updateData() {
-
-};
-
-function InitLoops() {
-
-};*/
+function simulateReboot() {
+  weatherInfo.reboot = true
+  setTimeout(function () {
+    $("#info-slides-bg").hide()
+    $("#template").hide()
+    $("#logo-area").hide()
+    $("#marquee2").hide()
+    setTimeout(function () {
+      $("#info-slides-container").hide()
+      $("#date-time").hide()
+      $("#city").hide()
+      $("#conditions-icon").hide()
+      $("#current-conditions").hide()
+      $("#minimap-title").hide()
+      $("#minimap").hide()
+    }, 250)
+    setTimeout(function () {
+      window.location.reload();
+    }, (Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000))
+  }, (Math.floor(Math.random() * (45000 - 30000 + 1)) + 30000))
+}
