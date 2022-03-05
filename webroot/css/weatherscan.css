@@ -3470,26 +3470,30 @@ flex-direction: row;
   transform: translate(0,0);
 }
 .bulletin .frost-pane {
-  background: linear-gradient(to right, rgba(252, 85, 18, 1) 0, rgba(252, 85, 18, .45) 100%);
+  background: linear-gradient(to right, rgba(224, 97, 47, .85) 0, rgba(252, 97, 47, .45) 100%);
   z-index: 1;
   margin-top: 60px;
 }
 .bulletin .cityname {
   font-family: Frutiger;
   color: #d8c422;
-  font-size: 35px;
+  font-size: 36px;
   position: absolute;
-  left: 45px;
-  top: 15px;
+  left: 50px;
+  top: 16px;
+  transform: scale(105%,100%);
+  transform-origin: left;
 }
 
 .bulletin .warnings {
-  font-family: 'Frutiger Bold Cn'
+  font-family: 'Frutiger 57 condensed';
+  transform: scale(112.5%,100%);
+  transform-origin: left;
   color: #fff;
-  font-size: 38px;
+  font-size: 40px;
   position: absolute;
-  left: 45px;
-  top: 66.5px;
+  left: 50px;
+  top: 62.5px;
   line-height: 125%;
   padding-right: 10px;
   font-stretch: condensed;
@@ -3502,7 +3506,8 @@ a, body, div, h1, html, p {
   padding: 0;
   font-family: Frutiger;
   font-weight: 400;
-  font-style: normal
+  font-style: normal;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 html * {
@@ -3973,6 +3978,8 @@ label{
   text-shadow: 2px 2px 5px #000;
   position: absolute;
   min-width: 20%;
+  transform: scale(102.5%,100%);
+  transform-origin: left;
 }
 
 .info-slide .info-subheader span {
@@ -4326,19 +4333,6 @@ label{
   right: 98px;
   font-stretch: semi-expanded;
 }
-
-.bulletin #subhead-noaa {
-  font-size: 21.5px;
-  font-weight: 700;
-  right: 98px;
-  font-stretch: semi-expanded;
-  font-style: italic;
-  color: #f6a67a;
-  font-family: Frutiger;
-  text-shadow: 0px 0px 0px #000;
-  line-height: 35px;
-}
-
 .info-slide-content {
   height: 100%;
   min-height: 100%;
@@ -4710,12 +4704,14 @@ label{
 .city-slide-intro .segment {
   color: #fff;
   font-family: Frutiger;
-  font-size: 52px;
+  font-size: 57.5px;
   text-shadow: #000 0px 0px 0px;
   position: absolute;
   text-align: left;
-  left: 130px;
-  bottom: 40px
+  left: 140px;
+  bottom: 38px;
+  transform: scale(106.5%,100%);
+  transform-origin: left;
 }
 @keyframes citymarqueeweatherscan {
   0% {transform: translate(0, 0);}
@@ -4725,11 +4721,11 @@ label{
 .city-slide-intro .cityweatherscanmarquee {
   color: #fff;
   font-family: Frutiger;
-  font-size: 24px;
+  font-size: 25px;
   opacity: .5;
   position: absolute;
   text-align: right;
-  bottom: 15px;
+  bottom: 12.5px;
   right: 0px;
   display: inline-block;
   width: auto;
@@ -4737,6 +4733,10 @@ label{
   overflow: hidden;
   word-spacing: 15px;
   animation: citymarqueeweatherscan 10.5s linear normal forwards;
+}
+.city-slide-intro .cityweatherscanmarquee span {
+  display: block;
+  transform: scale(106%,100%);
 }
 .city-slide-intro {
   position: relative;
@@ -4753,11 +4753,18 @@ label{
   width: 100%;
   position: absolute;
   top: 0;
+  left: 0;
   display: flex;
   align-items: center;
-  padding-left: 12.5px;
-  line-height: 2.5px;
+  padding-left: 11px;
+  padding-top: 10px;
+  line-height: 110%;
   z-index: 101
+}
+.city-slide-intro .weatherscancopyright span{
+  display: block;
+  transform: scale(107%,100%);
+  transform-origin: left;
 }
 @keyframes cityaccentmovei {
   35% {transform: translate(-.75%, -4.5%) scaleY(1.03);}
@@ -6180,29 +6187,33 @@ label{
 }
 
 .bulletin .blue.left {
-  background-image: url(/images/red-curve-dark.svg);
-  background-size: 200% 100%;
+  -webkit-mask-image: url(/images/red-curve-dark.svg);
+  -webkit-mask-size: 200% 100%;
+  background-image: url(/images/warning.png);
+  background-size: 470% 60.4%;
+  background-position: -8.8% 7.7%;
   width: 22%;
   height: 150%;
   top: 6%;
   left: -8%;
-  opacity: .7;
+  opacity: 1;
   z-index: 2;
 }
 
 
 .bulletin .blue.bottom {
-  background: transparent url(/images/warning.png) no-repeat;
-  background-position: -6.1% -30%;
+  background-image: url(/images/warning.png);
+  background-size: 470% 60.4%;
+  background-position: -10.5% 80%;
   width: 22%;
   height: 150%;
   top: -37.5%;
   left: -9.25%;
   opacity: 1;
   z-index: 2;
-  -webkit-mask-image: url(/images/red-curve-dark.svg);
+  /*-webkit-mask-image: url(/images/red-curve-dark.svg);
   mask-image: url(/images/red-curve-dark.svg);
-  -webkit-mask-size: 200% 100%;
+  -webkit-mask-size: 200% 100%;*/
 }
 
 
@@ -6235,8 +6246,8 @@ label{
 .bulletin {
   position: relative;
   background: transparent url(/images/warning.png) no-repeat;
-  background-position: 70% 100%;
-  background-size: 101%;
+  background-position: 70% 105%;
+  background-size: 101% 90%;
 }
 
 
@@ -6292,15 +6303,17 @@ label{
 
 
 .bulletin #subhead-noaa {
-  font-size: 21.5px;
+  font-size: 22.5px;
   font-weight: 700;
-  right: 98px;
+  right: 105px;
   font-stretch: semi-expanded;
   font-style: italic;
   color: #f6a67a;
   font-family: Frutiger;
   text-shadow: 0px 0px 0px #000;
   line-height: 35px;
+  transform: scale(101%,100%) translateY(-42.5%);
+  transform-origin: right;
 }
 
 #marqueeSevere {
