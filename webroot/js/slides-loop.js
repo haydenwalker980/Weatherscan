@@ -1731,6 +1731,7 @@ var mainMap
 			if ($cities[1].classList.contains('loopcomplete')) {
 				grabCitySlidesData()
 				grabHealthData()
+				grabCity8SlidesData()
 				grabAlamanacSlidesData()
 			}
 			$($cities[0]).removeClass('current');
