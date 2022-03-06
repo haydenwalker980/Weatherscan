@@ -984,7 +984,7 @@ var mainMap
 				,pollen() {
 					if (weatherInfo.healthPollen.totalcat && weatherInfo.healthforecast.noReport == false) {
 					$('.info-slide-content.allergy .totalpollen .desc').text(weatherInfo.healthPollen.totalcat)
-					$('.info-slide-content.allergy .pollen .pollenbar.tree .type').html(weatherInfo.healthPollen.types[0].treetype)
+					$('.info-slide-content.allergy .pollen .pollenbar.tree .treetype').text(weatherInfo.healthPollen.types[0].treetype)
 					$('.info-slide-content.allergy .pollen .thing').text("As of " + weatherInfo.healthPollen.date)
 					$('.info-slide-content.allergy .totalpollen .cat').text(weatherInfo.healthPollen.total)
 					$('.info-slide.health .subhead-title').text('Allergy Report');

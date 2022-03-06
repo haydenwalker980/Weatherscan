@@ -32,6 +32,12 @@
 @font-face {
   font-family: Interstate;
   src: url(/fonts/newfonts/Interstate-Regular.woff) format("woff");
+  font-weight: 400 500;
+  font-style: normal
+}
+@font-face {
+  font-family: 'Interstate2';
+  src: url(/fonts/newfonts/Interstate-Regular.woff) format("woff");
   font-weight: 400;
   font-style: normal
 }
@@ -4757,6 +4763,7 @@ label{
   display: flex;
   align-items: center;
   padding-left: 11px;
+  padding-right: 10px;
   padding-top: 10px;
   line-height: 110%;
   z-index: 101
@@ -6336,4 +6343,12 @@ label{
   transform-origin: left;
   white-space:nowrap;
   z-index: 13;
+}
+#marqueeSevere div{
+  font-family: 'Interstate2';
+  text-shadow: 2px 2px 4px #000;
+  font-synthesis: weight;
+  font-weight: 600;
+  font-size: 46px;
+  color: #DDDDDD;
 }
