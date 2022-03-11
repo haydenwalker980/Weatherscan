@@ -1674,6 +1674,13 @@ background-image: url(/images/icons/moonphases/new.png);
   transform: scale(104.5%, 100%);
   transform-origin: left;
 }
+.info-slide-content.airportpanel .leftpanel em{
+  font-family: Frutiger;
+  font-style: normal;
+  transform-origin: left;
+  color: #fff;
+  font-size: 39px;
+}
 .info-slide-content.airportpanel .leftpanel .frost-pane.top .delayfill {
   color: #fff;
   font-family: Frutiger;
@@ -1763,7 +1770,7 @@ background-image: url(/images/icons/moonphases/new.png);
 .info-slide-content.airportpanel .leftpanel .frost-pane.bottom .source {
   color: #d8c422;
   font-family: Frutiger;
-  font-size: 22px;
+  font-size: 24px;
   transform: scale(104%, 100%);
   text-shadow: #000 2px 2px 2px;
   position: absolute;
@@ -1909,7 +1916,33 @@ background-image: url(/images/icons/moonphases/new.png);
   color: #fff;
   position: fixed;
   font-size: 33px;
-  right: 72px;
+  right: 71px;
+}
+.info-slide-content.otherairports .airport .delay em{
+  font-family: Frutiger;
+  font-style: normal;
+  transform-origin: left;
+  color: #fff;
+  font-size: 39px;
+}
+.info-slide-content.otherairports .source {
+  color: #d8c422;
+  font-family: Frutiger;
+  font-size: 24px;
+  transform: scale(104%, 100%);
+  text-shadow: #000 2px 2px 2px;
+  position: absolute;
+  top: 5px;
+  right: 67.5px;
+}
+.airport-slide #subhead-source {
+  color: #d8c422;
+  font-family: Frutiger;
+  font-size: 24px;
+  transform: translateY(-16%) scale(106%, 100%);
+  text-shadow: #000 2px 2px 2px;
+  position: absolute;
+  right: 89px;
 }
 
 .info-slide-content.surfreport .leftpanel {
@@ -4503,13 +4536,15 @@ label{
 
 .info-slide .segment {
   color: #fff;
-  font-family: Frutiger;
-  font-size: 52px;
+  font-family: 'Frutiger 57 Condensed';
+  font-size: 53px;
   text-shadow: #000 2px 2px 2px;
   position: absolute;
   text-align: left;
-  right: 117.5px;
-  bottom: 74.75px;
+  right: 122.5px;
+  bottom: 70px;
+  transform: scale(129%,100%);
+  transform-origin: right;
 }
 @keyframes marqueeweatherscan {
   0% {transform: translate(0, 0);}
@@ -4531,6 +4566,10 @@ label{
   word-spacing: 3.725px;
   animation: marqueeweatherscan 5.5s linear normal forwards;
   z-index: 20;
+}
+.info-slide .weatherscanmarquee span {
+  display: block;
+  transform: scale(106%,100%);
 }
 .health-slide-intro {
   position: relative;
@@ -5696,11 +5735,12 @@ label{
   left: 145px;
   top: 177px;
   text-align: left;
-  width: 66%;
+  width: 62.5%;
   font-weight: 400;
   line-height: 117.5%;
   transform: scale(106%,100%);
   transform-origin: left;
+  white-space: normal;
 }
 #current-info-severe {
   font-size: 31px;

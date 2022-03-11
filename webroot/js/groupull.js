@@ -1,4 +1,4 @@
-var noreportmode = false;
+var noreportmodecc = false, noreportmodefc = false, noreportmodeac = false;
 var marqueeforecasttype = 'forecast'
 //do audio thing and second marquee
 $(function(){
@@ -67,53 +67,95 @@ function MarqueeMan() {
 	}
 		// for ccticker
 		function displayCCTickerData() {
-			var $span,$spanfor;
+			var $span,$spanfor,$spanair;
 			// ajax the latest observation
 			$(".marquee-current").remove()
 			$(".marquee-fore").remove()
-			if (weatherInfo.ccticker.noReport == true) {
-				noreportmode = true
-				$('#arrow-img').attr("src",'/images/arrow.png');
-			} else {noreportmode == false}
+			$(".marquee-airport").remove()
+			if (weatherInfo.ccticker.noReportCC == true) {
+				noreportmodecc = true
+			} else {noreportmodecc == false}
+			if (weatherInfo.ccticker.noReportFC == true) {
+				noreportmodefc = true
+			} else {noreportmodefc == false}
+			if (weatherInfo.ccticker.noReportAC == true) {
+				noreportmodeac = true
+			} else {noreportmodeac == false}
 			weatherInfo.ccticker.ccLocs.forEach((ccLoc, i) => {
 				$span = $("<span class=marquee-current id='" + "cclocation" + i + "'></span>").appendTo('#marquee-now');
 				$spanfor = $("<span class=marquee-fore id='" + "cclocation" + i + "'></span>").appendTo('#marquee-now');
-				$span.text(ccLoc.displayname + ((noreportmode == true) ? "" : ccLoc.currentCond.temp + ' ' + ccLoc.currentCond.cond));
+				$span.text(ccLoc.displayname + ((noreportmodecc == true) ? "" : ccLoc.currentCond.temp + ' ' + ccLoc.currentCond.cond));
 				$spanfor.css('display','none')
-				$spanfor.text(ccLoc.displayname + ((noreportmode == true) ? "" : ccLoc.forecast.temp  + ' ' + ccLoc.forecast.cond));
+				$span.css('display','none')
+				$spanfor.text(ccLoc.displayname + ((noreportmodefc == true) ? "" : ccLoc.forecast.temp  + ' ' + ccLoc.forecast.cond));
+			});
+			weatherInfo.ccticker.ccairportdelays.forEach((ccAirLoc, i) => {
+				$spanair = $("<span class=marquee-airport id='" + "aclocation" + i + "'></span>").appendTo('#marquee-now');
+				$spanair.css('display','none')
+				$spanair.text((ccAirLoc.displayname).replace('International',"Int'l")+ ': ' + ((noreportmodeac == true) ? "" : ccAirLoc.temp + ' ' + ccAirLoc.cond + ', ' + ccAirLoc.delay));
 			});
 		};
 
-		function refreshMarquee () {
-				if (marqueeforecasttype == 'now') {
-					marqueeforecasttype = 'forecast'
-					if (noreportmode == false) {
-						$('#arrow-img').attr("src",'/images/' + weatherInfo.ccticker.arrow + 'arrow.png');
-					}
-					$('.marquee-fore').each(function(i, item) {
-						item.style.display = ''
-					});$('.marquee-current').each(function(i, item) {
-						item.style.display = 'none'
-					});
-				} else {
-					marqueeforecasttype = 'now'
-					if (noreportmode == false) {
+		function refreshMarquee (idx) {
+			var currentDisplay,
+				displays = {
+					marqueeairport() {
+						$('.track-info').show()
 						$('#arrow-img').attr("src",'/images/now.png');
+						$('.marquee-fore').each(function(i, item) {
+							item.style.display = 'none'
+						});
+						$('.marquee-airport').each(function(i, item) {
+							item.style.display = ''
+						});
+						$('.marquee-current').each(function(i, item) {
+							item.style.display = 'none'
+						});
 					}
-					$('.marquee-fore').each(function(i, item) {
-						item.style.display = 'none'
-					});
-					$('.marquee-current').each(function(i, item) {
-						item.style.display = ''
-					});
+					,marqueecurrent() {
+						$('#arrow-img').attr("src",'/images/now.png');
+						$('.track-info').hide()
+						$('.marquee-fore').each(function(i, item) {
+							item.style.display = 'none'
+						});
+						$('.marquee-airport').each(function(i, item) {
+							item.style.display = 'none'
+						});
+						$('.marquee-current').each(function(i, item) {
+							item.style.display = ''
+						});
+					}
+					,marqueeforecast() {
+						$('.track-info').hide()
+						if (noreportmodefc == false) {
+							$('#arrow-img').attr("src",'/images/' + weatherInfo.ccticker.arrow + 'arrow.png');
+						} else {
+							$('#arrow-img').attr("src",'/images/arrow.png');
+						}
+						marqueeforecasttype = 'forecast'
+						$('.marquee-fore').each(function(i, item) {
+							item.style.display = ''
+						});
+						$('.marquee-current').each(function(i, item) {
+							item.style.display = 'none'
+						});
+						$('.marquee-airport').each(function(i, item) {
+							item.style.display = 'none'
+						});
+					}
 				}
+				keys = Object.keys(displays);
+				if (noreportmodeac == true && idx == 0) {idx == 1}
+				if (noreportmodecc == true && idx == 1) {idx == 2}
+				currentDisplay = displays[keys[idx]];
+				currentDisplay();
 				$('#marquee-container')
 					.marquee('destroy')
-					.marquee({speed: 200, pauseOnHover:true, delayBeforeStart:3000})
-					.on('finished', refreshMarquee);
+					.marquee({speed: 200, pauseOnHover:true, delayBeforeStart:1000})
+					.on('finished', function() {refreshMarquee(((idx < 2) ? ++idx : 0))});
 		}
 		//init and loop the things
-		refreshMarquee();
+		refreshMarquee(0);
 		switchToWarningMarquee();
 		displayCCTickerData();
 		setInterval(function(){

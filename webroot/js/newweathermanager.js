@@ -313,27 +313,29 @@ var weatherInfo = { currentCond: {
     {day:"",time:"",index:"",desc:""},
     {day:"",time:"",index:"",desc:""}
   ]}, airport: {noReport: false, mainairports:[
-    {displayname:"Gainesville Regional Airport",arrivals:{delay:"No Report",reason:""},departures:{delay:"No Report",reason:""},temp:"75",cond:"Mostly Cloudy",icon:"16",windspeed:"0"},
-    {displayname:"Jacksonville International Airport",arrivals:{delay:"1hr 15min",reason:"Rain"},departures:{delay:"",reason:""},temp:"78",cond:"Rain",icon:"16",windspeed:"0"}
-  ], otherairports:[
-    {displayname:"New York / LaGaurdia",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Chicago O'hare Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Los Angeles Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Atlanta International",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Dallas / Ft. Worth Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Denver International",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Boston / Logan Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Salt Lake City Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Miami International",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Phoenix / Sky Harbor",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Minneapolis - St. Paul",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Washington Dulles Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"San Francisco Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Philadelphia Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Seattle - Tacoma Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
-    {displayname:"Lambert - St. Louis Int'l",delay:"No Delay",temp:"75",icon:"16",windspeed:"0"},
+    {displayname:"",iata:"MIA",arrivals:{delay:"No Delay",reason:""},departures:{delay:"No Delay",reason:""},temp:"",cond:"",icon:"",windspeed:""},
+    {displayname:"",iata:"MCO",arrivals:{delay:"No Delay",reason:""},departures:{delay:"No Delay",reason:""},temp:"",cond:"",icon:"",windspeed:""}
+  ], delays: [],
+    //{iato:"",type:"",amount:"",amountmin:"",reason:""}
+   otherairports:[
+    {displayname:"New York / LaGaurdia",iata:"LGA",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Chicago O'hare Int'l",iata:"ORD",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Los Angeles Int'l",iata:"LAX",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Atlanta International",iata:"LAX",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Dallas / Ft. Worth Int'l",iata:"DFW",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Denver International",iata:"DEN",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Boston / Logan Int'l",iata:"BOS",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Salt Lake City Int'l",iata:"SLC",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Miami International",iata:"MIA",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Phoenix / Sky Harbor",iata:"PHX",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Minneapolis - St. Paul",iata:"MSP",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Washington Dulles Int'l",iata:"IAD",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"San Francisco Int'l",iata:"SFO",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Philadelphia Int'l",iata:"PHL",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Seattle - Tacoma Int'l",iata:"SEA",delay:"No Delay",temp:"",icon:"",windspeed:""},
+    {displayname:"Lambert - St. Louis Int'l",iata:"STL",delay:"No Delay",temp:"",icon:"",windspeed:""},
   ]},
-  ccticker: {noReport:false,arrow:"",ccLocs:[]},
+  ccticker: {noReportCC:false,noReportFC:false,noReportAC:false,arrow:"",ccLocs:[],ccairportdelays:[]},
   radarTempUnavialable: false,
   radarWinterLegend: false,
   reboot: false,
@@ -354,7 +356,7 @@ function grabCity8SlidesData() {
       var city8sldieslocs = {displayname:"",temp:"",icon:"",wind:"",windspeed:""}
       city8sldieslocs.temp = ajaxedLoc["v3-wx-observations-current"].temperature
       city8sldieslocs.icon = ajaxedLoc["v3-wx-observations-current"].iconCode
-      city8sldieslocs.wind = ((ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal == "CALM" || ajaxedLoc["v3-wx-observations-current"].windSpeed == 0) ? 'calm' :  ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal) + ' ' + ((ajaxedLoc["v3-wx-observations-current"].windSpeed === 0) ? '' : ajaxedLoc["v3-wx-observations-current"].windSpeed)
+      city8sldieslocs.wind = ((ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal == "CALM" || ajaxedLoc["v3-wx-observations-current"].windSpeed == 0) ? 'Calm' :  ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal) + ' ' + ((ajaxedLoc["v3-wx-observations-current"].windSpeed === 0) ? '' : ajaxedLoc["v3-wx-observations-current"].windSpeed)
       city8sldieslocs.windspeed = ajaxedLoc["v3-wx-observations-current"].windSpeed
       city8sldieslocs.displayname = (citySlideList[i].displayname)
       weatherInfo.currentCond.city8slides.cities.push(city8sldieslocs)
@@ -477,7 +479,7 @@ function grabCitySlidesData() {
         weatherLocsDP.daytitle = buildHourlyHeaderTitle(ajaxedLoc["v3-wx-forecast-hourly-2day"].validTimeLocal[indexes[0]])
         for (var hi = 0; hi < 4; hi++) {
           weatherLocsDP.hour[hi].time = buildHourlyTimeTitle(ajaxedLoc["v3-wx-forecast-hourly-2day"].validTimeLocal[indexes[hi]])
-          weatherLocsDP.hour[hi].cond = ajaxedLoc["v3-wx-forecast-hourly-2day"].wxPhraseLong[indexes[hi]].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('/',', ');
+          weatherLocsDP.hour[hi].cond = ajaxedLoc["v3-wx-forecast-hourly-2day"].wxPhraseLong[indexes[hi]].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('Thundershowers',"T'Showers").replace('/',', ');
           weatherLocsDP.hour[hi].icon = ajaxedLoc["v3-wx-forecast-hourly-2day"].iconCode[indexes[hi]]
           weatherLocsDP.hour[hi].temp = ajaxedLoc["v3-wx-forecast-hourly-2day"].temperature[indexes[hi]]
           weatherLocsDP.hour[hi].wind = ajaxedLoc["v3-wx-forecast-hourly-2day"].windDirectionCardinal[indexes[hi]] + ' ' + ajaxedLoc["v3-wx-forecast-hourly-2day"].windSpeed[indexes[hi]]
@@ -502,7 +504,7 @@ function grabCitySlidesData() {
         for (var hi = (ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].daypartName[0] == null) ? 1 : 0, hidp = (ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].daypartName[0] == null) ? 2 : 0; hi < 5 + daycorrection; hi++, hidp = hidp + 2) {
           weatherLocsFD.day[hi - daycorrection].name = ajaxedLoc["v3-wx-forecast-daily-5day"].dayOfWeek[hi].substring(0,3)
           weatherLocsFD.day[hi - daycorrection].icon = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].iconCode[hidp]
-          weatherLocsFD.day[hi - daycorrection].cond = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].wxPhraseLong[hidp].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('/',', ');
+          weatherLocsFD.day[hi - daycorrection].cond = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].wxPhraseLong[hidp].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('Thundershowers',"T'Showers").replace('/',', ');
           weatherLocsFD.day[hi - daycorrection].high = ajaxedLoc["v3-wx-forecast-daily-5day"].temperatureMax[hi]
           weatherLocsFD.day[hi - daycorrection].windspeed = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].windSpeed[hidp]
           weatherLocsFD.day[hi - daycorrection].low = ajaxedLoc["v3-wx-forecast-daily-5day"].temperatureMin[hi]
@@ -510,7 +512,7 @@ function grabCitySlidesData() {
         weatherLocsFD.displayname = ((i ==0 ) ? maincitycoords.displayname : locList[i-1].displayname)
         weatherInfo.fiveDay.weatherLocs.push(weatherLocsFD)
         //bulletin
-        var weatherLocsWA = {displayname:"",pages:[]};
+        var weatherLocsWA = {displayname:"",pages:[],enabled: false};
         weatherLocsWA.displayname = ((i ==0 ) ? maincitycoords.displayname : locList[i-1].displayname)
         if (ajaxedLoc["v3alertsHeadlines"] != undefined){
           var displayday;
@@ -570,9 +572,10 @@ function grabCitySlidesData() {
           });
           }
           splitLines()
+          weatherLocsWA.enabled = true
           weatherInfo.bulletin.weatherLocs.push(weatherLocsWA)
         }
-      }
+      } else {weatherInfo.bulletin.weatherLocs.push(weatherLocsWA)}
     });
   })
 }
@@ -687,7 +690,7 @@ function grabSideandLowerBarData() {
         weatherInfo.dayPart.lowerbar.daytitle = buildHourlyHeaderTitle(ajaxedLoc["v3-wx-forecast-hourly-2day"].validTimeLocal[indexes[0]])
         for (var hi = 0; hi < 4; hi++) {
           weatherInfo.dayPart.lowerbar.hour[hi].time = buildHourlyTimeTitle(ajaxedLoc["v3-wx-forecast-hourly-2day"].validTimeLocal[indexes[hi]])
-          weatherInfo.dayPart.lowerbar.hour[hi].cond = ajaxedLoc["v3-wx-forecast-hourly-2day"].wxPhraseLong[indexes[hi]].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('/',', ')
+          weatherInfo.dayPart.lowerbar.hour[hi].cond = ajaxedLoc["v3-wx-forecast-hourly-2day"].wxPhraseLong[indexes[hi]].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('Thundershowers',"T'Showers").replace('/',', ')
           weatherInfo.dayPart.lowerbar.hour[hi].icon = ajaxedLoc["v3-wx-forecast-hourly-2day"].iconCode[indexes[hi]]
           weatherInfo.dayPart.lowerbar.hour[hi].temp = ajaxedLoc["v3-wx-forecast-hourly-2day"].temperature[indexes[hi]]
           weatherInfo.dayPart.lowerbar.hour[hi].wind = ajaxedLoc["v3-wx-forecast-hourly-2day"].windDirectionCardinal[indexes[hi]] + ' ' + ajaxedLoc["v3-wx-forecast-hourly-2day"].windSpeed[indexes[hi]]
@@ -710,7 +713,7 @@ function grabSideandLowerBarData() {
           weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].name = ajaxedLoc["v3-wx-forecast-daily-5day"].dayOfWeek[hi].substring(0,3)
           weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].windspeed = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].windSpeed[hidp]
           weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].icon = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].iconCode[hidp]
-          weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].cond = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].wxPhraseLong[hidp].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('/',', ');
+          weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].cond = ajaxedLoc["v3-wx-forecast-daily-5day"].daypart[0].wxPhraseLong[hidp].replace('Scattered ', "Sct'd ").replace('Thunderstorms',"T'Storms").replace('Thundershowers',"T'Showers").replace('/',', ');
           weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].high = ajaxedLoc["v3-wx-forecast-daily-5day"].temperatureMax[hi]
           weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].low = ajaxedLoc["v3-wx-forecast-daily-5day"].temperatureMin[hi]
           weatherInfo.fiveDay.lowerbar.day[hi - daycorrection].weekend = ((dateFns.isWeekend(ajaxedLoc["v3-wx-forecast-daily-5day"].validTimeLocal[hi])) ? ' weekend' : '')
@@ -911,6 +914,130 @@ function grabHealthData() {
     }
   })
 }
+function grabAirportDelayData() {
+    $.getJSON('http://127.0.0.1:8081/https://nasstatus.faa.gov/api/airport-events', function(eventdata) {
+      for (const airportevent of eventdata) {
+        var airportdelay = {iata:"",type:"",amount:"",reason:""}
+        if (airportevent.airportClosure) {
+          airportdelay.iata = airportevent.airportId
+          airportdelay.type = 'Closure'
+          airportdelay.amount = 'Closed'
+          airportdelay.amountmin = 99999999999999999999999999999999999999999999999999
+          airportdelay.reason = ''
+          weatherInfo.airport.delays.push(airportdelay)
+        }
+        if (airportevent.arrivalDelay) {
+          airportdelay.iata = airportevent.airportId
+          airportdelay.type = 'Arrival'
+          airportdelay.amount = formatMinutes(airportevent.arrivalDelay.averageDelay)
+          airportdelay.amountmin = airportevent.departureDelay.averageDelay
+          airportdelay.reason = airportevent.arrivalDelay.reason
+          weatherInfo.airport.delays.push(airportdelay)
+        }
+        if (airportevent.departureDelay) {
+          airportdelay.iata = airportevent.airportId
+          airportdelay.type = 'Departure'
+          airportdelay.amount = formatMinutes(airportevent.departureDelay.averageDelay)
+          airportdelay.amountmin = airportevent.departureDelay.averageDelay
+          airportdelay.reason = airportevent.departureDelay.reason
+          weatherInfo.airport.delays.push(airportdelay)
+        }
+        if (airportevent.groundDelay) {
+          airportdelay.iata = airportevent.airportId
+          airportdelay.type = 'Arrival'
+          airportdelay.amount = formatMinutes(airportevent.groundDelay.avgDelay)
+          airportdelay.amountmin = airportevent.groundDelay.avgDelay
+          airportdelay.reason = airportevent.groundDelay.impactingCondition
+          weatherInfo.airport.delays.push(airportdelay)
+        }
+        if (airportevent.groundStop) {
+          airportdelay.iata = airportevent.airportId
+          airportdelay.type = 'Arrival'
+          airportdelay.amount = 'until...'
+          airportdelay.reason = airportevent.groundStop.impactingCondition
+          weatherInfo.airport.delays.push(airportdelay)
+        }
+      };
+      grabAirportData()
+    })
+}
+grabAirportDelayData()
+function grabAirportData() {
+  var mairporturl = 'https://api.weather.com/v3/aggcommon/v3-location-point;v3-wx-observations-current?iataCodes='
+  for (var i = 0; i < weatherInfo.airport.mainairports.length; i++) {
+    mairporturl += weatherInfo.airport.mainairports[i].iata + ';'
+  }
+  mairporturl += '&language=en-US&units=e&format=json&apiKey='+ api_key
+  //{displayname:"New York / LaGaurdia",iata:"LGA",delay:"No Delay",temp:""}
+  $.getJSON(mairporturl, function(data) {
+    data.forEach((airport, i) => {
+      var marqueedelay = {iato:"",type:"",amount:"",amountmin:0,reason:""};
+      var airportdepartdelay = {iato:"",type:"",amount:"",amountmin:0,reason:""};
+      var airportarrivaldelay = {iato:"",type:"",amount:"",amountmin:0,reason:""};
+      var marqueeairport = {displayname:"",iata:"LGA",delay:"No Delay",temp:"",cond:""}
+      weatherInfo.airport.mainairports[i].displayname = airport['v3-location-point'].location.airportName
+      weatherInfo.airport.mainairports[i].temp = airport['v3-wx-observations-current'].temperature
+      weatherInfo.airport.mainairports[i].cond = airport['v3-wx-observations-current'].wxPhraseLong
+      weatherInfo.airport.mainairports[i].icon = airport['v3-wx-observations-current'].iconCode
+      weatherInfo.airport.mainairports[i].windspeed = airport['v3-wx-observations-current'].windSpeed
+      marqueeairport.displayname = airport['v3-location-point'].location.airportName
+      marqueeairport.temp = airport['v3-wx-observations-current'].temperature
+      marqueeairport.cond = airport['v3-wx-observations-current'].wxPhraseLong.toLowerCase();
+      marqueeairport.iata = weatherInfo.airport.mainairports[i].iata
+      for (const delay of weatherInfo.airport.delays) {
+        if (delay.iata == weatherInfo.airport.mainairports[i].iata) {
+          if (delay.amountmin > marqueedelay.amountmin) {
+            marqueedelay = delay
+            marqueeairport.delay = (delay.amount).replace('<em>','').replace('</em>','')
+          }
+          if (delay.type == 'Arrival') {
+            if (delay.amountmin > airportarrivaldelay.amountmin) {
+              airportarrivaldelay = delay
+              weatherInfo.airport.mainairports[i].arrivals.delay = delay.amount
+              weatherInfo.airport.mainairports[i].arrivals.reason = delay.reason
+            }
+          } else if (delay.type == 'Departure') {
+            if (delay.amountmin > airportdepartdelay.amountmin) {
+              airportdepartdelay = delay
+              weatherInfo.airport.mainairports[i].departures.delay = delay.amount
+              weatherInfo.airport.mainairports[i].departures.reason = delay.reason
+            }
+          } else if (delay.type == 'Closure'){
+            airportdepartdelay = delay
+            airportarrivaldelay = delay
+            weatherInfo.airport.mainairports[i].arrivals.delay = 'Closed'
+            weatherInfo.airport.mainairports[i].departures.delay = 'Closed'
+          }
+        }
+      };
+      weatherInfo.ccticker.ccairportdelays.push(marqueeairport)
+    });
+  });
+
+  //otherairport
+  var oairporturl = 'https://api.weather.com/v3/aggcommon/v3-wx-observations-current?iataCodes='
+  for (var i = 0; i < weatherInfo.airport.otherairports.length; i++) {
+    oairporturl += weatherInfo.airport.otherairports[i].iata + ';'
+  }
+  oairporturl += '&language=en-US&units=e&format=json&apiKey='+ api_key
+  $.getJSON(oairporturl, function(data) {
+    data.forEach((airport, i) => {
+      var airportdelays = {iato:"",type:"",amount:"",amountmin:0,reason:""};
+      weatherInfo.airport.otherairports[i].temp = airport['v3-wx-observations-current'].temperature
+      weatherInfo.airport.otherairports[i].icon = airport['v3-wx-observations-current'].iconCode
+      weatherInfo.airport.otherairports[i].windspeed = airport['v3-wx-observations-current'].windSpeed
+      weatherInfo.airport.delays.forEach((delay, delayi) => {
+        if (delay.iata == weatherInfo.airport.otherairports[i].iata) {
+          if (delay.amountmin > airportdelays.amountmin) {
+            airportdelays = delay
+            weatherInfo.airport.otherairports[i].delay = delay.amount
+          }
+        }
+      });
+    });
+  });
+}
+
 function pullCCTickerData() {
   var ccurl = 'https://api.weather.com/v3/aggcommon/v3-wx-forecast-daily-5day;v3-wx-observations-current;v3-location-point?geocodes=';
   // ajax the latest observation

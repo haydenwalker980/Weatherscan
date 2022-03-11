@@ -2,15 +2,16 @@
   "name": "weatherscan",
   "description": "weatherscan emulator",
   "scripts": {
-    "start": "http-server ./webroot"
+    "start": "node ./webroot/js/cors.js & http-server ./webroot"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jessecar96/Weatherscan.git"
   },
   "dependencies": {
+    "cors-anywhere": "^0.4.4",
     "date-fns": "^2.23.0",
-    "http-server": "^0.12.3",
+    "http-server": "^14.1.0",
     "live-server": "^1.1.0"
   },
   "devDependencies": {

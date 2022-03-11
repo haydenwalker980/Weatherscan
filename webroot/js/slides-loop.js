@@ -72,7 +72,7 @@ var mainMap
 							var currentDisplay,
 								displays = {
 								showBulletin() {
-										if (weatherInfo.bulletin.weatherLocs[0]) {
+										if (weatherInfo.bulletin.weatherLocs[0].enabled == true) {
 										$('.bulletin .frost-pane .cityname').text(weatherInfo.bulletin.weatherLocs[0].displayname + " Area");
 										//fade in
 										$('.bulletin').fadeIn(0);
@@ -504,7 +504,7 @@ var mainMap
 			var currentDisplay,
 				displays = {
 					bulletin() {
-						if (weatherInfo.bulletin.weatherLocs[0]) {
+						if (weatherInfo.bulletin.weatherLocs[0] == true) {
 						$('.bulletin .frost-pane .cityname').text(weatherInfo.bulletin.weatherLocs[0].displayname + " Area");
 						//fade in
 						$('.bulletin').fadeIn(0);
@@ -604,6 +604,10 @@ var mainMap
 		function showRadar(lat, long, zoom, time, withsat) {
 				// fade out info, fade in radar
 				weatherAudio.playLocalRadar();
+				if (withsat == true) {
+					$('.radar-slide .infosubbheader .subheadtitle').text('Radar/Satellite')
+					$('.radar-slide .radar-legends .pastlegend').text('Past 5 Hours')
+				}
 				$('.radar-slide').fadeIn(0);
 				if (weatherInfo.radarTempUnavialable == true) {
 					$('.radar-slide .tempunavailable').fadeIn(500);
@@ -617,6 +621,10 @@ var mainMap
 						$('.radar-slide .tempunavailable').fadeOut(500);
 					}
 					$('.radar-content').fadeOut(500, function() {
+						if (withsat == true) {
+							$('.radar-slide .infosubbheader .subheadtitle').text('Local Doppler Radar')
+							$('.radar-slide .radar-legends .pastlegend').text('Past 3 Hours')
+						}
 						$('.radar-slide').fadeOut(0);
 					});
 				}, time);
@@ -658,9 +666,9 @@ var mainMap
 					function fillinfo() {
 						aidx = (aidx===undefined ? 0 : aidx);
 						$('.info-slide-content.airportpanel .leftpanel .thing').text(weatherInfo.airport.mainairports[aidx].displayname)
-						$('.info-slide-content.airportpanel .top .delayfill').text(weatherInfo.airport.mainairports[aidx].arrivals.delay)
+						$('.info-slide-content.airportpanel .top .delayfill').html(weatherInfo.airport.mainairports[aidx].arrivals.delay)
 						$('.info-slide-content.airportpanel .top .reasonfill').text(weatherInfo.airport.mainairports[aidx].arrivals.reason)
-						$('.info-slide-content.airportpanel .bottom .delayfill').text(weatherInfo.airport.mainairports[aidx].departures.delay)
+						$('.info-slide-content.airportpanel .bottom .delayfill').html(weatherInfo.airport.mainairports[aidx].departures.delay)
 						$('.info-slide-content.airportpanel .bottom .reasonfill').text(weatherInfo.airport.mainairports[aidx].departures.reason)
 						$('.info-slide-content.airportpanel .temp').text(weatherInfo.airport.mainairports[aidx].temp)
 						$('.info-slide-content.airportpanel .conditions').text(weatherInfo.airport.mainairports[aidx].cond)
@@ -710,7 +718,7 @@ var mainMap
 								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .airportname').text(weatherInfo.airport.otherairports[i].displayname);
 								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .temp').text(weatherInfo.airport.otherairports[i].temp);
 								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .icon').css('background-image', 'url("' + getCCicon(+weatherInfo.airport.otherairports[i].icon, weatherInfo.airport.otherairports[i].windspeed) + '")');
-								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .delay').text(weatherInfo.airport.otherairports[i].delay);
+								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .delay').html(weatherInfo.airport.otherairports[i].delay);
 							} else {
 								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .airportname').text("");
 								$('.info-slide-content.otherairports .airport.' + divnumbers[di] + ' .temp').text("");
@@ -1235,7 +1243,7 @@ var mainMap
 					} else {wait(0)}
 				}
 				,showBulletin() {
-						if (weatherInfo.bulletin.weatherLocs[location]) {
+						if (weatherInfo.bulletin.weatherLocs[location].enabled == true) {
 						$('.bulletin .frost-pane .cityname').text(weatherInfo.bulletin.weatherLocs[location].displayname + " Area");
 						//fade in
 						$('.bulletin').fadeIn(0);

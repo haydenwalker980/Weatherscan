@@ -18,9 +18,7 @@ function Loops() {
 			if (loopssevereweathermode == false){
 				$('#minimap').fadeIn(0)
 				$('#minimap-title').fadeIn(0)
-				if (miniMap===undefined) {
-					miniMap = new Radar("minimap", 3, 7, maincitycoords.lat, maincitycoords.lon);
-				}
+				miniMap = new Radar("minimap", 3, 7, maincitycoords.lat, maincitycoords.lon);
 			}
 		} else {
 			$('#minimap').fadeOut(0)

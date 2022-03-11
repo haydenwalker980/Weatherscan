@@ -30,7 +30,12 @@ function getUrlParameter(e) {
 	return decodeURI((new RegExp(e + "=(.+?)(&|$)").exec(location.search) || [, null])[1])
 }
 
-
+//convert minutes to hour and minutes
+function formatMinutes(m){
+  var hours = Math.trunc(m/60);
+  var minutes = m % 60;
+  return (((hours != 0) ? ('<em>' + hours + '</em> hr <em>') : '<em>') + minutes +'</em> min');
+}
 
 // convert celsius to farenheight
 function C2F(c){

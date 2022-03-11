@@ -1,4 +1,4 @@
-var mmap
+var mmap,mmmap
 function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSat) {
 	var map,
 	divID = divIDin,
@@ -25,7 +25,8 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 
 		var endDate = roundDate(new Date()),
 			player;
-		if (mmap !== undefined) { mmap.remove(); }
+		if (divID == 'radar-1') {if (mmap !== undefined) { mmap.remove(); }};
+		if (divID == 'minimap') {if (mmmap !== undefined) { mmmap.remove(); }};
 		map = L.map(divID, {
 			zoom: zoom,
 			fullscreenControl: false,
@@ -35,7 +36,9 @@ function Radar(divIDin, intervalHoursIn, zoomIn, latitudeIn, longitudeIn, withSa
 		});
 		if (divID == "radar-1") {
 			mmap = map;
-		}
+		} else if (divID == "minimap") {
+			mmmap = map;
+		};
 
 		// basemap
 		// streets cj9fqw1e88aag2rs2al6m3ko2
