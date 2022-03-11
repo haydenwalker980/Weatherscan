@@ -2,7 +2,9 @@
   "name": "weatherscan",
   "description": "weatherscan emulator",
   "scripts": {
-    "start": "node ./webroot/js/cors.js & http-server ./webroot"
+    "cors": "node ./webroot/js/cors.js",
+    "http-server": "http-server ./webroot",
+    "start": "npm-run-all --parallel cors http-server"
   },
   "repository": {
     "type": "git",
