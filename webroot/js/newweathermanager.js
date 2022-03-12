@@ -387,7 +387,7 @@ function grabCitySlidesData() {
         weatherLocscc.icon = ajaxedLoc["v3-wx-observations-current"].iconCode
         weatherLocscc.humid = ajaxedLoc["v3-wx-observations-current"].relativeHumidity
         weatherLocscc.dewpt = ajaxedLoc["v3-wx-observations-current"].temperatureDewPoint
-        weatherLocscc.pressure = ajaxedLoc["v3-wx-observations-current"].pressureAltimeter
+        weatherLocscc.pressure = (ajaxedLoc["v3-wx-observations-current"].pressureAltimeter).toFixed(2)
         weatherLocscc.pressureTrend = ((ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 1 || ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 3) ? '↑' : (ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 2 || ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 4) ? '↓' : ' S')
         weatherLocscc.wind = ((ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal == "CALM" || ajaxedLoc["v3-wx-observations-current"].windSpeed == 0) ? 'calm' :  ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal) + ' ' + ((ajaxedLoc["v3-wx-observations-current"].windSpeed === 0) ? '' : ajaxedLoc["v3-wx-observations-current"].windSpeed)
         weatherLocscc.windspeed = ajaxedLoc["v3-wx-observations-current"].windSpeed
@@ -595,7 +595,7 @@ function grabSideandLowerBarData() {
         weatherInfo.currentCond.sidebar.icon = ajaxedLoc["v3-wx-observations-current"].iconCode
         weatherInfo.currentCond.sidebar.humid = ajaxedLoc["v3-wx-observations-current"].relativeHumidity
         weatherInfo.currentCond.sidebar.dewpt = ajaxedLoc["v3-wx-observations-current"].temperatureDewPoint
-        weatherInfo.currentCond.sidebar.pressure = ajaxedLoc["v3-wx-observations-current"].pressureAltimeter
+        weatherInfo.currentCond.sidebar.pressure = (ajaxedLoc["v3-wx-observations-current"].pressureAltimeter).toFixed(2)
         weatherInfo.currentCond.sidebar.pressureTrend = ((ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 1 || ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 3) ? '↑' : (ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 2 || ajaxedLoc["v3-wx-observations-current"].pressureTendencyCode === 4) ? '↓' : ' S')
         weatherInfo.currentCond.sidebar.wind = ((ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal == "CALM" || ajaxedLoc["v3-wx-observations-current"].windSpeed == 0) ? 'calm' :  ajaxedLoc["v3-wx-observations-current"].windDirectionCardinal) + ' ' + ((ajaxedLoc["v3-wx-observations-current"].windSpeed === 0) ? '' : ajaxedLoc["v3-wx-observations-current"].windSpeed)
         weatherInfo.currentCond.sidebar.windspeed = ajaxedLoc["v3-wx-observations-current"].windSpeed

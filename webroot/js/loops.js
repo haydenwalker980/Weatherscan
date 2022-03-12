@@ -26,6 +26,7 @@ function Loops() {
 		}
 		if (weatherInfo.currentCond.sidebar.noReport == true) {
 			$('#now').fadeOut(0)
+			$('#nowwide').fadeOut(0)
 			$('#current-temp').fadeOut(0)
 			$('#current-info').fadeOut(0)
 			$('#conditions-icon').fadeOut(0)
@@ -37,6 +38,7 @@ function Loops() {
 				if (loopssevereweathermode == false) { displayAtmospheric(0)	} else { displaySevereAtmospheric(0) }
 			}
 			$('#now').fadeIn(0)
+				$('#nowwide').fadeIn(0)
 			$('#current-temp').fadeIn(0)
 			if (loopssevereweathermode == false) { $('#current-info').fadeIn(0) } else {
 				$('#current-info-severe').fadeIn(0);
