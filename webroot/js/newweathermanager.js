@@ -820,7 +820,7 @@ function grabHealthData() {
         weatherInfo.healthPollen.totalcat = 'Very High'
       };
         weatherInfo.healthPollen.total = pollendata.pollenobservations[0].total_pollen_cnt
-        weatherInfo.healthPollen.types[0].treetype = 'Tree Pollen <br>' + ((pollendata.pollenobservations[0].treenames[0].tree_nm != "No Report") ? pollendata.pollenobservations[0].treenames[0].tree_nm : "")
+        weatherInfo.healthPollen.types[0].treetype = ((pollendata.pollenobservations[0].treenames[0].tree_nm != "No Report") ? pollendata.pollenobservations[0].treenames[0].tree_nm : "")
         weatherInfo.healthPollen.date = dateFns.format(new Date(pollendata.pollenobservations[0].rpt_dt), "MMMM D")
         var pollentypes = ['tree', 'grass', 'weed', 'mold'];
         pollentypes.forEach((pollentype, i) => {
