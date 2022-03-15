@@ -4050,14 +4050,6 @@ label{
 .city-info-slide .info-subheader {
   padding-right: 10%
 }
-
-
-.city-info-slide #subhead-city {
-  font-size: 30.2px;
-  padding-top: 3px;
-  right: 98px;
-  font-stretch: semi-expanded;
-}
 .city-info-slide {
   position: relative;
   background: transparent url(/images/bluebuildings.jpg) no-repeat;
@@ -6348,11 +6340,11 @@ label{
 
 .info-slide #subhead-city {
   font-family: Frutiger;
-  font-size: 28px;
-  padding-top: 3px;
-  transform: translateY(-42.5%) scale(104.5%,100%);
+  font-size: 31px;
+  padding-top: 0px;
+  transform: translateY(-43.5%) scale(105.9%,100%);
   transform-origin: right;
-  right: 98px;
+  right: 90px;
   font-stretch: semi-expanded;
 }
 

@@ -851,9 +851,7 @@ function grabHealthData() {
   $.getJSON('https://api.weather.com/v3/wx/globalAirQuality?geocode=' + maincitycoords.lat + ',' + maincitycoords.lon + "&language=en-US&scale=EPA&format=json&apiKey=" + api_key, function(data) {
     var airqualitydata = data
     weatherInfo.airquality.airqualityindex = airqualitydata.globalairquality.airQualityCategoryIndex
-    if (airqualitydata.globalairquality.primaryPollutant == "PM2.5" || airqualitydata.globalairquality.primaryPollutant == "PM10") {
-      weatherInfo.airquality.primarypolute = 'Fine Particulate'
-    } else {weatherInfo.airquality.primarypolute = airqualitydata.globalairquality.primaryPollutant};
+    weatherInfo.airquality.primarypolute = (airqualitydata.globalairquality.primaryPollutant).replace('PM10','Fine Particulate').replace('PM2.5','Fine Particulate').replace('O3','Ozone')
     weatherInfo.airquality.date = dateFns.format(new Date(airqualitydata.globalairquality.expireTimeGmt * 1000), "dddd")
   });
   $.getJSON('https://api.weather.com/v2/indices/uv/current?geocode=' + maincitycoords.lat + ',' + maincitycoords.lon + "&language=en-US&format=json&apiKey=" + api_key, function(data) {

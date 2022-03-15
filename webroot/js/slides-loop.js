@@ -605,7 +605,7 @@ var mainMap
 				// fade out info, fade in radar
 				weatherAudio.playLocalRadar();
 				if (withsat == true) {
-					$('.radar-slide .infosubbheader .subheadtitle').text('Radar/Satellite')
+					$('.radar-slide .info-subheader .subhead-title').text('Radar/Satellite')
 					$('.radar-slide .radar-legends .pastlegend').text('Past 5 Hours')
 				}
 				$('.radar-slide').fadeIn(0);
@@ -966,11 +966,18 @@ var mainMap
 					} else {
 					if (weatherInfo.healthforecast.dayidx == 0 && dateFns.getHours(new Date()) >= 4) {
 						$('.info-slide-content.health-forecast .mainforecast .hightext').css("right","85px");
-						$('.info-slide-content.health-forecast .mainforecast .hightext').css("top","226.5");
+						$('.info-slide-content.health-forecast .mainforecast .hightext').css("top","226.5px");
 						$('.info-slide-content.health-forecast .mainforecast .high').css("left","95px");
 						$('.info-slide-content.health-forecast .mainforecast .high').css("top","239px");
 						$('.info-slide-content.health-forecast .mainforecast .lowtext').fadeOut(0)
 						$('.info-slide-content.health-forecast .mainforecast .low').fadeOut(0)
+					} else {
+						$('.info-slide-content.health-forecast .mainforecast .hightext').removeAttr("style");
+						$('.info-slide-content.health-forecast .mainforecast .hightext').removeAttr("style");
+						$('.info-slide-content.health-forecast .mainforecast .high').removeAttr("style");
+						$('.info-slide-content.health-forecast .mainforecast .high').removeAttr("style");
+						$('.info-slide-content.health-forecast .mainforecast .lowtext').fadeIn(0)
+						$('.info-slide-content.health-forecast .mainforecast .low').fadeIn(0)
 					}
 					$('.info-slide-content.health-forecast .thing').text("Forecast for " + weatherInfo.healthforecast.day)
 					$('.info-slide-content.health-forecast .mainforecast .hightext').text(weatherInfo.healthforecast.high)
