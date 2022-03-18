@@ -49,6 +49,14 @@
   font-style: normal
 }
 @font-face {
+  font-family: 'PressureArrow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/encodesansexpanded/v8/c4m_1mF4GcnstG_Jh1QH6ac4hNLeNyeYUpolKQZidIAa.woff2) format('woff');
+  unicode-range: U+2191,U+2193;
+}
+@font-face {
   font-family: Frutiger;
   src: url(/fonts/newfonts/Frutiger.woff) format("woff");
   font-weight: 400;
@@ -67,7 +75,7 @@
 }
 @font-face {
   font-family: 'Frutiger 57 Condensed';
-  src: url(/fonts/Frutiger_57Cn.woff) format("woff");
+  src: url(/fonts/newfonts/Frutiger-57Cn.woff) format("woff");
   font-style: normal;
 }
 @font-face {
@@ -3546,7 +3554,7 @@ flex-direction: row;
 a, body, div, h1, html, p {
   margin: 0;
   padding: 0;
-  font-family: Frutiger;
+  font-family: Frutiger, "ZemestroSTD", Sans-Serif;
   font-weight: 400;
   font-style: normal;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -5725,6 +5733,7 @@ label{
 }
 
 #current-info {
+  font-family: 'PressureArrow', Interstate;
   font-size: 31px;
   position: absolute;
   left: 145px;
@@ -5738,6 +5747,7 @@ label{
   white-space: normal;
 }
 #current-info-severe {
+  font-family: 'PressureArrow', Interstate;
   font-size: 31px;
   position: absolute;
   left: 145px;
@@ -6389,5 +6399,6 @@ label{
   font-synthesis: weight;
   font-weight: 600;
   font-size: 46px;
+  line-height: 100%;
   color: #DDDDDD;
 }
