@@ -30,7 +30,7 @@ function MarqueeMan() {
 				.marquee('destroy')
 				.marquee({speed: 170, delayBeforeStart: 1000, pauseOnHover: true, pauseOnCycle: true})
 				.on('finished', function(){
-					switchToWarningMarquee(((sidx < weatherInfo.bulletin.severewarnings.length) ? sdix + 1 : 0))
+					switchToWarningMarquee(((sidx < weatherInfo.bulletin.severewarnings.length) ? sidx + 1 : 0))
 				})
 		} else if (weatherInfo.bulletin.marqueewarnings.length != 0){
 			if (weatherInfo.bulletin.marqueewarnings[0].significance == "Y" ||weatherInfo.bulletin.marqueewarnings[0].significance == "S") {

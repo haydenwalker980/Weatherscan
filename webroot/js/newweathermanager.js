@@ -523,7 +523,7 @@ function grabCitySlidesData() {
     			//get only weather alers
     			for (ai=0; ai<=ajaxedLoc["v3alertsHeadlines"].alerts.length - 1; ai++) {
     				warning = ajaxedLoc["v3alertsHeadlines"].alerts[ai].categories[0].category;
-    				if ((warning == "Met" && weatherInfo.bulletin.includesevereonbulletin == true) || (warning == "Met" && ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription != "Severe Thunderstorm Warning" && ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription == "Flash Flood Warning" != ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription != "Tornado Warning"))  {
+    				if ((warning == "Met" && weatherInfo.bulletin.includesevereonbulletin == true) || (warning == "Met" && i != 0) || (warning == "Met" && ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription != "Severe Thunderstorm Warning" && ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription == "Flash Flood Warning" != ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription != "Tornado Warning"))  {
     					ret.push({idx:ai, priority: getWarningPosition(ajaxedLoc["v3alertsHeadlines"].alerts[ai].eventDescription)})
     				}
     			};
@@ -760,7 +760,7 @@ function grabSideandLowerBarData() {
                 $.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].detailKey +'&format=json&language=en-US&apiKey=' + api_key, function(sdata) {
                   var severewarn = {warningname:"", warningdesc:"", warningstatus:""}
                   severewarn.warningname = ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].eventDescription
-                  severewarn.warningstatus = ((ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == " Update") ? 'UPDATE' : (ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == "Cancel") ? " CANCELLATION" : "")
+                  severewarn.warningstatus = ((ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == "Update") ? 'UPDATE' : (ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == "Cancel") ? "CANCELLATION" : "")
                   severewarn.warningdesc = sdata.alertDetail.texts[0].description
                   weatherInfo.bulletin.severewarnings.push(severewarn)
                   if (aai < (sret.length - 1)) {pushSevereAlert(aai + 1)};
