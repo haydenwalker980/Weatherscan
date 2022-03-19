@@ -62,6 +62,8 @@ function MarqueeMan() {
 			$('#marqueeSevere').text(weatherInfo.bulletin.marqueewarnings[0].desc)
 			$('#marqueeSevere')
 				.marquee({speed: 170, delayBeforeStart: 1000, pauseOnHover: true, pauseOnCycle: true})
+				.on('finished', function(){	if (weatherInfo.bulletin.severeweathermode == true) {weatherAudio.playwarningbeep()}})
+
 		} else {
 			$('#marqueeSevere')
 				.marquee('destroy')
