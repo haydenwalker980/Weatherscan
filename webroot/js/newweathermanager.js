@@ -744,10 +744,10 @@ function grabSideandLowerBarData() {
                   var alertt = {name:"", desc:"", status:"", significance:""}
                   alertt.name = ajaxedLoc["v3alertsHeadlines"].alerts[ret[aai].idx].eventDescription
                   alertt.significance = ajaxedLoc["v3alertsHeadlines"].alerts[ret[aai].idx].significance
-                  alertt.status = ((ajaxedLoc["v3alertsHeadlines"].alerts[ret[aai].idx].messageType == " Update") ? 'UPDATE' : (ajaxedLoc["v3alertsHeadlines"].alerts[ret[aai].idx].messageType == "Cancel") ? " CANCELLATION" : "")
+                  alertt.status = ((ajaxedLoc["v3alertsHeadlines"].alerts[ret[aai].idx].messageType == " Update") ? 'UPDATE' : (ajaxedLoc["v3alertsHeadlines"].alerts[ret[aai].idx].messageType == "Cancel") ? "CANCELLATION" : "")
                   alertt.desc = adata.alertDetail.texts[0].description
                   weatherInfo.bulletin.marqueewarnings.push(alertt)
-                  if (aai < (ret.length - 1)) {pushAlert(aai = aai + 1)};
+                  if (aai < (ret.length - 1)) {pushAlert(aai + 1)};
                 });
               };
               pushAlert(0)
@@ -757,13 +757,13 @@ function grabSideandLowerBarData() {
               weatherInfo.bulletin.severeweathermode = true;
       				sret.sort(function(a,b) {return a.priority - b.priority;});
               function pushSevereAlert(aai) {
-                $.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ ajaxedLoc["v3alertsHeadlines"].alerts[sret[i]].detailKey +'&format=json&language=en-US&apiKey=' + api_key, function(sdata) {
+                $.getJSON('https://api.weather.com/v3/alerts/detail?alertId='+ ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].detailKey +'&format=json&language=en-US&apiKey=' + api_key, function(sdata) {
                   var severewarn = {warningname:"", warningdesc:"", warningstatus:""}
                   severewarn.warningname = ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].eventDescription
-                  severewarn.warningstatus = ((ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == " Update") ? 'UPDATE' : (ajaxedLoc["v3alertsHeadlines"].alerts[sret[aii].idx].messageType == "Cancel") ? " CANCELLATION" : "")
+                  severewarn.warningstatus = ((ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == " Update") ? 'UPDATE' : (ajaxedLoc["v3alertsHeadlines"].alerts[sret[aai].idx].messageType == "Cancel") ? " CANCELLATION" : "")
                   severewarn.warningdesc = sdata.alertDetail.texts[0].description
                   weatherInfo.bulletin.severewarnings.push(severewarn)
-                  if (aai < (sret.length - 1)) {pushAlert(aai = aai + 1)};
+                  if (aai < (sret.length - 1)) {pushSevereAlert(aai + 1)};
                 });
               };
               pushSevereAlert(0)

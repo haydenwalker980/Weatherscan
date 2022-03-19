@@ -17,21 +17,21 @@ function MarqueeMan() {
 		if (weatherInfo.bulletin.severewarnings.length != 0) {
 			$('#marqueeSevere').css("background","linear-gradient(to right, #510d08 0, #b41a08 100%)")
 			$('.marqueeheadersevere').css("background","linear-gradient(to right, #d51e08 0, #b41a08 100%)")
-			$('.marqueeheadersevere').css("color","#fff")
+			$('.marqueeheadersevere').css("color","#DDDDDD")
 			$('.marqueeheadersevere').css("text-shadow","2px 2px 4px #000")
 
-			$('.marqueeheadersevere').text((weatherInfo.bulletin.severewarnings[sidx].name).toUpperCase() + ' ' + weatherInfo.bulletin.severewarnings[sidx].status);
+			$('.marqueeheadersevere').text((weatherInfo.bulletin.severewarnings[sidx].warningname).toUpperCase() + ' ' + weatherInfo.bulletin.severewarnings[sidx].warningstatus);
 			$('#arrow-img').fadeOut(0)
 			$('#marqueeSevere').fadeIn(0)
 			$('.marqueeheadersevere').fadeIn(0) //#868686
-			$('#marqueeSevere').text(weatherInfo.bulletin.severewarnings[sidx].desc)
+			$('#marqueeSevere').text(weatherInfo.bulletin.severewarnings[sidx].warningdesc)
+			weatherAudio.playwarningbeep()
 			$('#marqueeSevere')
 				.marquee('destroy')
 				.marquee({speed: 170, delayBeforeStart: 1000, pauseOnHover: true, pauseOnCycle: true})
 				.on('finished', function(){
-					switchSevereMarquee((sidx < weatherInfo.bulletin.severewarnings.length) ? sdix + 1 : 0)
-				});
-				weatherAudio.playwarningbeep()
+					switchToWarningMarquee(((sidx < weatherInfo.bulletin.severewarnings.length) ? sdix + 1 : 0))
+				})
 		} else if (weatherInfo.bulletin.marqueewarnings.length != 0){
 			if (weatherInfo.bulletin.marqueewarnings[0].significance == "Y" ||weatherInfo.bulletin.marqueewarnings[0].significance == "S") {
 				$('#marqueeSevere').css('background','linear-gradient(to right, #874901 0, #bb631a 100%)')
@@ -46,7 +46,7 @@ function MarqueeMan() {
 			}	else if (weatherInfo.bulletin.marqueewarnings[0].significance == "W") {
 				$('#marqueeSevere').css("background","linear-gradient(to right, #510d08 0, #b41a08 100%)")
 				$('.marqueeheadersevere').css("background","linear-gradient(to right, #d51e08 0, #b41a08 100%)")
-				$('.marqueeheadersevere').css("color","#fff")
+				$('.marqueeheadersevere').css("color","#DDDDDD")
 				$('.marqueeheadersevere').css("text-shadow","2px 2px 4px #000")
 			}
 			$('.marqueeheadersevere').text((weatherInfo.bulletin.marqueewarnings[0].name).toUpperCase() + ' ' + weatherInfo.bulletin.marqueewarnings[0].status)
@@ -156,7 +156,7 @@ function MarqueeMan() {
 		}
 		//init and loop the things
 		refreshMarquee(0);
-		switchToWarningMarquee();
+		switchToWarningMarquee(0);
 		displayCCTickerData();
 		setInterval(function(){
 			displayCCTickerData();

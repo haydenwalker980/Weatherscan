@@ -171,7 +171,7 @@ function WeatherAudio() {
 		startPlaying(['/localvocals/narrations/Your_current_conditions.mp3'], false);
 	}
 	this.playwarningbeep = function () {
-		startPlaying(['/localvocals/narrations/warningbeep.mp3'], false);
+		startPlaying(['/localvocals/narrations/warningbeep.wav'], false);
 	}
 
 
