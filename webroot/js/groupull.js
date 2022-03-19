@@ -33,7 +33,13 @@ function MarqueeMan() {
 					switchToWarningMarquee(((sidx < weatherInfo.bulletin.severewarnings.length) ? sidx + 1 : 0))
 				})
 		} else if (weatherInfo.bulletin.marqueewarnings.length != 0){
-			if (weatherInfo.bulletin.marqueewarnings[0].significance == "Y" ||weatherInfo.bulletin.marqueewarnings[0].significance == "S") {
+			if (weatherInfo.bulletin.severeweathermode == true) {
+				$('#marqueeSevere').css("background","linear-gradient(to right, #510d08 0, #b41a08 100%)")
+				$('.marqueeheadersevere').css("background","linear-gradient(to right, #d51e08 0, #b41a08 100%)")
+				$('.marqueeheadersevere').css("color","#DDDDDD")
+				$('.marqueeheadersevere').css("text-shadow","2px 2px 4px #000")
+				weatherAudio.playwarningbeep()
+			}	else if (weatherInfo.bulletin.marqueewarnings[0].significance == "Y" || weatherInfo.bulletin.marqueewarnings[0].significance == "S") {
 				$('#marqueeSevere').css('background','linear-gradient(to right, #874901 0, #bb631a 100%)')
 				$('.marqueeheadersevere').css("background","linear-gradient(to right, #f2992e 0, #bb631a 100%)")
 				$('.marqueeheadersevere').css("color","#000")
