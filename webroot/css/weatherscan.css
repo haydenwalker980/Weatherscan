@@ -1,29 +1,29 @@
 @font-face {
   font-family: Interstate;
-  src: url(fonts/newfonts/Interstate-Bold3.woff) format("woff");
+  src: url(../../fonts/newfonts/Interstate-Bold3.woff) format("woff");
   font-weight: 700;
 }
 @font-face {
   font-family: Interstate;
-  src: url(/fonts/newfonts/Interstate-Bold5.woff) format("woff");
+  src: url(../../fonts/newfonts/Interstate-Bold5.woff) format("woff");
   font-weight: 800;
 }
 @font-face {
   font-family: 'Interstate Mono';
-  src: url(/fonts/newfonts/InterstateMono.woff) format("woff");
+  src: url(../../fonts/newfonts/InterstateMono.woff) format("woff");
   font-weight: 400;
   font-style: normal
 }
 @font-face {
   font-family: 'Interstate BoldCn';
-  src: url(/fonts/newfonts/Interstate-BoldCondensed.woff) format("woff");
+  src: url(../../fonts/newfonts/Interstate-BoldCondensed.woff) format("woff");
   font-weight: 700;
   font-style: normal;
   font-stretch: condensed;
 }
 @font-face {
   font-family: 'Interstate Cn';
-  src: url(/fonts/newfonts/Interstate-RegularCondensed.woff) format("woff");
+  src: url(../../fonts/newfonts/Interstate-RegularCondensed.woff) format("woff");
   font-weight: 400;
   font-style: normal;
   font-stretch: condensed;
@@ -31,20 +31,20 @@
 
 @font-face {
   font-family: Interstate;
-  src: url(/fonts/newfonts/Interstate-Regular.woff) format("woff");
+  src: url(../../fonts/newfonts/Interstate-Regular.woff) format("woff");
   font-weight: 400 500;
   font-style: normal
 }
 @font-face {
   font-family: 'Interstate2';
-  src: url(/fonts/newfonts/Interstate-Regular.woff) format("woff");
+  src: url(../../fonts/newfonts/Interstate-Regular.woff) format("woff");
   font-weight: 400;
   font-style: normal
 }
 
 @font-face {
   font-family: 'Zemestro Std';
-  src: url(/fonts/ZemestroStd.woff2) format("woff2"), url(/fonts/ZemestroStd.woff) format("woff");
+  src: url(../../fonts/ZemestroStd.woff2) format("woff2"), url(/fonts/ZemestroStd.woff) format("woff");
   font-weight: 400;
   font-style: normal
 }
