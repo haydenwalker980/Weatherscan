@@ -107,7 +107,7 @@ function MarqueeMan() {
 				displays = {
 					marqueeairport() {
 						$('.track-info').show()
-						$('#arrow-img').attr("src",'/images/now.png');
+						$('#arrow-img').attr("src",'https://haydenwalker980.github.io/Weatherscan/images/now.png');
 						$('.marquee-fore').each(function(i, item) {
 							item.style.display = 'none'
 						});
@@ -119,7 +119,7 @@ function MarqueeMan() {
 						});
 					}
 					,marqueecurrent() {
-						$('#arrow-img').attr("src",'/images/now.png');
+						$('#arrow-img').attr("src",'https://haydenwalker980.github.io/Weatherscan/images/now.png');
 						$('.track-info').hide()
 						$('.marquee-fore').each(function(i, item) {
 							item.style.display = 'none'
@@ -134,9 +134,9 @@ function MarqueeMan() {
 					,marqueeforecast() {
 						$('.track-info').hide()
 						if (noreportmodefc == false) {
-							$('#arrow-img').attr("src",'/images/' + weatherInfo.ccticker.arrow + 'arrow.png');
+							$('#arrow-img').attr("src",'https://haydenwalker980.github.io/Weatherscan/images/' + weatherInfo.ccticker.arrow + 'arrow.png');
 						} else {
-							$('#arrow-img').attr("src",'/images/arrow.png');
+							$('#arrow-img').attr("src",'https://haydenwalker980.github.io/Weatherscan/images/arrow.png');
 						}
 						marqueeforecasttype = 'forecast'
 						$('.marquee-fore').each(function(i, item) {
