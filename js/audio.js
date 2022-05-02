@@ -18,7 +18,7 @@ function WeatherAudio() {
 
 		function buildMusicArray(arr) {
 
-			var musicpath = "https://raw.githubusercontent.com/haydenwalker980/Weatherscan/pages/music/";
+			var musicpath = "/music/";
 
 			// insert track names
 			for (var i = 32; i<66; i++) {
