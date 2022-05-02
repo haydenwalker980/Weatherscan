@@ -298,7 +298,7 @@ var weatherInfo = { currentCond: {
     severewarnings:[],
     //{name:"", desc:"", status:""}
     marqueewarnings:[],
-    severeweathermode: false
+    severeweathermode: true
     //{name:"", desc:"", status:"", significance:""}
   }, healthforecast: {noReport:false, displayname:"",dayidx:0, day:"", high:"", low:"", precipChance:"", humid:"", wind:"",windspeed:"", icon:""
   }, healthPollen: {noReport:false, displayname:"", total:"", totalcat:"", date:"", types:[
